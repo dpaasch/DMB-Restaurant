@@ -1,0 +1,47 @@
+/* 
+    Document   : restaurant
+    Created on : Sep 11, 2013, 8:42:37 PM
+    Author     : Dawn Bykowski
+    Description:
+        Provides styling for the restaurant application.
+*/
+
+button {
+    box-shadow: 1px 1px 1px 1px;
+    alignment-adjust: middle;
+}
+
+h1 { 
+    display: block;
+    text-align: center; 
+    font-family: cursive; 
+    font-style: italic; 
+    color: royalblue;
+}
+
+h3 { 
+    display: block;
+    text-align: center; 
+    font-family: cursive; 
+    font-style: italic; 
+    color: royalblue;
+}
+
+h4 { 
+    display: block;
+    text-align: left; 
+    font-family: cursive; 
+    font-style: italic; 
+    color: royalblue;
+}
+
+input {
+    font-family: cursive;
+    color: royalblue;
+}
+
+p {
+    text-align: center; 
+    font-family: cursive;
+    color: royalblue;
+}
