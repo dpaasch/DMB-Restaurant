@@ -16,14 +16,14 @@ public class MenuModel {
 
     // Constructor will auto fill the hashmap with the menu item values.
     public MenuModel() {
-        menuItems.put("Signature Steak", 25.95);
+        menuItems.put("SignatureSteak", 25.95);
         menuItems.put("Lobster", 44.75);
-        menuItems.put("House Salad", 4.95);
-        menuItems.put("Greek Salad", 6.95);
-        menuItems.put("Baked Potato", 3.50);
-        menuItems.put("Rice Pilaf", 4.75);
-        menuItems.put("Soft Drink", 1.95);
-        menuItems.put("Alcoholic Beverage", 6.95);
+        menuItems.put("HouseSalad", 4.95);
+        menuItems.put("GreekSalad", 6.95);
+        menuItems.put("BakedPotato", 3.50);
+        menuItems.put("RicePilaf", 4.75);
+        menuItems.put("SoftDrink", 1.95);
+        menuItems.put("AlcoholicBeverage", 6.95);
     }
 
     /**

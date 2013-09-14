@@ -33,7 +33,11 @@ public class RestaurantController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         List<String> items = new ArrayList<String>();
-        items.add(request.getParameter("menuItem"));
+        items.add(request.getParameter("main"));
+        items.add(request.getParameter("salad"));
+        items.add(request.getParameter("side"));
+        items.add(request.getParameter("drink"));
+
 
         OrderModel om = new OrderModel(items);
         List<String> lineItems = om.getOrderedMenuItems();

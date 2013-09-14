@@ -15,22 +15,24 @@
         <title>Restaurant Order Summary</title>
     </head>
     <body>
-        <h1>Order Summary</h1>
-                <% 
-                    Object lineItems = request.getAttribute("lineItems");
-                    List<String> lineItemList = new ArrayList<String>();
-                    if (lineItems != null){
-                      lineItemList = (ArrayList<String>)lineItems; 
-                    }
-                    for (String s : lineItemList) {
-                        out.println("<h2>" + s + "</h2><br>");
-                    }
-                %>
+        <h1>Your Blue Bistro Order Summary</h1>
+        <%
+            Object lineItems = request.getAttribute("lineItems");
+            List<String> lineItemList = new ArrayList<String>();
+            if (lineItems != null) {
+                lineItemList = (ArrayList<String>) lineItems;
+            }
+            for (String s : lineItemList) {
+        %>
         <h4>
-
+            <%= s %>
+            <% } %>
         </h4>
         <div></div>
+        <h1>Your Blue Bistro Order Bill</h1>
         <br/> 
+        <br/> <a href="menu.jsp" style="font-style: italic">Place another order</a>
+        <br/>
         <br/> <a href="home.jsp" style="font-style: italic">The Blue Bistro Home</a>
     </body>
 </html>
