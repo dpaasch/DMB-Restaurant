@@ -12,10 +12,8 @@ import java.util.List;
 public class OrderModel {
 
     private MenuModel menu;  // used to declare the model object instantiated below
-    private List<String> itemList;
-    private List<String> lineItems;
-//    private List<String> orderList;  // this is the list of items the customer ordered
-//    private List<String> orderedMenuItems;  // the ordered menu items
+    private List<String> itemList;  // this is the list of items the customer ordered
+    private List<String> lineItems;  // the ordered menu items
     private String menuItemName;
     private double menuItemPrice, subTotal, tax, total;
     private final double TAX_PERCENTAGE = 0.051;

@@ -41,7 +41,6 @@ public class RestaurantController extends HttpServlet {
 
         OrderModel om = new OrderModel(items);
         List<String> lineItems = om.getOrderedMenuItems();
-
         request.setAttribute("lineItems", lineItems);
         // This object lets you forward both the request and response
         // objects to a destination page
@@ -92,4 +91,5 @@ public class RestaurantController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+//   
 }

@@ -29,7 +29,7 @@
             <% } %>
         </h4>
         <div></div>
-        <h1>Your Blue Bistro Order Bill</h1>
+        <h4>SubTotal: </h4>
         <br/> 
         <br/> <a href="menu.jsp" style="font-style: italic">Place another order</a>
         <br/>
