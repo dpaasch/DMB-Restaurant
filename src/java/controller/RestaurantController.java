@@ -17,7 +17,7 @@ import model.OrderModel;
  */
 public class RestaurantController extends HttpServlet {
     
-    private final static String RESULT_PAGE = "/orderSummary.jsp";
+    private final static String RESULT_PAGE = "/order.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -35,7 +35,7 @@ public class RestaurantController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         List<String> menuItems = new ArrayList<String>();
-        menuItems.add(request.getParameter("main"));
+        menuItems.add(request.getParameter("entree"));
         menuItems.add(request.getParameter("salad"));
         menuItems.add(request.getParameter("side"));
         menuItems.add(request.getParameter("drink"));

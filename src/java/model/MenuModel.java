@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,7 +10,7 @@ import java.util.Map;
  */
 public class MenuModel {
 
-    private final Map<String, Double> menuItems = new LinkedHashMap<String, Double>();
+    private final Map<String, Double> menuItems = new HashMap<String, Double>();
     private String menuItemName;  // Menu item name
     private double menuItemPrice;  // Menu item price
     private final String NPE_ERR = " Error: Menu item cannot be null";
@@ -20,14 +18,14 @@ public class MenuModel {
 
     // Constructor will auto fill the hashmap with the menu item values.
     public MenuModel() {
-        menuItems.put("SignatureSteak", 25.95);
+        menuItems.put("Signature Steak", 25.95);
         menuItems.put("Lobster", 44.75);
-        menuItems.put("HouseSalad", 4.95);
-        menuItems.put("GreekSalad", 6.95);
-        menuItems.put("BakedPotato", 3.50);
-        menuItems.put("RicePilaf", 4.75);
-        menuItems.put("SoftDrink", 1.95);
-        menuItems.put("AlcoholicBeverage", 6.95);
+        menuItems.put("House Salad", 4.95);
+        menuItems.put("Greek Salad", 6.95);
+        menuItems.put("Baked Potato", 3.50);
+        menuItems.put("Rice Pilaf", 4.75);
+        menuItems.put("Soft Drink", 1.95);
+        menuItems.put("Mixed Drink", 6.95);
     }
 
     public String getItemName() {

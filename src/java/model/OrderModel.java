@@ -42,7 +42,9 @@ public class OrderModel {
     public List<String> getLineItems() {
         lineItems = new ArrayList();
         for (String li : itemList) {
+            if (li != null) {
             lineItems.add(li + " ... " + menuItem.getItemPrice(li));
+            }
         }
         return lineItems;
     }
