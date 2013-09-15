@@ -16,21 +16,20 @@
     </head>
     <body>
         <h1>Your Blue Bistro Order Summary</h1>
-        <%
-            Object lineItems = request.getAttribute("lineItems");
-            List<String> lineItemList = new ArrayList<String>();
+        <% 
+            Object lineItems = request.getAttribute("menuItems");
+            List<String> itemList = new ArrayList<String>();
             if (lineItems != null) {
-                lineItemList = (ArrayList<String>) lineItems;
+                itemList = (ArrayList<String>) lineItems;
             }
-            for (String s : lineItemList) {
+            for (String li : itemList) {
+                out.println(itemList);
+            }        
         %>
-        <h4>
-            <%= s %>
-            <% } %>
-        </h4>
-        <div></div>
-
-        <br/> 
+        <h4>SubTotal: ${subTotal}</h4>
+        <h4>Tax: ${tax}</h4>
+        <div>_____________</div>
+        <h4>Total: ${total}</h4>        <br/> 
         <br/> <a href="menu.jsp" style="font-style: italic">Place another order</a>
         <br/>
         <br/> <a href="home.jsp" style="font-style: italic">The Blue Bistro Home</a>

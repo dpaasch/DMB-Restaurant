@@ -16,7 +16,7 @@
     <body>
 
     <center>
-        <form name="menu" id="menu" action="RestaurantController" method="POST"> 
+        <form name="menu" id="menu" action="summary.do" method="POST"> 
             <!-- onsubmit="return(validateMenuForm());" -->
             <h1>Please make your menu selections</h1>
             <center>

@@ -13,7 +13,7 @@ public class OrderModel {
 
     private MenuModel menuItem;  // used to declare the model object instantiated below
     private List<String> itemList;  // this is the list of items the customer ordered
-    private List<String> lineItems;  // the ordered menu items  
+    private List<String> lineItems;  // the ordered menu items (will be used by controller) 
     private String menuItemName;
     private double menuItemPrice, subTotal, tax, total;
     private final double TAX = 0.051;

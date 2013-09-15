@@ -16,6 +16,8 @@ import model.OrderModel;
  * @author Dawn Bykowski
  */
 public class RestaurantController extends HttpServlet {
+    
+    private final static String RESULT_PAGE = "/orderSummary.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -32,22 +34,28 @@ public class RestaurantController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        // 
-        List<String> items = new ArrayList<String>();
-        items.add(request.getParameter("main"));
-        items.add(request.getParameter("salad"));
-        items.add(request.getParameter("side"));
-        items.add(request.getParameter("drink"));
+        List<String> menuItems = new ArrayList<String>();
+        menuItems.add(request.getParameter("main"));
+        menuItems.add(request.getParameter("salad"));
+        menuItems.add(request.getParameter("side"));
+        menuItems.add(request.getParameter("drink"));
         
-
-
-        OrderModel om = new OrderModel(items);
-        List<String> lineItems = om.getOrderedMenuItems();
-
-        request.setAttribute("lineItems", lineItems);
+        OrderModel order = new OrderModel(menuItems);
+        List<String> lineItems = order.getLineItems();
+        double subTotal = order.getSubTotal();
+        double tax = order.getTax();
+        double total = order.getTotal();
+        
+        request.setAttribute("menuItems", lineItems);
+        request.setAttribute("subTotal", subTotal);
+        request.setAttribute("tax", tax);
+        request.setAttribute("total", total);
+        
+        
+        
         // This object lets you forward both the request and response
         // objects to a destination page
-        RequestDispatcher view = request.getRequestDispatcher("/orderSummary.jsp");
+        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response);
 //        } finally {            
 //            out.close();
