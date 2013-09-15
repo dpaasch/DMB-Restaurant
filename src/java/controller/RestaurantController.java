@@ -32,15 +32,18 @@ public class RestaurantController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        // 
         List<String> items = new ArrayList<String>();
         items.add(request.getParameter("main"));
         items.add(request.getParameter("salad"));
         items.add(request.getParameter("side"));
         items.add(request.getParameter("drink"));
+        
 
 
         OrderModel om = new OrderModel(items);
         List<String> lineItems = om.getOrderedMenuItems();
+
         request.setAttribute("lineItems", lineItems);
         // This object lets you forward both the request and response
         // objects to a destination page
@@ -91,5 +94,4 @@ public class RestaurantController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-//   
 }

@@ -11,39 +11,46 @@ import java.util.List;
  */
 public class OrderModel {
 
-    private MenuModel menu;  // used to declare the model object instantiated below
+    private MenuModel menuItem;  // used to declare the model object instantiated below
     private List<String> itemList;  // this is the list of items the customer ordered
-    private List<String> lineItems;  // the ordered menu items
+    private List<String> lineItems;  // the ordered menu items  
     private String menuItemName;
     private double menuItemPrice, subTotal, tax, total;
-    private final double TAX_PERCENTAGE = 0.051;
+    private final double TAX = 0.051;
+    private final String NPE_ERR = " Error: Menu item cannot be null";
 
     // Constructor: Takes the choices made by the customer for the order, as parameters.
     public OrderModel(List<String> itemList) {
-        menu = new MenuModel();
+        menuItem = new MenuModel();
+        if (itemList.isEmpty()) {
+            throw new NullPointerException(NPE_ERR);
+        }
         this.itemList = itemList;
     }
 
-    public List<String> getOrderList() {
+    public List<String> getItemList() {
         return itemList;
     }
 
-    public void setOrderList(List<String> itemList) {
+    public void setItemList(List<String> itemList) {
         this.itemList = itemList;
     }
-
-    public List<String> getOrderedMenuItems() {
+    
+    /*
+     * Gets the ordered menu items as line items
+     */
+    public List<String> getLineItems() {
         lineItems = new ArrayList();
-        for (String s : itemList) {
-            lineItems.add(s + " ... " + menu.getMenuItemPrice(s));
+        for (String li : itemList) {
+            lineItems.add(li + " ... " + menuItem.getItemPrice(li));
         }
         return lineItems;
     }
 
     public double getSubTotal() {
         subTotal = 0;
-        for (String s : itemList) {
-            subTotal += menu.getMenuItemPrice(s);
+        for (String st : itemList) {
+            subTotal = subTotal + menuItem.getItemPrice(st);
         }
         return subTotal;
     }
@@ -53,7 +60,7 @@ public class OrderModel {
     }
 
     public double getTax() {
-        tax = subTotal * TAX_PERCENTAGE;
+        tax = getSubTotal() * TAX;
         return tax;
     }
 
@@ -62,28 +69,27 @@ public class OrderModel {
     }
 
     public double getTotal() {
-        total = subTotal + tax;
+        total = getSubTotal() + tax;
         return total;
     }
 
     public void setTotal(double total) {
         this.total = total;
     }
-
-    // methods to obtain data from the MenuModel class
-    public String getMenuItemName() {
-        return menuItemName;
-    }
-
-    public void setMenuItemName(String menuItemName) {
-        this.menuItemName = menuItemName;
-    }
-
-    public double getMenuItemPrice() {
-        return menuItemPrice;
-    }
-
-    public void setMenuItemPrice(double menuItemPrice) {
-        this.menuItemPrice = menuItemPrice;
-    }
+    
+    // for testing
+//    public static void main(String[] args) {
+//        List<String> menuItems = new ArrayList<String>();
+//        menuItems.add("Lobster");
+//        menuItems.add("GreekSalad");
+//        menuItems.add("BakedPotato");
+//        menuItems.add("SoftDrink");
+//        
+//        OrderModel order = new OrderModel(menuItems);
+//        System.out.println(order.getLineItems());
+//        double subTotal = order.getSubTotal();
+//        double tax = order.getTax();
+//        double total = order.getTotal();
+//        System.out.println(subTotal + "..." + tax + "..." + total);
+//    }
 }
