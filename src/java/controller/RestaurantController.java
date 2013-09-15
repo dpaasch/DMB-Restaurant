@@ -49,9 +49,7 @@ public class RestaurantController extends HttpServlet {
         request.setAttribute("menuItems", lineItems);
         request.setAttribute("subTotal", subTotal);
         request.setAttribute("tax", tax);
-        request.setAttribute("total", total);
-        
-        
+        request.setAttribute("total", total);        
         
         // This object lets you forward both the request and response
         // objects to a destination page
