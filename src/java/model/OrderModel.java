@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +44,15 @@ public class OrderModel {
         lineItems = new ArrayList();
         for (String li : itemList) {
             if (li != null) {
-            lineItems.add(li + " ... " + menuItem.getItemPrice(li));
+            lineItems.add(li + " ... $" + menuItem.getItemPrice(li));
             }
         }
         return lineItems;
+    }
+    
+    public double formatValues(double decimal) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        return Double.valueOf(df.format(decimal));
     }
 
     public double getSubTotal() {
@@ -54,7 +60,7 @@ public class OrderModel {
         for (String st : itemList) {
             subTotal = subTotal + menuItem.getItemPrice(st);
         }
-        return subTotal;
+        return formatValues(subTotal);
     }
 
     public void setSubTotal(double subTotal) {
@@ -63,7 +69,7 @@ public class OrderModel {
 
     public double getTax() {
         tax = getSubTotal() * TAX;
-        return tax;
+        return formatValues(tax);
     }
 
     public void setTax(double tax) {
@@ -72,7 +78,7 @@ public class OrderModel {
 
     public double getTotal() {
         total = getSubTotal() + tax;
-        return total;
+        return formatValues(total);
     }
 
     public void setTotal(double total) {

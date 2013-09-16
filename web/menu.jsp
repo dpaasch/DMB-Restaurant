@@ -10,16 +10,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <script src="js/restaurantFormValidator.js"></script>
         <title>Menu</title>
         <script type="text/javascript"></script>
     </head>
     <body>
 
     <center>
-        <form name="menu" id="menu" action="summary.do" method="POST" 
-              onsubmit="return(validateMenuForm());">
+        <form name="menu" id="menu" action="summary.do" method="POST">
             <h1>Please make your menu selections</h1>
+            <h3>You may choose only one item from each category.</h3>
             <center>
                 <br/>
                 <h3>Entree Choice: </h3>  

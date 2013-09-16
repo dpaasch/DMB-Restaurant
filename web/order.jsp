@@ -32,11 +32,11 @@
             <table>
                 <tr>
                     <td> SubTotal: </td>
-                    <td> ${subTotal} </td>
+                    <td> $${subTotal} </td>
                 </tr>
                 <tr>
-                    <td> Tax: </td>
-                    <td> ${tax} </td>
+                    <td> WI Tax: </td>
+                    <td> $${tax} </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td> Total: </td>
-                    <td> ${total} </td>
+                    <td> $${total} </td>
                 </tr>
             </table>
             <br/>
