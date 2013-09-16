@@ -32,11 +32,11 @@
             <table>
                 <tr>
                     <td> SubTotal: </td>
-                    <td> $${subTotal} </td>
+                    <td>$${subTotal} </td>
                 </tr>
                 <tr>
                     <td> WI Tax: </td>
-                    <td> $${tax} </td>
+                    <td>$${tax} </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -44,7 +44,15 @@
                 </tr>
                 <tr>
                     <td> Total: </td>
-                    <td> $${total} </td>
+                    <td>$${total} </td>
+                </tr>
+                <tr>
+                    <td> Suggested Tip: </td>
+                    <td>$${tip} </td>
+                </tr>
+                <tr>
+                    <td> Grand Total: </td>
+                    <td>$${grandTotal} </td>
                 </tr>
             </table>
             <br/>

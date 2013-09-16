@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class is responsible solely for the menu items & their prices.
@@ -56,6 +57,37 @@ public class MenuModel {
     public void setItemPrice(double menuItemPrice) {
         this.menuItemPrice = menuItemPrice;
     }
+    
+        @Override
+    public String toString() {
+        return "MenuModel{" + "menuItemName=" + menuItemName + ", menuItemPrice=" + menuItemPrice + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + Objects.hashCode(this.menuItemName);
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.menuItemPrice) ^ (Double.doubleToLongBits(this.menuItemPrice) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MenuModel other = (MenuModel) obj;
+        if (!Objects.equals(this.menuItemName, other.menuItemName)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.menuItemPrice) != Double.doubleToLongBits(other.menuItemPrice)) {
+            return false;
+        }
+        return true;
+    }
 
     // for testing
 //    public static void main(String[] args) {
@@ -67,5 +99,5 @@ public class MenuModel {
 //
 //        OrderModel order = new OrderModel(menuItems);
 //        System.out.println(order.getLineItems());
-//    }
+//    }    
 }
