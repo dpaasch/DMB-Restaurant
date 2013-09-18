@@ -18,7 +18,7 @@
     <center>
         <form name="menu" id="menu" action="summary.do" method="POST">
             <h1>Please make your menu selections</h1>
-            <h3>You may choose only one item from each category.</h3>
+            <!-- <h3>You may choose only one item from each category.</h3> -->
             <center>
                 <br/>
                 <h3>Entree Choice: </h3>  

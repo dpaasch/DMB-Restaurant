@@ -1,7 +1,7 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,63 +11,55 @@ import java.util.Objects;
  */
 public class MenuModel {
 
-    private final Map<String, Double> menuItems = new HashMap<String, Double>();
-    private String menuItemName;  // Menu item name
-    private double menuItemPrice;  // Menu item price
-    private final String NPE_ERR = " Error: Menu item cannot be null";
-    private final String IAE_ERR = "Error: Menu item not found";
+    private String itemName;  // Menu item name
+    private double itemPrice;  // Menu item price
 
-    // Constructor will auto fill the hashmap with the menu item values.
-    public MenuModel() {
-        menuItems.put("Signature Steak", 25.95);
-        menuItems.put("Lobster", 44.75);
-        menuItems.put("House Salad", 4.95);
-        menuItems.put("Greek Salad", 6.95);
-        menuItems.put("Baked Potato", 3.50);
-        menuItems.put("Rice Pilaf", 4.75);
-        menuItems.put("Soft Drink", 1.95);
-        menuItems.put("Mixed Drink", 6.95);
+    // Constructor requires a menuItem
+    public MenuModel(String itemName, double itemPrice) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;      
     }
 
+    // This list of items will move into a database
+    public List getMenuItems() {
+        List menu = new ArrayList();
+        menu.add(new MenuModel("Signature Steak", 25.95));
+        menu.add(new MenuModel("Lobster", 44.75));
+        menu.add(new MenuModel("House Salad", 4.95));
+        menu.add(new MenuModel("Greek Salad", 6.95));
+        menu.add(new MenuModel("Baked Potato", 3.50));
+        menu.add(new MenuModel("Rice Pilaf", 4.75));
+        menu.add(new MenuModel("Soft Drink", 1.95));
+        menu.add(new MenuModel("Mixed Drink", 6.95));        
+        return menu;        
+    }
+    
     public String getItemName() {
-        return menuItemName;
+        return itemName;
     }
 
-    public void setItemName(String menuItemName) {
-        this.menuItemName = menuItemName;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    /**
-     * Retrieves the price of the menu item from the Hashmap as a double.
-     *
-     * @param menuItem : the menu item
-     * @return menuItemPrice
-     */
-    public double getItemPrice(String menuItem) {
-        try {
-            menuItemPrice = menuItems.get(menuItem);
-        } catch (NullPointerException npe) {
-            System.err.println(NPE_ERR);
-        } catch (IllegalArgumentException iae) {
-            System.err.println(IAE_ERR);
-        }
-        return menuItemPrice;
+    public double getItemPrice() {
+        return itemPrice;
     }
 
-    public void setItemPrice(double menuItemPrice) {
-        this.menuItemPrice = menuItemPrice;
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
     }
     
         @Override
     public String toString() {
-        return "MenuModel{" + "menuItemName=" + menuItemName + ", menuItemPrice=" + menuItemPrice + '}';
+        return "MenuModel{" + "itemName=" + itemName + ", itemPrice=" + itemPrice + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.menuItemName);
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.menuItemPrice) ^ (Double.doubleToLongBits(this.menuItemPrice) >>> 32));
+        hash = 11 * hash + Objects.hashCode(this.itemName);
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.itemPrice) ^ (Double.doubleToLongBits(this.itemPrice) >>> 32));
         return hash;
     }
 
@@ -80,10 +72,10 @@ public class MenuModel {
             return false;
         }
         final MenuModel other = (MenuModel) obj;
-        if (!Objects.equals(this.menuItemName, other.menuItemName)) {
+        if (!Objects.equals(this.itemName, other.itemName)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.menuItemPrice) != Double.doubleToLongBits(other.menuItemPrice)) {
+        if (Double.doubleToLongBits(this.itemPrice) != Double.doubleToLongBits(other.itemPrice)) {
             return false;
         }
         return true;
@@ -91,13 +83,15 @@ public class MenuModel {
 
     // for testing
 //    public static void main(String[] args) {
-//        List<String> menuItems = new ArrayList<String>();
-//        menuItems.add("Lobster");
-//        menuItems.add("GreekSalad");
-//        menuItems.add("BakedPotato");
-//        menuItems.add("SoftDrink");
+//        List<String> menu = new ArrayList<String>();
+//        menu.add("Lobster");
+//        menu.add("Greek Salad");
+//        menu.add("Baked Potato");
+//        menu.add("Soft Drink");
 //
-//        OrderModel order = new OrderModel(menuItems);
-//        System.out.println(order.getLineItems());
+//        String list = (String)menu.get(2);
+//        for (String s: menu) {
+//            System.out.println(s);
+//        }
 //    }    
 }
