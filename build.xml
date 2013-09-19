@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="DMB-Restaurant_091713" default="default" basedir=".">
-    <description>Builds, tests, and runs the project DMB-Restaurant_091713.</description>
+<project name="DMB-Restaurant" default="default" basedir=".">
+    <description>Builds, tests, and runs the project DMB-Restaurant.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

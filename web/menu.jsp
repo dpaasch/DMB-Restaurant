@@ -14,7 +14,6 @@
         <script type="text/javascript"></script>
     </head>
     <body>
-
     <center>
         <form name="menu" id="menu" action="summary.do" method="POST">
             <h1>Please make your menu selections</h1>

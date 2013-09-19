@@ -1,6 +1,7 @@
 package model;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,34 +11,44 @@ import java.util.List;
  * @author Dawn Bykowski
  */
 public class OrderModel {
-    
-    private List menu;  
-    private String[] orderedItems;  // this is the list of items the customer ordered
+
+    private MenuModel menuItem;  // used to declare the model object instantiated below
+    private List<String> itemList;  // this is the list of items the customer ordered
+    private List<String> lineItems;  // the ordered menu items (will be used by controller) 
     private double subTotal, tax, total, tip, grandTotal;
-    private final double TAX = 0.051, TIP_RATE = 0.20;
+    private final double TAX = 0.051;
+    private final String NPE_ERR = " Error: Menu item cannot be null";
 
-    // Constructor: Takes the list of menu items, as well as the items ordered, as parameters.
-    public OrderModel(List menu, String[] orderedItems) {
-        this.menu = menu;
-        this.orderedItems = orderedItems;
+    // Constructor: Takes the choices made by the customer for the order, as parameters.
+    public OrderModel(List<String> itemList) {
+        menuItem = new MenuModel();
+        if (itemList.isEmpty()) {
+            throw new NullPointerException(NPE_ERR);
+        } 
+        this.itemList = itemList;
     }
 
-    public List getMenu() {
-        return menu;
+    public List<String> getItemList() {
+        return itemList;
     }
 
-    public void setMenu(List menu) {
-        this.menu = menu;
+    public void setItemList(List<String> itemList) {
+        this.itemList = itemList;
     }
 
-    public String[] getOrderedItems() {
-         return orderedItems;
+    /*
+     * Gets the ordered menu items as line items
+     */
+    public List<String> getLineItems() {
+        lineItems = new ArrayList();
+        for (String li : itemList) {
+            if (li != null) {
+                lineItems.add(li + " ... $" + menuItem.getItemPrice(li));
+            }
+        }
+        return lineItems;
     }
 
-    public void setOrderedItems(String[] orderedItems) {
-        this.orderedItems = orderedItems;
-    }
-    
     /**
      * Formats all double values. Could be moved into a formatter class.
      *
@@ -48,15 +59,12 @@ public class OrderModel {
         DecimalFormat df = new DecimalFormat("#.00");
         return Double.valueOf(df.format(decimal));
     }
-    
-    // This needs some work - 09/1/13 21:16
+
     public double getSubTotal() {
         subTotal = 0;
-        for (String s: orderedItems) {
-            int i = Integer.parseInt(s);
-            MenuModel menuModel = (MenuModel)menu.get(i);
-            subTotal += menuModel.getItemPrice();
-        }       
+        for (String st : itemList) {
+            subTotal = subTotal + menuItem.getItemPrice(st);
+        }
         return formatValues(subTotal);
     }
 
@@ -84,7 +92,7 @@ public class OrderModel {
 
     public double getTip() {
         tip = 0.00;
-        tip = subTotal * TIP_RATE;
+        tip = tax * 3;
         return formatValues(tip);
     }
 
@@ -102,22 +110,62 @@ public class OrderModel {
         this.grandTotal = grandTotal;
     }
 
+    @Override
+    public String toString() {
+        return "OrderModel{" + "subTotal=" + subTotal + ", tax=" + tax + ", total=" + total + ", tip=" + tip + ", grandTotal=" + grandTotal + '}';
+    }
+    
+        @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.subTotal) ^ (Double.doubleToLongBits(this.subTotal) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.tax) ^ (Double.doubleToLongBits(this.tax) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.total) ^ (Double.doubleToLongBits(this.total) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.tip) ^ (Double.doubleToLongBits(this.tip) >>> 32));
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.grandTotal) ^ (Double.doubleToLongBits(this.grandTotal) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrderModel other = (OrderModel) obj;
+        if (Double.doubleToLongBits(this.subTotal) != Double.doubleToLongBits(other.subTotal)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.tax) != Double.doubleToLongBits(other.tax)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.total) != Double.doubleToLongBits(other.total)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.tip) != Double.doubleToLongBits(other.tip)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.grandTotal) != Double.doubleToLongBits(other.grandTotal)) {
+            return false;
+        }
+        return true;
+    }
     // for testing
 //    public static void main(String[] args) {
-//        List<String> menu = new ArrayList<String>();
-//        menu.add("Lobster");
-//        menu.add("Greek Salad");
-//        menu.add("Baked Potato");
-//        menu.add("Soft Drink");
+//        List<String> menuItems = new ArrayList<String>();
+//        menuItems.add("Lobster");
+//        menuItems.add("GreekSalad");
+//        menuItems.add("BakedPotato");
+//        menuItems.add("SoftDrink");
 //        
-//        String[] orderedItems = {"Lobster","Soft Drink"};
-//
-//        OrderModel order = new OrderModel(menu, orderedItems);
-//        System.out.println(menu);
-//        System.out.println(orderedItems);
+//        OrderModel order = new OrderModel(menuItems);
+//        System.out.println(order.getLineItems());
 //        double subTotal = order.getSubTotal();
 //        double tax = order.getTax();
 //        double total = order.getTotal();
 //        System.out.println(subTotal + "..." + tax + "..." + total);
 //    }
+
 }
