@@ -9,16 +9,16 @@ import java.util.Objects;
  *
  * @author Dawn Bykowski
  */
-public class MenuModel {
+public class MenuService {
 
     private final Map<String, Double> menuItems = new HashMap<String, Double>();
-    private String menuItemName;  // Menu item name
-    private double menuItemPrice;  // Menu item price
+    private String itemName;  // Menu item name
+    private double itemPrice;  // Menu item price
     private final String NPE_ERR = " Error: Menu item cannot be null";
     private final String IAE_ERR = "Error: Menu item not found";
 
     // Constructor will auto fill the hashmap with the menu item values.
-    public MenuModel() {
+    public MenuService() {
         menuItems.put("Signature Steak", 25.95);
         menuItems.put("Lobster", 44.75);
         menuItems.put("House Salad", 4.95);
@@ -30,44 +30,44 @@ public class MenuModel {
     }
 
     public String getItemName() {
-        return menuItemName;
+        return itemName;
     }
 
-    public void setItemName(String menuItemName) {
-        this.menuItemName = menuItemName;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     /**
      * Retrieves the price of the menu item from the Hashmap as a double.
      *
      * @param menuItem : the menu item
-     * @return menuItemPrice
+     * @return itemPrice
      */
     public double getItemPrice(String menuItem) {
         try {
-            menuItemPrice = menuItems.get(menuItem);
+            itemPrice = menuItems.get(menuItem);
         } catch (NullPointerException npe) {
             System.err.println(NPE_ERR);
         } catch (IllegalArgumentException iae) {
             System.err.println(IAE_ERR);
         }
-        return menuItemPrice;
+        return itemPrice;
     }
 
-    public void setItemPrice(double menuItemPrice) {
-        this.menuItemPrice = menuItemPrice;
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
     }
     
         @Override
     public String toString() {
-        return "MenuModel{" + "menuItemName=" + menuItemName + ", menuItemPrice=" + menuItemPrice + '}';
+        return "MenuModel{" + "itemName=" + itemName + ", itemPrice=" + itemPrice + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.menuItemName);
-        hash = 11 * hash + (int) (Double.doubleToLongBits(this.menuItemPrice) ^ (Double.doubleToLongBits(this.menuItemPrice) >>> 32));
+        hash = 11 * hash + Objects.hashCode(this.itemName);
+        hash = 11 * hash + (int) (Double.doubleToLongBits(this.itemPrice) ^ (Double.doubleToLongBits(this.itemPrice) >>> 32));
         return hash;
     }
 
@@ -79,11 +79,11 @@ public class MenuModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MenuModel other = (MenuModel) obj;
-        if (!Objects.equals(this.menuItemName, other.menuItemName)) {
+        final MenuService other = (MenuService) obj;
+        if (!Objects.equals(this.itemName, other.itemName)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.menuItemPrice) != Double.doubleToLongBits(other.menuItemPrice)) {
+        if (Double.doubleToLongBits(this.itemPrice) != Double.doubleToLongBits(other.itemPrice)) {
             return false;
         }
         return true;

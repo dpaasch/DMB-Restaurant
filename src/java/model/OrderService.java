@@ -10,9 +10,9 @@ import java.util.List;
  *
  * @author Dawn Bykowski
  */
-public class OrderModel {
+public class OrderService {
 
-    private MenuModel menuItem;  // used to declare the model object instantiated below
+    private MenuService menuItem;  // used to declare the model object instantiated below
     private List<String> itemList;  // this is the list of items the customer ordered
     private List<String> lineItems;  // the ordered menu items (will be used by controller) 
     private double subTotal, tax, total, tip, grandTotal;
@@ -20,8 +20,8 @@ public class OrderModel {
     private final String NPE_ERR = " Error: Menu item cannot be null";
 
     // Constructor: Takes the choices made by the customer for the order, as parameters.
-    public OrderModel(List<String> itemList) {
-        menuItem = new MenuModel();
+    public OrderService(List<String> itemList) {
+        menuItem = new MenuService();
         if (itemList.isEmpty()) {
             throw new NullPointerException(NPE_ERR);
         } 
@@ -134,7 +134,7 @@ public class OrderModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OrderModel other = (OrderModel) obj;
+        final OrderService other = (OrderService) obj;
         if (Double.doubleToLongBits(this.subTotal) != Double.doubleToLongBits(other.subTotal)) {
             return false;
         }
@@ -160,7 +160,7 @@ public class OrderModel {
 //        menuItems.add("BakedPotato");
 //        menuItems.add("SoftDrink");
 //        
-//        OrderModel order = new OrderModel(menuItems);
+//        OrderService order = new OrderService(menuItems);
 //        System.out.println(order.getLineItems());
 //        double subTotal = order.getSubTotal();
 //        double tax = order.getTax();
