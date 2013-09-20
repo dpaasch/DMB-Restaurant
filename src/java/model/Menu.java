@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * This class is responsible solely for the menu items & their prices.
+ * This class is responsible solely for the Menu (item names & prices).
  *
  * @author Dawn Bykowski
  */
-public class MenuService {
+public class Menu {
 
     private final Map<String, Double> menuItems = new HashMap<String, Double>();
     private String itemName;  // Menu item name
@@ -18,7 +18,7 @@ public class MenuService {
     private final String IAE_ERR = "Error: Menu item not found";
 
     // Constructor will auto fill the hashmap with the menu item values.
-    public MenuService() {
+    public Menu() {
         menuItems.put("Signature Steak", 25.95);
         menuItems.put("Lobster", 44.75);
         menuItems.put("House Salad", 4.95);
@@ -79,7 +79,7 @@ public class MenuService {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MenuService other = (MenuService) obj;
+        final Menu other = (Menu) obj;
         if (!Objects.equals(this.itemName, other.itemName)) {
             return false;
         }

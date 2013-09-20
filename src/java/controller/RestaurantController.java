@@ -3,15 +3,13 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.MenuService;
-import model.OrderService;
+import model.Order;
 
 /**
  *
@@ -68,7 +66,7 @@ public class RestaurantController extends HttpServlet {
             }
         }
         
-        OrderService order = new OrderService(menuItems);
+        Order order = new Order(menuItems);
         List<String> lineItems = order.getLineItems();
         double subTotal = order.getSubTotal();
         double tax = order.getTax();
