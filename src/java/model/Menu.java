@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * This class is responsible solely for the Menu (item names & prices).
+ * This class is responsible solely for the menu items & their prices.
  *
  * @author Dawn Bykowski
  */

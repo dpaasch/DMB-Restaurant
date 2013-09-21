@@ -59,7 +59,7 @@ public class DBGeneric implements DBAccessor {
         dbConnection.close();
     }
 
-    public List findRecords(String sqlStmnt, boolean closedConnection)
+    public List findRecords(String sqlStmnt, boolean closeConnection)
             throws SQLException {
         Statement stmt = null;
         ResultSet rs = null;
@@ -82,10 +82,10 @@ public class DBGeneric implements DBAccessor {
                         // no need to do anything... if it fails, just ignore it and continue
                     }
                 } // end for
-                System.out.println(record);
-                
-                itemList.add(record);
+                System.out.println(record);                
+                itemList.add(record.get(metaData.getColumnName(1)));
             } // end while
+            
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
         } finally {

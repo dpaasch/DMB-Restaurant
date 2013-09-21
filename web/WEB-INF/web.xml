@@ -4,9 +4,17 @@
         <servlet-name>RestaurantController</servlet-name>
         <servlet-class>controller.RestaurantController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenuController</servlet-name>
+        <servlet-class>controller.MenuController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RestaurantController</servlet-name>
         <url-pattern>/summary.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuController</servlet-name>
+        <url-pattern>/MenuController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
