@@ -81,16 +81,13 @@ public class DBGeneric implements DBAccessor {
                     } catch (NullPointerException npe) {
                         // no need to do anything... if it fails, just ignore it and continue
                     }
-                } // end for
-                System.out.println(record);                
-                itemList.add(record.get(metaData.getColumnName(1)));
-            } // end while
+                }           
+                itemList.add(record);
+            } 
             
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
         } finally {
-            // Make sure we close the statement and connection objects no matter what.
-            // Since these also throw checked exceptions, we need a nested try-catch
             try {
                 stmt.close();
                 dbConnection.close();
@@ -104,13 +101,13 @@ public class DBGeneric implements DBAccessor {
     public static void main(String[] args) throws IllegalArgumentException,
             ClassNotFoundException, SQLException {
         DBGeneric db = new DBGeneric();
-        List<String> menuList = new ArrayList<String>();
+        List menuList;
        
         try {
             db.openDBConnection("com.mysql.jdbc.Driver", 
-                    "jdbc:mysql://localhost:3306/menu", "root", "dawn00");
+                    "jdbc:mysql://localhost:3306/restaurant", "root", "dawn00");
             menuList = db.findRecords("SELECT * FROM menu", true);
-            for (Object obj : menuList) {
+            for (Object obj : menuList) {                
                 System.out.println(obj);
             }
         } catch(ClassNotFoundException cnf) {

@@ -10,44 +10,49 @@ import java.util.List;
  *
  * @author Dawn Bykowski
  */
-public class Order {
+public class OrderService {
 
-    private Menu menuItem;  // used to declare the model object instantiated below
-    private List<String> itemList;  // this is the list of items the customer ordered
-    private List<String> lineItems;  // the ordered menu items (will be used by controller) 
+    private MenuService menuService;  // used to declare the model object instantiated below
+//    private List<String> itemList;  // this is the list of items the customer ordered
+//    private List<String> lineItems;  // the ordered menu items (will be used by controller) 
     private double subTotal, tax, total, tip, grandTotal;
     private final double TAX = 0.051;
     private final String NPE_ERR = " Error: Menu item cannot be null";
-
-    // Constructor: Takes the choices made by the customer for the order, as parameters.
-    public Order(List<String> itemList) {
-        menuItem = new Menu();
-        if (itemList.isEmpty()) {
-            throw new NullPointerException(NPE_ERR);
-        } 
-        this.itemList = itemList;
+    
+    public OrderService() {
+        menuService = new MenuService();
     }
+    
 
-    public List<String> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<String> itemList) {
-        this.itemList = itemList;
-    }
-
-    /*
-     * Gets the ordered menu items as line items
-     */
-    public List<String> getLineItems() {
-        lineItems = new ArrayList();
-        for (String li : itemList) {
-            if (li != null) {
-                lineItems.add(li + " ... $" + menuItem.getItemPrice(li));
-            }
-        }
-        return lineItems;
-    }
+//    // Constructor: Takes the choices made by the customer for the order, as parameters.
+//    public OrderService(List<MenuItem> menuItem) {
+//        menuItem = new MenuService();
+//        if (itemList.isEmpty()) {
+//            throw new NullPointerException(NPE_ERR);
+//        } 
+//        this.itemList = itemList;
+//    }
+//
+//    public List<String> getItemList() {
+//        return itemList;
+//    }
+//
+//    public void setItemList(List<String> itemList) {
+//        this.itemList = itemList;
+//    }
+//
+//    /*
+//     * Gets the ordered menu items as line items
+//     */
+//    public List<String> getLineItems() {
+//        lineItems = new ArrayList();
+//        for (String li : itemList) {
+//            if (li != null) {
+//                lineItems.add(li + " ... $" + menuItem.getItemPrice(li));
+//            }
+//        }
+//        return lineItems;
+//    }
 
     /**
      * Formats all double values. Could be moved into a formatter class.
@@ -134,7 +139,7 @@ public class Order {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Order other = (Order) obj;
+        final OrderService other = (OrderService) obj;
         if (Double.doubleToLongBits(this.subTotal) != Double.doubleToLongBits(other.subTotal)) {
             return false;
         }
@@ -160,7 +165,7 @@ public class Order {
 //        menuItems.add("BakedPotato");
 //        menuItems.add("SoftDrink");
 //        
-//        Order order = new Order(menuItems);
+//        OrderService order = new OrderService(menuItems);
 //        System.out.println(order.getLineItems());
 //        double subTotal = order.getSubTotal();
 //        double tax = order.getTax();

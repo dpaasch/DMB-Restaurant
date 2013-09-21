@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Order;
+import model.OrderService;
 
 /**
  *
@@ -66,7 +66,7 @@ public class RestaurantController extends HttpServlet {
             }
         }
         
-        Order order = new Order(menuItems);
+        OrderService order = new OrderService(menuItems);
         List<String> lineItems = order.getLineItems();
         double subTotal = order.getSubTotal();
         double tax = order.getTax();
