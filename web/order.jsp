@@ -4,6 +4,7 @@
     Author     : Dawn Bykowski
 --%>
 
+<%@page import="model.MenuItem"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,16 +18,19 @@
     <body>
         <h1>Your Blue Bistro Order</h1>
         <%
-            Object lineItems = request.getAttribute("menuItems");
-            List<String> itemList = new ArrayList<String>();
-            if (lineItems != null) {
-                itemList = (ArrayList<String>) lineItems;
+            List<MenuItem> menuItems = null;
+            Object orderedMenuItems = request.getAttribute("menuItems");
+            if (orderedMenuItems != null) {
+                menuItems = ( ArrayList<MenuItem> ) orderedMenuItems;
             }
-            for (String li : itemList) {
+            
         %>
-        <h3> <%= li%>
-            <% }%>
-        </h3>
+ <% 
+            for (MenuItem m : menuItems) {  %>
+            <h3> <%= m.getItemName() + " ... " + m.getItemPrice() %>
+                <% } %>
+            </h3>
+
         <br/>
         <h4> 
             <table>

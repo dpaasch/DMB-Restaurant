@@ -12,47 +12,20 @@ import java.util.List;
  */
 public class OrderService {
 
-    private MenuService menuService;  // used to declare the model object instantiated below
-//    private List<String> itemList;  // this is the list of items the customer ordered
-//    private List<String> lineItems;  // the ordered menu items (will be used by controller) 
+    private MenuService menuService = new MenuService();
+    private List<MenuItem> orderedMenuItems = new ArrayList<MenuItem>();  // this is the list of items the customer ordered
     private double subTotal, tax, total, tip, grandTotal;
     private final double TAX = 0.051;
-    private final String NPE_ERR = " Error: Menu item cannot be null";
-    
-    public OrderService() {
-        menuService = new MenuService();
-    }
-    
 
-//    // Constructor: Takes the choices made by the customer for the order, as parameters.
-//    public OrderService(List<MenuItem> menuItem) {
-//        menuItem = new MenuService();
-//        if (itemList.isEmpty()) {
-//            throw new NullPointerException(NPE_ERR);
-//        } 
-//        this.itemList = itemList;
-//    }
-//
-//    public List<String> getItemList() {
-//        return itemList;
-//    }
-//
-//    public void setItemList(List<String> itemList) {
-//        this.itemList = itemList;
-//    }
-//
-//    /*
-//     * Gets the ordered menu items as line items
-//     */
-//    public List<String> getLineItems() {
-//        lineItems = new ArrayList();
-//        for (String li : itemList) {
-//            if (li != null) {
-//                lineItems.add(li + " ... $" + menuItem.getItemPrice(li));
-//            }
-//        }
-//        return lineItems;
-//    }
+    // Constructor: Takes the choices made by the customer for the order, as parameters.
+    public OrderService() {
+        
+    }
+
+    public List<MenuItem> getOrderedMenuItems(String[] menuItem) {
+        orderedMenuItems = menuService.getOrderedMenuItems(menuItem);
+        return orderedMenuItems;
+    }
 
     /**
      * Formats all double values. Could be moved into a formatter class.
@@ -67,12 +40,11 @@ public class OrderService {
 
     public double getSubTotal() {
         subTotal = 0;
-        for (String st : itemList) {
-            subTotal = subTotal + menuItem.getItemPrice(st);
+        for (MenuItem m : orderedMenuItems) {
+            subTotal += m.getItemPrice();
         }
         return formatValues(subTotal);
     }
-
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
@@ -115,62 +87,17 @@ public class OrderService {
         this.grandTotal = grandTotal;
     }
 
-    @Override
-    public String toString() {
-        return "OrderModel{" + "subTotal=" + subTotal + ", tax=" + tax + ", total=" + total + ", tip=" + tip + ", grandTotal=" + grandTotal + '}';
-    }
-    
-        @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.subTotal) ^ (Double.doubleToLongBits(this.subTotal) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.tax) ^ (Double.doubleToLongBits(this.tax) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.total) ^ (Double.doubleToLongBits(this.total) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.tip) ^ (Double.doubleToLongBits(this.tip) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.grandTotal) ^ (Double.doubleToLongBits(this.grandTotal) >>> 32));
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final OrderService other = (OrderService) obj;
-        if (Double.doubleToLongBits(this.subTotal) != Double.doubleToLongBits(other.subTotal)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.tax) != Double.doubleToLongBits(other.tax)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.total) != Double.doubleToLongBits(other.total)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.tip) != Double.doubleToLongBits(other.tip)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.grandTotal) != Double.doubleToLongBits(other.grandTotal)) {
-            return false;
-        }
-        return true;
-    }
     // for testing
-//    public static void main(String[] args) {
-//        List<String> menuItems = new ArrayList<String>();
-//        menuItems.add("Lobster");
-//        menuItems.add("GreekSalad");
-//        menuItems.add("BakedPotato");
-//        menuItems.add("SoftDrink");
-//        
-//        OrderService order = new OrderService(menuItems);
-//        System.out.println(order.getLineItems());
-//        double subTotal = order.getSubTotal();
-//        double tax = order.getTax();
-//        double total = order.getTotal();
-//        System.out.println(subTotal + "..." + tax + "..." + total);
-//    }
-
+    public static void main(String[] args) {
+        String[] mItem = {"Signature Steak", "Baked Potato"};
+        OrderService orderService = new OrderService();
+        List<MenuItem> orderedMenuItems = orderService.getOrderedMenuItems(mItem);
+        for (MenuItem m : orderedMenuItems) {
+            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+        }
+        double subTotal = orderService.getSubTotal();
+        double tax = orderService.getTax();
+        double total = orderService.getTotal();
+        System.out.println(subTotal + "..." + tax + "..." + total);
+    }
 }

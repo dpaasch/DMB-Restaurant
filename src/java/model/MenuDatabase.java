@@ -36,6 +36,11 @@ public class MenuDatabase {
         return mItems;
     }
 
+    public MenuItem getMenuItem(String key) {
+        MenuItem menuItem = menuItemMap.get(key);        
+        return menuItem;
+    }
+    
 //    public static void main(String[] args) {
 //        MenuDatabase mdb = new MenuDatabase();
 //        List<MenuItem> mi = mdb.getAllMenuItems();

@@ -21,21 +21,21 @@
             <center>
                 <br/>
                 <h3>Entree Choice: </h3>  
-                <input type="checkbox" name="entree" id="entree" value="Signature Steak"/>Signature Steak
+                <input type="checkbox" name="menuItem" id="menuItem" value="Signature Steak"/>Signature Steak
                 &nbsp;&nbsp;
-                <input type="checkbox" name="entree" id="entree" value="Lobster"/>Lobster
+                <input type="checkbox" name="menuItem" id="menuItem" value="Lobster"/>Lobster
                 <h3>Salad Choice: </h3>
-                <input type="checkbox" name="salad" id="salad" value="House Salad"/>House Salad
+                <input type="checkbox" name="menuItem" id="menuItem" value="House Salad"/>House Salad
                 &nbsp;&nbsp;
-                <input type="checkbox" name="salad" id="salad" value="Greek Salad"/>Greek Salad
+                <input type="checkbox" name="menuItem" id="menuItem" value="Greek Salad"/>Greek Salad
                 <h3>Side Choice: </h3>
-                <input type="checkbox" name="side" id="side" value="Baked Potato"/>Baked Potato
+                <input type="checkbox" name="menuItem" id="menuItem" value="Baked Potato"/>Baked Potato
                 &nbsp;&nbsp;
-                <input type="checkbox" name="side" id="side" value="Rice Pilaf"/>Rice Pilaf
+                <input type="checkbox" name="menuItem" id="menuItem" value="Rice Pilaf"/>Rice Pilaf
                 <h3>Beverage Choice: </h3>
-                <input type="checkbox" name="drink" id="drink" value="Soft Drink"/>Soft Drink
+                <input type="checkbox" name="menuItem" id="menuItem" value="Soft Drink"/>Soft Drink
                 &nbsp;&nbsp;
-                <input type="checkbox" name="drink" id="drink" value="Mixed Drink"/>Mixed Drink
+                <input type="checkbox" name="menuItem" id="menuItem" value="Mixed Drink"/>Mixed Drink
                 <br/>
                 <br/>
                 <input type="submit" name="submit" id="submit" value="Submit Order"/>
