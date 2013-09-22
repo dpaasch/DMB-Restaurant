@@ -59,12 +59,13 @@ public class DBGeneric implements DBAccessor {
         dbConnection.close();
     }
 
-    public List findRecords(String sqlStmnt, boolean closeConnection)
-            throws SQLException {
+    @Override
+    public List findAllRecords(String sqlStmnt, boolean closeConnection)
+            throws SQLException, Exception {
         Statement stmt = null;
         ResultSet rs = null;
         ResultSetMetaData metaData = null;
-        final List itemList = new ArrayList();
+        final List list = new ArrayList();
         Map record = null;
 
         try {
@@ -81,12 +82,14 @@ public class DBGeneric implements DBAccessor {
                     } catch (NullPointerException npe) {
                         // no need to do anything... if it fails, just ignore it and continue
                     }
-                }           
-                itemList.add(record);
-            } 
-            
+                }
+                list.add(record);
+            }
+
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
+        } catch (Exception e) {
+            throw new Exception("EXCEPTION");
         } finally {
             try {
                 stmt.close();
@@ -95,23 +98,75 @@ public class DBGeneric implements DBAccessor {
                 System.out.println(e);
             }
         }
-        return itemList;
+        return list;
     }
-    
+
+    @Override
+    public Map findRecordById(String table, String pkField, Object keyValue,
+            boolean closeConnection) throws SQLException, Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        ResultSetMetaData metaData = null;
+        final Map record = new HashMap();
+
+        try {
+            stmt = dbConnection.createStatement();
+            String sql2;
+
+            if (keyValue instanceof String) {
+                sql2 = "= '" + keyValue + "'";
+            } else {
+                sql2 = "=" + keyValue;
+            }
+
+            final String sql = "SELECT * FROM " + table + " WHERE " + pkField + sql2;
+            rs = stmt.executeQuery(sql);
+            metaData = rs.getMetaData();
+            metaData.getColumnCount();
+            final int fields = metaData.getColumnCount();
+            // Retrieve the raw data from the ResultSet and copy the values into a Map
+            // with the keys being the column names of the table.
+            if (rs.next()) {
+                for (int i = 1; i <= fields; i++) {
+                    record.put(metaData.getColumnName(i), rs.getObject(i));
+                }
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                stmt.close();
+                if (closeConnection) {
+                    dbConnection.close();
+                }
+            } catch (SQLException e) {
+                throw e;
+            } // end try
+        } // end finally
+
+        return record;
+    }
+
+    // for testing
     public static void main(String[] args) throws IllegalArgumentException,
             ClassNotFoundException, SQLException {
         DBGeneric db = new DBGeneric();
         List menuList;
-       
+
         try {
-            db.openDBConnection("com.mysql.jdbc.Driver", 
+            db.openDBConnection("com.mysql.jdbc.Driver",
                     "jdbc:mysql://localhost:3306/restaurant", "root", "dawn00");
-            menuList = db.findRecords("SELECT * FROM menu", true);
-            for (Object obj : menuList) {                
+            menuList = db.findAllRecords("SELECT * FROM menu", true);
+            for (Object obj : menuList) {
                 System.out.println(obj);
             }
-        } catch(ClassNotFoundException cnf) {
-            System.out.println(DBGeneric.class.getName());
+        } catch (ClassNotFoundException cnf) {
+            System.out.println(cnf.getLocalizedMessage());
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 }

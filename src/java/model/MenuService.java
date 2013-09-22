@@ -11,11 +11,8 @@ import java.util.List;
 public class MenuService {
 
     private MenuDatabase mdb = new MenuDatabase();
+    private final String NPE_ERR = " Error: Menu item cannot be null";
 
-//    private final Map<String, Double> menuItems = new HashMap<String, Double>();
-//
-//    private final String NPE_ERR = " Error: Menu item cannot be null";
-//    private final String IAE_ERR = "Error: Menu item not found";
     public MenuService() {
     }
 
@@ -27,12 +24,15 @@ public class MenuService {
 
     public List getOrderedMenuItems(String[] key) {
         List<MenuItem> orderedMenuItem = new ArrayList<MenuItem>();
-        for (String s : key) {
-            orderedMenuItem.add(mdb.getMenuItem(s));
+        if (key == null) {
+            throw new NullPointerException(NPE_ERR);
+        } else {
+            for (String s : key) {
+                orderedMenuItem.add(mdb.getMenuItem(s));
+            }
+            return orderedMenuItem;
         }
-        return orderedMenuItem;
     }
-
     // for testing
 //    public static void main(String[] args) {
 //        MenuService ms = new MenuService();

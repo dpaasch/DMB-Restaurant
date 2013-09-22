@@ -5,6 +5,8 @@
 package db.accessor;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -23,4 +25,10 @@ public interface DBAccessor {
      * closeDBConnection(): This method closes the connection to a database
      */
     public abstract void closeDBConnection() throws SQLException;
+    
+    public abstract List findAllRecords(String sqlString, boolean closeConnection) 
+            throws SQLException, Exception;
+
+    public abstract Map findRecordById(String table, String pkField, Object keyValue, boolean closeConnection) 
+            throws SQLException, Exception;
 }
