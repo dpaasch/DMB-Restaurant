@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface IMenuDAO {
     
-    public abstract List<MenuItem> getAllMenuItems() throws SQLException, Exception;
+    public abstract List getAllMenuItems() throws SQLException, Exception;
+    
+    public abstract MenuItem getMenuItemById(String id) throws SQLException, Exception;
     
 }

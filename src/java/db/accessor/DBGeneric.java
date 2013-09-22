@@ -89,7 +89,7 @@ public class DBGeneric implements DBAccessor {
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
         } catch (Exception e) {
-            throw new Exception("EXCEPTION");
+            throw new Exception(e.getLocalizedMessage());
         } finally {
             try {
                 stmt.close();
