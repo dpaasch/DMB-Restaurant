@@ -1,29 +1,42 @@
 package model;
 
-import java.util.List;
-
 /**
  * MenuItem is a low-level class that provides information about the menu item;
  * the identifier (id), the item name (itemName), and the item price
  * (itemPrice).
  *
- * @author tim
+ * @author dawn bykowski, dpaasch@my.wctc.edu
+ * @version 1.00
  */
 public class MenuItem {
-
+    
+    // Variable declarations //
     private int id;
-    private String itemName;  // Menu item name
+    private String itemName =  null;  // Menu item name
     private double itemPrice;  // Menu item price
-    private final String IAE_ERR = " Error: Menu item value cannot be < 0",
-            NPE_ERR = " Error: Menu item value cannot be null or empty";
-
+    private final String IAE_ERR = " Error: Value cannot be 0, less than 0, or null",
+            NPE_ERR = " Error: Value cannot be null or empty";
+    
+    /** 
+     * Default MenuItem constructor
+     */
     public MenuItem() {
     }
 
+    /**
+     * Creates a new MenuItem object by setting the id, itemName and itemPrice
+     * private variables.
+     * @param id : The menu item identifier expressed as an int. Defaults to
+     * null if no value is passed in.
+     * @param itemName : The value of the private variable that identifies the
+     * menu item name. Defaults to null if no value is passed in.
+     * @param itemPrice : The value of the private variable that identifies the
+     * menu item price. Defaults to null if no value is passed in.
+     */
     public MenuItem(int id, String itemName, double itemPrice) {
-        this.id = id;
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
+        setId(id);
+        setItemName(itemName);
+        setItemPrice(itemPrice);
     }
 
     /**
@@ -31,7 +44,7 @@ public class MenuItem {
      * private variable.
      *
      * @return id : The value of the private variable that identifies the menu
-     * item. If there is no value, it is set to null.
+     * item. Defaults to null if no value is passed in.
      */
     public final int getId() {
         return id;
@@ -58,7 +71,7 @@ public class MenuItem {
      * private variable.
      *
      * @return itemName : The value of the private variable that identifies the
-     * menu item name. If there is no value, it is set to null.
+     * menu item name. Defaults to null if no value is passed in.
      */
     public final String getItemName() {
         return itemName;
@@ -69,10 +82,15 @@ public class MenuItem {
      *
      * @param itemName : The menu item name expressed as a String. Defaults to
      * null if no value is passed in.
+     * @throws NullPointerException if itemName is null or an empty string
      *
      */
     public final void setItemName(String itemName) {
+        if (itemName != null || itemName != "") {
         this.itemName = itemName;
+        } else {
+            throw new NullPointerException(NPE_ERR);
+        }
     }
 
     /**
@@ -80,7 +98,7 @@ public class MenuItem {
      * private variable.
      *
      * @return itemPrice : The value of the private variable that identifies the
-     * menu item price. If there is no value, it is set to null.
+     * menu item price. Defaults to null if no value is passed in.
      */
     public final double getItemPrice() {
         return itemPrice;
@@ -91,19 +109,22 @@ public class MenuItem {
      *
      * @param itemPrice : The menu item price expressed as a double. Defaults to
      * null if no value is passed in.
-     *
+     * @throws IllegalArgumentException : if itemPrice parameter < 0
      */
-    public void setItemPrice(double itemPrice) {
+    public final void setItemPrice(double itemPrice) {
+        if (itemPrice >= 0) {
         this.itemPrice = itemPrice;
+        } else {
+            throw new IllegalArgumentException(IAE_ERR);
+        }
     }
 
     // for testing
-    public static void main(String[] args) {
-        MenuItem menuItem = new MenuItem();
-        menuItem.setId(1);
-        menuItem.setItemName(" ");
-        menuItem.setItemPrice(52.73);
-        System.out.println(menuItem.getId() + " " + menuItem.getItemName() + " ... " + menuItem.getItemPrice());
-    }
-
+//    public static void main(String[] args) {
+//        MenuItem menuItem = new MenuItem();
+//        menuItem.setId(1);
+//        menuItem.setItemName(" ");
+//        menuItem.setItemPrice(52.73);
+//        System.out.println(menuItem.getId() + " " + menuItem.getItemName() + " ... " + menuItem.getItemPrice());
+//    }
 }

@@ -28,7 +28,7 @@ public class OrderService {
     }
 
     /**
-     * Formats all double values. Could be moved into a formatter class.
+     * Formatter for all double values. 
      *
      * @param decimal
      * @return
