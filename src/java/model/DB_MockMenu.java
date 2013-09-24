@@ -8,14 +8,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * The MenuDatabase class contains an array of initialized Menu Item objects.  
+ * The DB_MockMenu class contains an array of initialized Menu Item objects.  
  * It provides a methods to retrieve all menu items, or just a single menu item.
  * 
  * @author dawn bykowski, dpaasch@my.wctc.edu
  * @version 1.00
  * 
  */
-public class MenuDatabase {
+public class DB_MockMenu {
 
     // Variable declarations //
     // Map to hold each menu item for retrieval at a later time
@@ -33,11 +33,11 @@ public class MenuDatabase {
         new MenuItem(8, "Mixed Drink", 6.95)};
 
     /**
-     * Creates a new MenuDatabase object that represents the menu items.  The 
+     * Creates a new DB_MockMenu object that represents the menu items.  The 
      * variable m holds the current value from the menuItems array which is 
      * passed to the menuItemMap.
      */
-    public MenuDatabase() {
+    public DB_MockMenu() {
         for (MenuItem m : menuItems) {
             menuItemMap.put(m.getItemName(), m);
         }
@@ -67,7 +67,7 @@ public class MenuDatabase {
     }
     
     /**
-     * Returns the state of the MenuDatabase object
+     * Returns the state of the DB_MockMenu object
      * @return menuItemMap & menuItems objects as Strings
      */ 
     @Override
@@ -102,7 +102,7 @@ public class MenuDatabase {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MenuDatabase other = (MenuDatabase) obj;
+        final DB_MockMenu other = (DB_MockMenu) obj;
         if (!Objects.equals(this.menuItemMap, other.menuItemMap)) {
             return false;
         }
@@ -114,7 +114,7 @@ public class MenuDatabase {
     
     // for testing
 //    public static void main(String[] args) {
-//        MenuDatabase mdb = new MenuDatabase();
+//        DB_MockMenu mdb = new DB_MockMenu();
 //        List<MenuItem> mi = mdb.getAllMenuItems();
 //        System.out.println(" getAllMenuItems: ");
 //        for (MenuItem m : mi) {

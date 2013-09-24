@@ -4,6 +4,9 @@
     Author     : Dawn Bykowski
 --%>
 
+<%@page import="model.MenuItem"%>
+<%@page import="model.MenuItem"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,25 +20,21 @@
     <center>
         <form name="menu" id="menu" action="summary.do" method="POST">
             <h1>Please make your menu selections</h1>
-            <!-- <h3>You may choose only one item from each category.</h3> -->
             <center>
                 <br/>
-                <h3>Entree Choice: </h3>  
-                <input type="checkbox" name="menuItem" id="menuItem" value="Signature Steak"/>Signature Steak
-                &nbsp;&nbsp;
-                <input type="checkbox" name="menuItem" id="menuItem" value="Lobster"/>Lobster
-                <h3>Salad Choice: </h3>
-                <input type="checkbox" name="menuItem" id="menuItem" value="House Salad"/>House Salad
-                &nbsp;&nbsp;
-                <input type="checkbox" name="menuItem" id="menuItem" value="Greek Salad"/>Greek Salad
-                <h3>Side Choice: </h3>
-                <input type="checkbox" name="menuItem" id="menuItem" value="Baked Potato"/>Baked Potato
-                &nbsp;&nbsp;
-                <input type="checkbox" name="menuItem" id="menuItem" value="Rice Pilaf"/>Rice Pilaf
-                <h3>Beverage Choice: </h3>
-                <input type="checkbox" name="menuItem" id="menuItem" value="Soft Drink"/>Soft Drink
-                &nbsp;&nbsp;
-                <input type="checkbox" name="menuItem" id="menuItem" value="Mixed Drink"/>Mixed Drink
+                <% 
+                    List<MenuItem> menuItems = (List<MenuItem>)request.getAttribute("menuItem");
+                for (MenuItem m : menuItems) {
+                    %>
+                    <input type="checkbox" name="menuItem" value="<%= m.getItemName() %>"/>
+                           <%= m.getItemPrice() %><br/>
+                           
+                <% } %>
+                          
+                 <br/>
+                    <br/>
+                    
+                                
                 <br/>
                 <br/>
                 <input type="submit" name="submit" id="submit" value="Submit Order"/>

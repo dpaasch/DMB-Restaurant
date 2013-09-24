@@ -22,8 +22,7 @@
             Object orderedMenuItems = request.getAttribute("menuItems");
             if (orderedMenuItems != null) {
                 menuItems = ( ArrayList<MenuItem> ) orderedMenuItems;
-            }
-            
+            }            
         %>
  <% 
             for (MenuItem m : menuItems) {  %>

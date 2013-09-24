@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.SQLException;
@@ -10,6 +6,7 @@ import java.util.List;
 /**
  *
  * @author Dawn Bykowski
+ * @version 1.00
  */
 public interface IMenuDAO {
     

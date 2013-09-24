@@ -1,7 +1,7 @@
 package model;
 
 import db.accessor.DBAccessor;
-import db.accessor.DBGeneric;
+import db.accessor.DB_MySQL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
-    private static DBAccessor db = null;
+    private static DBAccessor db = new DB_MySQL();
     private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
             FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
     private static final String IAE_ERR = "Error: URL not found or empty.",
@@ -22,12 +22,10 @@ public class MenuDAO implements IMenuDAO {
             SQL_ERR = "Error: Unable to connect to the database.";
 
     /**
-     * Creates a new MenuDAO object by setting the DBAccessor private variable.
-     *
-     * @param db : The DBAccessor identifier expressed as an DBAccessor object.
+     * Default Constructor creates a new MenuDAO object.
+     * 
      */
-    public MenuDAO(DBAccessor db) {
-        setDb(db);
+    public MenuDAO() {
     }
 
     /**
@@ -48,7 +46,8 @@ public class MenuDAO implements IMenuDAO {
      */
     private void openDBConnection() throws IllegalArgumentException, ClassNotFoundException, SQLException {
         try {
-            db.openDBConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/restaurant",
+            db.openDBConnection("com.mysql.jdbc.Driver", 
+                    "jdbc:mysql://localhost:3306/restaurant",
                     "root", "dawn00");
         } catch (IllegalArgumentException iae) {
             System.err.println(IAE_ERR);
@@ -136,7 +135,7 @@ public class MenuDAO implements IMenuDAO {
 
     // for testing
     public static void main(String[] args) throws SQLException, Exception {
-        MenuDAO dao = new MenuDAO(new DBGeneric());
+        MenuDAO dao = new MenuDAO();
         List<MenuItem> allMenuItems = dao.getAllMenuItems();
         System.out.println(" getAllMenuItems() ...");
         for (MenuItem m : allMenuItems) {

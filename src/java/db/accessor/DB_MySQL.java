@@ -15,10 +15,11 @@ import java.util.Map;
  *
  * @author Dawn Bykowski
  */
-public class DBGeneric implements DBAccessor {
+public class DB_MySQL implements DBAccessor {
 
     // Variable declarations //
     private Connection dbConnection;
+    private String url, userName, password;
     private final String IAE_ERR = "Error: URL not found or empty.",
             CNF_ERR = "Error: Failed to load the JDBC driver.",
             SQL_ERR = "Error: Unable to connect to the database.";
@@ -201,7 +202,7 @@ public class DBGeneric implements DBAccessor {
     // for testing
     public static void main(String[] args) throws IllegalArgumentException,
             ClassNotFoundException, SQLException {
-        DBGeneric db = new DBGeneric();
+        DB_MySQL db = new DB_MySQL();
         List menuList;
 
         try {
