@@ -5,8 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%response.sendRedirect("RestaurantMenuController");%>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,9 +12,12 @@
         <title>Restaurant Home</title>
     </head>
     <body>
-        
+
     <center>
-        <button onclick="location.href = 'menu.jsp';" name="placeOrder" 
+        <h1>Welcome to The Blue Bistro!</h1>
+        <img src="images/bistro.jpg">
+        <br/><br/>
+        <button onclick="location.href = 'RestaurantMenuController';" name="placeOrder" 
                 id="placeOrder"/>
         <p>Place Order</p>
         <br/>

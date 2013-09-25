@@ -18,14 +18,9 @@
     <body>
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
-            
-                <h1>Welcome to The Blue Bistro!</h1>
-                <img src="images/bistro.jpg">
-                <br/><br/>
                 <h1>Please make your menu selections</h1>
             <center>
                 <br/>
-
                 <%
                     List<MenuItem> menuItems = null;
                     Object menu = request.getAttribute("menuItems");
