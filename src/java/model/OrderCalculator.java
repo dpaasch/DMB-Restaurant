@@ -65,7 +65,7 @@ public class OrderCalculator {
 
     public double getTip() {
         tip = ZERO;
-        tip = tax * TIP_RATE;
+        tip = subTotal * TIP_RATE;
         return formatValues(tip);
     }
 

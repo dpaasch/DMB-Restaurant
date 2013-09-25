@@ -17,7 +17,7 @@
     </head>
     <body>
     <center>
-        <form name="menu" id="menu" action="RestaurantMenuController" method="POST">
+        <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
             
                 <h1>Welcome to The Blue Bistro!</h1>
                 <img src="images/bistro.jpg">
@@ -36,9 +36,12 @@
                     for (MenuItem menuItem : menuItems) {
                         int id = menuItem.getId();
                         String itemName = menuItem.getItemName();
-                %>
+                        %>
+                        <h3>
                 <input type="checkbox" name="orderedItems[]" value="<%= id%>" /><%= itemName%><br/>
+                
                 <br/>
+                </h3>
                 <%
                     }
                 %>
