@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home - Blue Bistro
+    Document   : index - Blue Bistro
     Created on : Sep 11, 2013, 8:38:52 PM
     Author     : Dawn Bykowski
 --%>

@@ -23,11 +23,11 @@
             <center>
                 <br/>
                 <% 
-                    List<MenuItem> menuItems = (List<MenuItem>)request.getAttribute("menuItem");
-                for (MenuItem m : menuItems) {
+                    List<MenuItem> allMenuItems = (List<MenuItem>)request.getAttribute("menuItems");
+                for (MenuItem m : allMenuItems) {
                     %>
-                    <input type="checkbox" name="menuItem" value="<%= m.getItemName() %>"/>
-                           <%= m.getItemPrice() %><br/>
+                    <input type="checkbox" name="menuItems" value="<%= m.getId() %>"/>
+                           <%= m.getItemName() %>  <%= m.getItemPrice() %><br/>
                            
                 <% } %>
                           

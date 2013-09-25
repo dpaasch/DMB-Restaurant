@@ -26,14 +26,12 @@ public class MenuItem {
     /**
      * Creates a new MenuItem object by setting the id, itemName and itemPrice
      * private variables.
-     * @param id : The menu item identifier expressed as an int. Defaults to
-     * null if no value is passed in.
      * @param itemName : The value of the private variable that identifies the
      * menu item name. Defaults to null if no value is passed in.
      * @param itemPrice : The value of the private variable that identifies the
      * menu item price. Defaults to null if no value is passed in.
      */
-    public MenuItem(int id, String itemName, double itemPrice) {
+    public MenuItem(String itemName, double itemPrice) {
         setId(id);
         setItemName(itemName);
         setItemPrice(itemPrice);
@@ -86,7 +84,7 @@ public class MenuItem {
      *
      */
     public final void setItemName(String itemName) {
-        if (itemName != null || itemName != "") {
+        if (itemName != null || !"".equals(itemName)) {
         this.itemName = itemName;
         } else {
             throw new NullPointerException(NPE_ERR);
@@ -120,12 +118,12 @@ public class MenuItem {
     }
 
     // for testing
-//    public static void main(String[] args) {
-//        MenuItem menuItem = new MenuItem();
-//        menuItem.setId(1);
-//        menuItem.setItemName(" ");
-//        menuItem.setItemPrice(52.73);
-//        System.out.println(menuItem.getId() + " " + menuItem.getItemName() 
-//                + " ... " + menuItem.getItemPrice());
-//    }
+    public static void main(String[] args) {
+        MenuItem menuItem = new MenuItem();
+        menuItem.setId(1);
+        menuItem.setItemName("Surf & Turf");
+        menuItem.setItemPrice(52.73);
+        System.out.println(menuItem.getId() + " " + menuItem.getItemName() 
+                + " ... " + menuItem.getItemPrice());
+    }
 }

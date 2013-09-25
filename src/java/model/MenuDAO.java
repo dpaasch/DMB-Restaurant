@@ -14,7 +14,7 @@ import java.util.Map;
 public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
-    private static DBAccessor db = new DB_MySQL();
+    private DBAccessor db = new DB_MySQL();
     private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
             FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
     private static final String IAE_ERR = "Error: URL not found or empty.",
@@ -79,10 +79,10 @@ public class MenuDAO implements IMenuDAO {
      * menu items. Defaults to null if no value is passed in.
      */
     @Override
-    public List getAllMenuItems() throws SQLException, Exception {
+    public List<MenuItem> getAllMenuItems() throws SQLException, Exception {
         this.openDBConnection();
         List<Map> rawData = new ArrayList<Map>();
-        List<MenuItem> menuItems = new ArrayList<MenuItem>();
+        List<MenuItem> allMenuItems = new ArrayList<MenuItem>();
         try {
             rawData = db.findAllRecords(FIND_ALL_MENU_ITEMS, true);
         } catch (SQLException sql) {
@@ -101,9 +101,9 @@ public class MenuDAO implements IMenuDAO {
             menuItem.setItemName(name);
             String price = map.get("item_price").toString();
             menuItem.setItemPrice(new Double(price));
-            menuItems.add(menuItem);
+            allMenuItems.add(menuItem);
         }
-        return menuItems;
+        return allMenuItems;
     }
 
     @Override
@@ -114,6 +114,7 @@ public class MenuDAO implements IMenuDAO {
             record = db.findRecordById("menu", "menu_id", new Integer(id), true);
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
+            // NOTE: Need to use a better exception
         } catch (Exception e) {
             throw new Exception(e.getLocalizedMessage());
         }
@@ -125,10 +126,12 @@ public class MenuDAO implements IMenuDAO {
         return menuItem;
     }
 
+    @Override
     public final DBAccessor getDb() {
         return db;
     }
 
+    @Override
     public final void setDb(DBAccessor db) {
         this.db = db;
     }
@@ -144,7 +147,7 @@ public class MenuDAO implements IMenuDAO {
 
         String[] orderedMenuItems = {"1", "2", "3"};
         List<MenuItem> mi = new ArrayList<>();
-        System.out.println("\n\n getMenuItemById() ... ");
+        System.out.println("\n getMenuItemById() ... ");
         for (String s : orderedMenuItems) {
             MenuItem m = dao.getMenuItemById(s);
             mi.add(m);

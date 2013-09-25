@@ -38,10 +38,8 @@ public class MenuController extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             // NOTE: need to fix Exception - should be more specific 09/24/13
-            // Instantiate MenuService
-            MenuService menuService = new MenuService();
-            // Create a list of MenuItem(s)
-            List<MenuItem> allMenuItems = menuService.getAllMenuItems();
+            MenuService ms = new MenuService();
+            List<MenuItem> allMenuItems = ms.getAllMenuItems();
             request.setAttribute("menuItems", allMenuItems);
 
             // This object lets you forward both the request and response
