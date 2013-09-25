@@ -10,12 +10,14 @@ import java.util.List;
  * @version 1.00
  */
 public interface IMenuDAO {
+//
+//    public abstract DBAccessor getDb();
+//
+//    public abstract void setDb(DBAccessor db);
 
-    public abstract DBAccessor getDb();
+    public abstract List<MenuItem> getAllMenuItems() throws DataAccessException;
 
-    public abstract void setDb(DBAccessor db);
-
-    public abstract List<MenuItem> getAllMenuItems() throws SQLException, Exception;
-
-    public abstract MenuItem getMenuItemById(String id) throws SQLException, Exception;
+//    public List getOrderedMenuItems(String[] key) throws SQLException, Exception;
+    
+    public abstract MenuItem getMenuItemById(String id) throws DataAccessException;
 }

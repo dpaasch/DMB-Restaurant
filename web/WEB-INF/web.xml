@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>MenuController</servlet-name>
-        <servlet-class>controller.MenuController</servlet-class>
+        <servlet-name>RestaurantMenuController</servlet-name>
+        <servlet-class>controller.RestaurantMenuController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OrderController</servlet-name>
-        <servlet-class>controller.OrderController</servlet-class>
+        <servlet-name>RestaurantOrderController</servlet-name>
+        <servlet-class>controller.RestaurantOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MenuController</servlet-name>
-        <url-pattern>/summary.do</url-pattern>
+        <servlet-name>RestaurantMenuController</servlet-name>
+        <url-pattern>/RestaurantMenuController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OrderController</servlet-name>
-        <url-pattern>/OrderController</url-pattern>
+        <servlet-name>RestaurantOrderController</servlet-name>
+        <url-pattern>/RestaurantOrderController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -9,18 +9,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DataAccessException;
 import model.MenuItem;
 import model.MenuService;
 
 /**
  *
  * @author Dawn Bykowski
- * @version 1.00
  */
-public class MenuController extends HttpServlet {
+public class RestaurantMenuController extends HttpServlet {
 
-    // variable declarations //
-    private static final String RESULT_PAGE = "/menu.jsp";
+    private final static String RESULT_PAGE = "/menu.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -33,22 +32,17 @@ public class MenuController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException, DataAccessException {
 
-            // NOTE: need to fix Exception - should be more specific 09/24/13
-            MenuService ms = new MenuService();
-            List<MenuItem> allMenuItems = ms.getAllMenuItems();
-            request.setAttribute("menuItems", allMenuItems);
+        MenuService ms = new MenuService();
+        List<MenuItem> menuItems = ms.getAllMenuItems();
+        request.setAttribute("menuItems", menuItems);
 
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // This object lets you forward both the request and response
+        // objects to a destination page
+        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +58,11 @@ public class MenuController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -79,7 +77,11 @@ public class MenuController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

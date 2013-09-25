@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import db.accessor.DB_MySQL;
 import java.util.List;
 
 /**
@@ -14,15 +14,13 @@ public class MenuService {
 
     // Variable declarations //
     private IMenuDAO dao;
-    // Instantiates the MenuDatabase for retrieval of menu items
 //    private MenuDatabase mdb = new MenuDatabase();
-
 
     /**
      * Default MenuService constructor
      */
     public MenuService() {
-        dao = new MenuDAO();        
+        dao = new MenuDAO(new DB_MySQL());
     }
 
     /**
@@ -32,7 +30,7 @@ public class MenuService {
      * @return the value of the private variable identifying the allMenuItems
      * object
      */
-    public List getAllMenuItems() throws Exception {         
+    public List getAllMenuItems() throws DataAccessException {
         return dao.getAllMenuItems();
     }
 
@@ -46,31 +44,23 @@ public class MenuService {
 //     * object.
 //     * @throws NullPointerException if key is null
 //     */
-//    public List getOrderedMenuItems(String[] key) throws NullPointerException {
-//        List<MenuItem> orderedMenuItem = new ArrayList<MenuItem>();
-//        if (key != null) {
-//            for (String s : key) {
-////                orderedMenuItem.add(mdb.getMenuItem(s));
-//            }
-//        } else {
-//            throw new NullPointerException(NPE_ERR);
-//        }
-//        return orderedMenuItem;
+//    public List getOrderedMenuItems(String[] key) throws NullPointerException, SQLException, Exception {
+//        return dao.getOrderedMenuItems(key);
 //    }
-    
-// for testing
+
+    // for testing
     public static void main(String[] args) throws Exception {
         MenuService ms = new MenuService();
         List<MenuItem> allMenuItems = ms.getAllMenuItems();
         for (MenuItem m : allMenuItems) {
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());            
+            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-        
-//        String[] mItem = {"Signature Steak", "Baked Potato"};
-//      List<MenuItem> orderedMenuItems = ms.getOrderedMenuItems(mItem);
+
+//        String[] mItem = {"1", "4"};
+//        List<MenuItem> orderedMenuItems = ms..getOrderedMenuItems(mItem);
 //        System.out.println("\nOrdered Items:");
 //        for (MenuItem m : orderedMenuItems) {
-//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());            
-//        } 
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
     }
 }

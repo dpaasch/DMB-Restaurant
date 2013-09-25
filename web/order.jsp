@@ -18,7 +18,7 @@
     <body>
         <h1>Your Blue Bistro Order</h1>
         <%
-            ArrayList<MenuItem> orderedItems = null;
+            List<MenuItem> menuItems = null;
             Object orderedMenuItems = request.getAttribute("menuItems");
             if (orderedMenuItems != null) {
                 menuItems = ( ArrayList<MenuItem> ) orderedMenuItems;

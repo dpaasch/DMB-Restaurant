@@ -4,6 +4,7 @@ import db.accessor.DBAccessor;
 import db.accessor.DB_MySQL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,10 @@ public class MenuDAO implements IMenuDAO {
 
     /**
      * Default Constructor creates a new MenuDAO object.
-     * 
+     *
      */
-    public MenuDAO() {
+    public MenuDAO(DBAccessor db) {
+        setDb(db);
     }
 
     /**
@@ -46,7 +48,7 @@ public class MenuDAO implements IMenuDAO {
      */
     private void openDBConnection() throws IllegalArgumentException, ClassNotFoundException, SQLException {
         try {
-            db.openDBConnection("com.mysql.jdbc.Driver", 
+            db.openDBConnection("com.mysql.jdbc.Driver",
                     "jdbc:mysql://localhost:3306/restaurant",
                     "root", "dawn00");
         } catch (IllegalArgumentException iae) {
@@ -79,16 +81,17 @@ public class MenuDAO implements IMenuDAO {
      * menu items. Defaults to null if no value is passed in.
      */
     @Override
-    public List<MenuItem> getAllMenuItems() throws SQLException, Exception {
-        this.openDBConnection();
+    public List<MenuItem> getAllMenuItems() throws DataAccessException {
+
         List<Map> rawData = new ArrayList<Map>();
-        List<MenuItem> allMenuItems = new ArrayList<MenuItem>();
+        List<MenuItem> records = new ArrayList<MenuItem>();
         try {
+            this.openDBConnection();
             rawData = db.findAllRecords(FIND_ALL_MENU_ITEMS, true);
         } catch (SQLException sql) {
-            throw new SQLException(SQL_ERR);
+            throw new DataAccessException(SQL_ERR);
         } catch (Exception e) {
-            throw new Exception(e.getLocalizedMessage());
+            throw new DataAccessException(e.getLocalizedMessage());
         }
 
         MenuItem menuItem = null;
@@ -101,44 +104,63 @@ public class MenuDAO implements IMenuDAO {
             menuItem.setItemName(name);
             String price = map.get("item_price").toString();
             menuItem.setItemPrice(new Double(price));
-            allMenuItems.add(menuItem);
+            records.add(menuItem);
         }
-        return allMenuItems;
+        return records;
     }
 
+    /**
+     * Returns the list of ordered menu items retrieved from the mock database
+     * (MenuDatabase).
+     *
+     * @param key : the identifier for finding the menu item. Defaults to null
+     * if no value is passed in.
+     * @return the value of the private variable identifying the orderedMenuItem
+     * object.
+     * @throws NullPointerException if key is null
+     */
+//    @Override
+//    public List getOrderedMenuItems(String[] key) throws SQLException, Exception {
+//        List<MenuItem> orderedMenuItem = new ArrayList<MenuItem>();
+//        for (String s : key) {
+//            orderedMenuItem.add(getMenuItemById(s));
+////                orderedMenuItem.add(mdb.getMenuItem(s));            }
+//        }
+//        return orderedMenuItem;
+//    }
+
     @Override
-    public MenuItem getMenuItemById(String id) throws SQLException, Exception {
-        this.openDBConnection();
-        Map record;
+    public MenuItem getMenuItemById(String id) throws DataAccessException {
+        Map rawData = new HashMap();
+        
         try {
-            record = db.findRecordById("menu", "menu_id", new Integer(id), true);
+            this.openDBConnection();
+            rawData = db.findRecordById("menu", "menu_id", new Integer(id), true);
         } catch (SQLException sql) {
-            throw new SQLException(SQL_ERR);
+            throw new DataAccessException(SQL_ERR);
             // NOTE: Need to use a better exception
         } catch (Exception e) {
-            throw new Exception(e.getLocalizedMessage());
+            throw new DataAccessException(e.getLocalizedMessage());
         }
 
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(new Integer(record.get("menu_id").toString()));
-        menuItem.setItemName(record.get("item_name").toString());
-        menuItem.setItemPrice(new Double(record.get("item_price").toString()));
+        menuItem.setId(new Integer(rawData.get("menu_id").toString()));
+        menuItem.setItemName(rawData.get("item_name").toString());
+        menuItem.setItemPrice(new Double(rawData.get("item_price").toString()));
         return menuItem;
     }
 
-    @Override
     public final DBAccessor getDb() {
         return db;
     }
 
-    @Override
     public final void setDb(DBAccessor db) {
         this.db = db;
     }
 
     // for testing
-    public static void main(String[] args) throws SQLException, Exception {
-        MenuDAO dao = new MenuDAO();
+    public static void main(String[] args) throws DataAccessException {
+        MenuDAO dao = new MenuDAO(new DB_MySQL());
         List<MenuItem> allMenuItems = dao.getAllMenuItems();
         System.out.println(" getAllMenuItems() ...");
         for (MenuItem m : allMenuItems) {

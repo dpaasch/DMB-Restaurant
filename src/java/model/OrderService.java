@@ -1,43 +1,37 @@
 package model;
 
-import db.accessor.DBAccessor;
 import db.accessor.DB_MySQL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
+ * This class is solely responsible for all items related to the actual customer
+ * order.
  *
- *
- * @author Dawn Bykowski, dpaasch@my.wctc.edu
- * @version 1.00
+ * @author Dawn Bykowski
  */
 public class OrderService {
 
-    private IMenuDAO menuDAO;
+    private IMenuDAO dao;
     // this is the list of items the customer ordered
-    ArrayList<MenuItem> orderedMenuItems = new ArrayList<MenuItem>();
-    OrderCalculator orderCalculator = new OrderCalculator(orderedMenuItems);
-
+    private ArrayList<MenuItem> orderedMenuItems = new ArrayList<MenuItem>();
+    private OrderCalculator orderCalculator = new OrderCalculator(orderedMenuItems);
+    
+    
     // Constructor: Takes the choices made by the customer for the order, as parameters.
-    public OrderService(IMenuDAO menuDAO, String[] s) throws SQLException, Exception {
-        this.menuDAO = menuDAO;
+    public OrderService(IMenuDAO dao, String[] s) throws DataAccessException {
+        setDao(dao);
         addToOrderedMenuItems(s);
     }
 
-    private void addToOrderedMenuItems(String[] s) throws SQLException, Exception {
-        for (String menuItemString : s) {
-            orderedMenuItems.add(menuDAO.getMenuItemById(menuItemString));
+    private void addToOrderedMenuItems(String[] s) throws DataAccessException {
+        for (String string : s) {
+            orderedMenuItems.add(dao.getMenuItemById(string));
         }
-    }
-
-    public IMenuDAO getMenuDAO() {
-        return menuDAO;
-    }
-
-    public final void setMenuDAO(IMenuDAO menuDAO) {
-        this.menuDAO = menuDAO;
     }
 
     public ArrayList<MenuItem> getOrderedMenuItems() {
@@ -48,12 +42,21 @@ public class OrderService {
         this.orderedMenuItems = orderedMenuItems;
     }
 
+    public IMenuDAO getDao() {
+        return dao;
+    }
+
+    public final void setDao(IMenuDAO dao) {
+        this.dao = dao;
+    }
+
+
     public double getSubTotal() {
         return orderCalculator.getSubTotal();
     }
 
     public double getTax() {
-        return orderCalculator.getTax();
+return orderCalculator.getTax();
     }
 
     public double getTotal() {
@@ -69,10 +72,9 @@ public class OrderService {
     }
 
     // for testing
-    public static void main(String[] args) throws SQLException, Exception {
-        String[] menuItems = {"1", "8"};
-        OrderService orderService = new OrderService(new MenuDAO(), menuItems);
-        System.out.println("Ordered Menu Items ...");
+    public static void main(String[] args) throws DataAccessException {
+        String[] mItem = {"1", "3"};
+        OrderService orderService = new OrderService(new MenuDAO(new DB_MySQL()), mItem);
         List<MenuItem> orderedMenuItems = orderService.getOrderedMenuItems();
         for (MenuItem m : orderedMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
@@ -80,8 +82,7 @@ public class OrderService {
         double subTotal = orderService.getSubTotal();
         double tax = orderService.getTax();
         double total = orderService.getTotal();
-        System.out.println("");
-        System.out.println("SubTotal: $" + subTotal + "\nTax: $" + tax 
-                + "\nTotal: $" + total);
+        System.out.println(subTotal + "..." + tax + "..." + total);
+
     }
 }

@@ -1,28 +1,21 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.MenuDAO;
-import model.MenuItem;
-import model.OrderService;
 
 /**
  *
- * @author Dawn Bykowski, dpaasch@mu.wctc.edu
- * @version 1.00
+ * @author tim
  */
-public class OrderController extends HttpServlet {
-
-    private final static String RESULT_PAGE = "/order.jsp";
-
+public class RestaurantOrderController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -36,35 +29,22 @@ public class OrderController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            response.setContentType("text/html;charset=UTF-8");
-            String[] menuItems = request.getParameterValues("menuItems[]");
-            
-            OrderService orderService = new OrderService(new MenuDAO(), menuItems);
-            ArrayList<MenuItem> orderedMenuItems = orderService.getOrderedMenuItems();
-            double subTotal = orderService.getSubTotal();
-            double tax = orderService.getTax();
-            double total = orderService.getTotal();
-            double tip = orderService.getTip();
-            double grandTotal = orderService.getGrandTotal();
-
-            request.setAttribute("orderedMenuItems", orderedMenuItems);
-            request.setAttribute("subTotal", subTotal);
-            request.setAttribute("tax", tax);
-            request.setAttribute("total", total);
-            request.setAttribute("tip", tip);
-            request.setAttribute("grandTotal", grandTotal);
-
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RestaurantOrderController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RestaurantOrderController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
+            out.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

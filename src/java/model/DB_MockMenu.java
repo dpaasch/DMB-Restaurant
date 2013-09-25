@@ -23,14 +23,14 @@ public class DB_MockMenu {
     
     // Array of menuItems: Consists of a unique identifier, item name, and item price
     private MenuItem[] menuItems = {
-        new MenuItem("Signature Steak", 25.95),
-        new MenuItem("Lobster", 44.75),
-        new MenuItem("House Salad", 4.95),
-        new MenuItem("Greek Salad", 6.95),
-        new MenuItem("Baked Potato", 3.50),
-        new MenuItem("Rice Pilaf", 4.75),
-        new MenuItem("Soft Drink", 1.95),
-        new MenuItem("Mixed Drink", 6.95)};
+        new MenuItem(1, "Signature Steak", 25.95),
+        new MenuItem(2, "Lobster", 44.75),
+        new MenuItem(3, "House Salad", 4.95),
+        new MenuItem(4, "Greek Salad", 6.95),
+        new MenuItem(5, "Baked Potato", 3.50),
+        new MenuItem(6, "Rice Pilaf", 4.75),
+        new MenuItem(7, "Soft Drink", 1.95),
+        new MenuItem(8, "Mixed Drink", 6.95)};
 
     /**
      * Creates a new DB_MockMenu object that represents the menu items.  The 
@@ -115,9 +115,9 @@ public class DB_MockMenu {
     // for testing
 //    public static void main(String[] args) {
 //        DB_MockMenu mdb = new DB_MockMenu();
-//        List<MenuItem> mi = mdb.getAllMenuItems();
+//        List<MenuItem> allMenuItems = mdb.getAllMenuItems();
 //        System.out.println(" getAllMenuItems: ");
-//        for (MenuItem m : mi) {
+//        for (MenuItem m : allMenuItems) {
 //            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
 //        }
 //        System.out.println("\n getMenuItem: " + mdb.getMenuItem("Lobster").getItemName());
