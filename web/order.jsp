@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="model.MenuItem"%>
-<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,14 +17,19 @@
     <body>
         <h1>Your Blue Bistro Order</h1>
         <%
-            List<MenuItem> menuItems = null;
-            Object orderedMenuItems = request.getAttribute("menuItems");
-            if (orderedMenuItems != null) {
-                menuItems = ( ArrayList<MenuItem> ) orderedMenuItems;
+            Object subTotal = request.getAttribute("subTotal");
+            Object tax = request.getAttribute("tax");
+            Object total = request.getAttribute("total");
+            Object tip = request.getAttribute("tip");
+            Object grandTotal = request.getAttribute("grandTotal");
+            ArrayList<MenuItem> orderedMenuItems = null;
+            Object orderedItems = request.getAttribute("orderedMenuItems");
+            if (orderedItems != null) {
+                orderedMenuItems = ( ArrayList<MenuItem> ) orderedItems;
             }            
         %>
  <% 
-            for (MenuItem m : menuItems) {  %>
+            for (MenuItem m : orderedMenuItems) {  %>
             <h3> <%= m.getItemName() + " ... " + m.getItemPrice() %>
                 <% } %>
             </h3>
