@@ -28,9 +28,9 @@ public interface DBAccessor {
      * invalid url could cause this; or, a database that is no longer available
      * due to network or access permission problems.
      */
-    public abstract void openDBConnection(String driverClassName, String url, String userName,
-            String password) throws IllegalArgumentException, ClassNotFoundException,
-            SQLException;
+    public abstract void openDBConnection(String driverClassName, String url, 
+            String userName, String password) throws IllegalArgumentException, 
+            ClassNotFoundException, SQLException;
 
     /**
      * A utility method used to explicitly close a db connection. Pooled
@@ -79,5 +79,8 @@ public interface DBAccessor {
      * @throws Exception for all other problems
      */
     public abstract Map findRecordById(String table, String pkField, Object keyValue, 
+            boolean closeConnection) throws SQLException, Exception;
+    
+    public int deleteRecords(String table, String whereField, Object whereValue, 
             boolean closeConnection) throws SQLException, Exception;
 }

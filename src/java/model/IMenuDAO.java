@@ -1,7 +1,5 @@
 package model;
 
-import db.accessor.DBAccessor;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,8 +14,15 @@ public interface IMenuDAO {
 //    public abstract void setDb(DBAccessor db);
 
     public abstract List<MenuItem> getAllMenuItems() throws DataAccessException;
-
-//    public List getOrderedMenuItems(String[] key) throws SQLException, Exception;
     
     public abstract MenuItem getMenuItemById(String id) throws DataAccessException;
+    
+    /**
+     *
+     * @param menuItem
+     * @throws DataAccessException
+     * @throws Exception
+     */
+    public abstract int deleteMenuItems(String menuId) throws DataAccessException, Exception;
+    
 }

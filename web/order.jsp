@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <title>Restaurant Order Summary</title>
+        <title>Blue Bistro Order Summary</title>
     </head>
     <body>
         <h1>Your Blue Bistro Order</h1>
@@ -25,14 +25,14 @@
             ArrayList<MenuItem> orderedMenuItems = null;
             Object orderedItems = request.getAttribute("orderedMenuItems");
             if (orderedItems != null) {
-                orderedMenuItems = ( ArrayList<MenuItem> ) orderedItems;
-            }            
+                orderedMenuItems = (ArrayList<MenuItem>) orderedItems;
+            }
         %>
- <% 
-            for (MenuItem m : orderedMenuItems) {  %>
-            <h3> <%= m.getItemName() + " ... " + m.getItemPrice() %>
-                <% } %>
-            </h3>
+        <%
+     for (MenuItem m : orderedMenuItems) {%>
+        <h3> <%= m.getItemName() + " ... " + m.getItemPrice()%>
+            <% }%>
+        </h3>
 
         <br/>
         <h4> 
@@ -66,9 +66,9 @@
             <br/>
             <center>
                 <input type="submit" name="submit" id="submit" 
-                       onclick="location.href = 'menu.jsp';" value="Place another order"/>   
+                       onclick="location.href = 'RestaurantMenuController';" value="Place another order"/>   
             </center>
             <br/>
-            <br/> <a href="home.jsp" style="font-style: italic">The Blue Bistro Home</a>
+            <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
     </body>
 </html>

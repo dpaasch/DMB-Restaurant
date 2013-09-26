@@ -9,14 +9,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <title>Restaurant Home</title>
+        <title>Blue Bistro Home</title>
     </head>
     <body>
-
     <center>
         <h1>Welcome to The Blue Bistro!</h1>
+        <br/>    
         <img src="images/bistro.jpg">
-        <br/><br/>
+        <br/>
         <button onclick="location.href = 'RestaurantMenuController';" name="placeOrder" 
                 id="placeOrder"/>
         <p>Place Order</p>
@@ -24,7 +24,9 @@
     </button>
     <br/>
     <br/>
-    <img src="images/bistro.jpg">
-</center>
+</center> 
+    
+    <br/> 
+    <br/> <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a>
 </body>
 </html>

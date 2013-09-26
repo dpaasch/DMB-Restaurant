@@ -1,6 +1,7 @@
 package model;
 
 import db.accessor.DB_MySQL;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -34,19 +35,9 @@ public class MenuService {
         return dao.getAllMenuItems();
     }
 
-//    /**
-//     * Returns the list of ordered menu items retrieved from the mock database
-//     * (MenuDatabase).
-//     *
-//     * @param key : the identifier for finding the menu item. Defaults to null
-//     * if no value is passed in.
-//     * @return the value of the private variable identifying the orderedMenuItem
-//     * object.
-//     * @throws NullPointerException if key is null
-//     */
-//    public List getOrderedMenuItems(String[] key) throws NullPointerException, SQLException, Exception {
-//        return dao.getOrderedMenuItems(key);
-//    }
+    public int deleteItem(String id) throws SQLException, Exception {
+        return dao.deleteMenuItems(id);
+    }
 
     // for testing
     public static void main(String[] args) throws Exception {
