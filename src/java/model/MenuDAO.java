@@ -19,7 +19,7 @@ public class MenuDAO implements IMenuDAO {
     // Variable declarations //
     private DBAccessor db;
     private final String DRIVER_CLASS = "com.mysql.jdbc.Driver", 
-            URL = "jdbc:mysql://localhost:3306/menu", USERNAME = "root", 
+            URL = "jdbc:mysql://localhost:3306/restaurant", USERNAME = "root", 
             PASSWORD = "dawn00";
     private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
             FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";

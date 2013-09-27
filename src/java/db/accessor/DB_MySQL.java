@@ -42,26 +42,16 @@ public class DB_MySQL implements DBAccessor {
      * due to network or access permission problems.
      */
     @Override
-    public void openDBConnection(String driverClassName, String url,
-            String userName, String password) throws IllegalArgumentException,
-            ClassNotFoundException, SQLException {
-        if (url == null || url.length() <= 0) {
-            throw new IllegalArgumentException(IAE_ERR);
-        } else {
-            try {
-                userName = (userName == null) ? "" : userName;
-                password = (password == null) ? "" : password;
-                Class.forName(driverClassName);
-                dbConnection = DriverManager.getConnection(url, userName, password);
-            } catch (ClassNotFoundException cnf) {
-                System.exit(1);  // terminate the program
-                throw new ClassNotFoundException(CNF_ERR);
-            } catch (SQLException sql) {
-                System.exit(1);  // terminate the program
-                throw new SQLException(SQL_ERR);
-            }
-        }
-    }
+    public void openDBConnection(String driverClassName, String url, String username, String password) 
+	throws IllegalArgumentException, ClassNotFoundException, SQLException
+	{
+		String msg = "Error: url is null or zero length!";
+		if( url == null || url.length() == 0 ) throw new IllegalArgumentException(msg);
+		username = (username == null) ? "" : username;
+		password = (password == null) ? "" : password;
+		Class.forName (driverClassName);
+		dbConnection = DriverManager.getConnection(url, username, password);
+	}
 
     /**
      * A utility method to explicitly close a db connection. Pooled connections

@@ -17,7 +17,7 @@
         <br/>    
         <img src="images/bistro.jpg">
         <br/>
-        <button onclick="location.href = 'RestaurantMenuController';" name="placeOrder" 
+        <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" 
                 id="placeOrder"/>
         <p>Place Order</p>
         <br/>
@@ -27,6 +27,6 @@
 </center> 
     
     <br/> 
-    <br/> <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a>
+    <br/> <!--<a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a> -->
 </body>
 </html>
