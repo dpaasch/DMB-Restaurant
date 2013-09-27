@@ -17,8 +17,14 @@
     <body>
         <h1>Blue Bistro Administration</h1>
         <p> Select the menu item you wish to modify</p>
+        <h4>
         <table>
-                                <%
+            <tr>
+                <td>&nbsp;</td>
+                <td>Menu Item</td>
+                <td>&nbsp;</td>
+                <td>Menu Price</td>
+                <%
                         List<MenuItem> menuItems = null;
                         Object menu = request.getAttribute("menuItems");
                         if (menu != null) {
@@ -29,12 +35,20 @@
                             int id = menuItem.getId();
                             String itemName = menuItem.getItemName();
                     %>
-            <tr>
-                <td><th>Menu Item</th></td>
-                <td><th>Menu Price</th></td>
-            </tr>
+                    <h3>
+                        <input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>
+                    </h3>
+                    <%
+                        }
+                    %>
+            <br/>
+            <input type="submit" name="submit" id="submit" value="Submit Order"/>
         </table>
+        </h4>
+    </center>
+</form>
+</center>
 
-    </body>
+</body>
 </html>
 

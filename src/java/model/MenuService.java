@@ -35,8 +35,7 @@ public class MenuService {
         return dao.getAllMenuItems();
     }
 
-    public int deleteItem(String id) throws SQLException, Exception {
-        return dao.deleteMenuItems(id);
+    public void deleteItem(MenuItem menuItem) throws SQLException, Exception {
     }
 
     // for testing

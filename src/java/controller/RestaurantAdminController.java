@@ -38,7 +38,8 @@ public class RestaurantAdminController extends HttpServlet {
 
         MenuService ms = new MenuService();
         List<MenuItem> menuItems = ms.getAllMenuItems();
-                request.setAttribute("menuItems", menuItems);
+
+        request.setAttribute("menuItems", menuItems);
 
         // This object lets you forward both the request and response
         // objects to a destination page

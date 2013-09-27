@@ -23,7 +23,7 @@ public interface IMenuDAO {
      * @throws DataAccessException
      * @throws Exception
      */
-    public abstract int deleteMenuItems(String menuId) throws DataAccessException, Exception;
+    public abstract void deleteMenuItems(MenuItem menuItem) throws DataAccessException, Exception;
     
 }
 

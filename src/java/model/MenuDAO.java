@@ -22,8 +22,8 @@ public class MenuDAO implements IMenuDAO {
             URL = "jdbc:mysql://localhost:3306/restaurant", USERNAME = "root", 
             PASSWORD = "dawn00";
     private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
-            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
-    private static final String IAE_ERR = "Error: URL not found or empty.",
+            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu", 
+            IAE_ERR = "Error: URL not found or empty.",
             CNF_ERR = "Error: Failed to load the JDBC driver.",
             SQL_ERR = "Error: Unable to connect to the database.";
     
@@ -92,15 +92,13 @@ public class MenuDAO implements IMenuDAO {
     }
 
     @Override
-    public int deleteMenuItems(String id) throws DataAccessException, Exception {
-        int record = 0;
+    public void deleteMenuItems(MenuItem menuItem) throws DataAccessException, Exception {
         try {
             this.openDBConnection();
-           record = db.deleteRecords("menu", "menu_id", id, true);
+           db.deleteRecords("menu", "menu_id", menuItem.getId(), true);
         } catch (IllegalArgumentException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return record;
     }
 
     /**
@@ -172,8 +170,8 @@ public class MenuDAO implements IMenuDAO {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
         // test delete
-//        MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
-//        dao.deleteMenuItems(menuItem);    
-        dao.deleteMenuItems("8");
+        MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
+        dao.deleteMenuItems(menuItem);    
+//        dao.deleteMenuItems("8");
     }
 }
