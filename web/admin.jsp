@@ -4,6 +4,8 @@
     Author     : Dawn Bykowski
 --%>
 
+<%@page import="model.MenuItem"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,6 +18,17 @@
         <h1>Blue Bistro Administration</h1>
         <p> Select the menu item you wish to modify</p>
         <table>
+                                <%
+                        List<MenuItem> menuItems = null;
+                        Object menu = request.getAttribute("menuItems");
+                        if (menu != null) {
+                            menuItems = (List<MenuItem>) menu;
+                        }
+
+                        for (MenuItem menuItem : menuItems) {
+                            int id = menuItem.getId();
+                            String itemName = menuItem.getItemName();
+                    %>
             <tr>
                 <td><th>Menu Item</th></td>
                 <td><th>Menu Price</th></td>

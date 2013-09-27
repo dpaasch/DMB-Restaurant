@@ -17,16 +17,14 @@
         <br/>    
         <img src="images/bistro.jpg">
         <br/>
-        <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" 
-                id="placeOrder"/>
-        <p>Place Order</p>
         <br/>
-    </button>
-    <br/>
-    <br/>
-</center> 
-    
-    <br/> 
-    <br/> <!--<a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a> -->
+        <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" id="placeOrder">
+            <p>Place Order</p>
+        </button>
+        <br/>
+        <br/>
+    </center> 
+    <br/><br/> 
+    <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a>
 </body>
 </html>
