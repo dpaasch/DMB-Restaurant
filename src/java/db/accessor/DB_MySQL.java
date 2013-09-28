@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,9 @@ public class DB_MySQL implements DBAccessor {
             SQL_ERR = "Error: Unable to connect to the database.";
 
     /**
-     * A utility method to explicitly open a db connection. Note that the
-     * connection will remain open until explicitly closed by member methods.
+     * Author: Jim Lombardo, WCTC Lead Java Instructor A utility method to
+     * explicitly open a db connection. Note that the connection will remain
+     * open until explicitly closed by member methods.
      *
      * @param driverClassName - the fully qualified name of the driver class.
      * @param url - the connection URL, driver dependent.
@@ -37,21 +39,22 @@ public class DB_MySQL implements DBAccessor {
      * values are allowed
      * @throws IllegalArgumentException if url is null or zero length
      * @throws ClassNotFoundException if driver class cannot be found
-     * @throws SQLException if database access error occuresultSet. For example, an
-     * invalid url could cause this; or, a database that is no longer available
-     * due to network or access permission problems.
+     * @throws SQLException if database access error occuresultSet. For example,
+     * an invalid url could cause this; or, a database that is no longer
+     * available due to network or access permission problems.
      */
     @Override
-    public void openDBConnection(String driverClassName, String url, String username, String password) 
-	throws IllegalArgumentException, ClassNotFoundException, SQLException
-	{
-		String msg = "Error: url is null or zero length!";
-		if( url == null || url.length() == 0 ) throw new IllegalArgumentException(msg);
-		username = (username == null) ? "" : username;
-		password = (password == null) ? "" : password;
-		Class.forName (driverClassName);
-		dbConnection = DriverManager.getConnection(url, username, password);
-	}
+    public void openDBConnection(String driverClassName, String url, String username, String password)
+            throws IllegalArgumentException, ClassNotFoundException, SQLException {
+        String msg = "Error: url is null or zero length!";
+        if (url == null || url.length() == 0) {
+            throw new IllegalArgumentException(msg);
+        }
+        username = (username == null) ? "" : username;
+        password = (password == null) ? "" : password;
+        Class.forName(driverClassName);
+        dbConnection = DriverManager.getConnection(url, username, password);
+    }
 
     /**
      * A utility method to explicitly close a db connection. Pooled connections
@@ -69,7 +72,8 @@ public class DB_MySQL implements DBAccessor {
     }
 
     /**
-     * Used to perform a generalized SQL query to find all records.
+     * Author: Jim Lombardo, WCTC Lead Java Instructor Used to perform a
+     * generalized SQL query to find all records.
      *
      * @param sqlString - the sql statement (check your database for
      * compatibility)
@@ -125,7 +129,8 @@ public class DB_MySQL implements DBAccessor {
     }
 
     /**
-     * Retrieves a record based on the primary key of a table.
+     * Author: Jim Lombardo, WCTC Lead Java Instructor Retrieves a record based
+     * on the primary key of a table.
      *
      * @param table - a <code>String</code> representing the table name.
      * @param pkField - a <code>String</code> representing the primary key field
@@ -175,7 +180,7 @@ public class DB_MySQL implements DBAccessor {
         } catch (SQLException sql) {
             throw new SQLException(SQL_ERR);
         } catch (Exception e) {
-             throw new Exception(e.getLocalizedMessage());
+            throw new Exception(e.getLocalizedMessage());
         } finally {
             try {
                 statement.close();
@@ -189,87 +194,308 @@ public class DB_MySQL implements DBAccessor {
 
         return record;
     }
+
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor 
+     * Inserts a record into a table based on a <code>List</code> of column 
+     * descriptors and a one-to-one mapping of an associated <code>List</code> 
+     * of column values.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - <code>List</code> containing the column
+     * descriptors
+     * @param colValues - <code>List</code> containing the column values. The
+     * order of these values must match the order of the column descriptors.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return <code>true</code> if successful; <code>false</code> otherwise
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
+    public boolean insertRecord(String tableName, List colDescriptors, List colValues, boolean closeConnection)
+            throws SQLException, Exception {
+        PreparedStatement preparedStatement = null;
+        int recordsUpdated = 0;
+
+        // do this in an excpetion handler so that we can depend on the
+        // finally clause to close the connection
+        try {
+            preparedStatement = buildInsertStatement(dbConnection, tableName, colDescriptors);
+
+            final Iterator i = colValues.iterator();
+            int index = 1;
+            while (i.hasNext()) {
+                final Object obj = i.next();
+                if (obj instanceof String) {
+                    preparedStatement.setString(index++, (String) obj);
+                } else if (obj instanceof Integer) {
+                    preparedStatement.setInt(index++, ((Integer) obj).intValue());
+                } else if (obj instanceof Long) {
+                    preparedStatement.setLong(index++, ((Long) obj).longValue());
+                } else if (obj instanceof Double) {
+                    preparedStatement.setDouble(index++, ((Double) obj).doubleValue());
+                } else if (obj instanceof java.sql.Date) {
+                    preparedStatement.setDate(index++, (java.sql.Date) obj);
+                } else if (obj instanceof Boolean) {
+                    preparedStatement.setBoolean(index++, ((Boolean) obj).booleanValue());
+                } else {
+                    if (obj != null) {
+                        preparedStatement.setObject(index++, obj);
+                    }
+                }
+            }
+            recordsUpdated = preparedStatement.executeUpdate();
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                preparedStatement.close();
+                if (closeConnection) {
+                    dbConnection.close();
+                }
+            } catch (SQLException e) {
+                throw e;
+            } // end try
+        } // end finally
+
+        if (recordsUpdated == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
-    	/**
-	 * Deletes one or more records in a table based on a single, matching field value.
-	 * 
-	 * @param tableName - a <code>String</code> representing the table name
-	 * @param whereField - a <code>String</code> representing the field name for the
-	 * search criteria.
-	 * @param whereValue - an <code>Object</code> containing the value for the search criteria.
-	 * @param closeConnection - true if connection should be closed automatically; if
-	 * false, connection must be explicitly closed using the closeConnection method.
-	 * @return an <code>int</code> containing the number of records updated.
-	 * @throws SQLException if database access error or illegal sql
-	 * @throws Exception for all other problems
-	 */
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor Updates one or more
+     * records in a table based on a single, matching field value.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - a <code>List</code> containing the column
+     * descriptors for the fields that can be updated.
+     * @param colValues - a <code>List</code> containing the values for the
+     * fields that can be updated.
+     * @param whereField - a <code>String</code> representing the field name for
+     * the search criteria.
+     * @param whereValue - an <code>Object</code> containing the value for the
+     * search criteria.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return an <code>int</code> containing the number of records updated.
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
+    public int updateRecords(String tableName, List colDescriptors, List colValues,
+            String whereField, Object whereValue, boolean closeConnection)
+            throws SQLException, Exception {
+        PreparedStatement preparedStatement = null;
+        int recordsUpdated = 0;
+
+        // do this in an excpetion handler so that we can depend on the
+        // finally clause to close the connection
+        try {
+            preparedStatement = buildUpdateStatement(dbConnection, tableName, colDescriptors, whereField);
+
+            final Iterator i = colValues.iterator();
+            int index = 1;
+            boolean doWhereValueFlag = false;
+            Object obj = null;
+
+            while (i.hasNext() || doWhereValueFlag) {
+                if (!doWhereValueFlag) {
+                    obj = i.next();
+                }
+
+                if (obj instanceof String) {
+                    preparedStatement.setString(index++, (String) obj);
+                } else if (obj instanceof Integer) {
+                    preparedStatement.setInt(index++, ((Integer) obj).intValue());
+                } else if (obj instanceof Long) {
+                    preparedStatement.setLong(index++, ((Long) obj).longValue());
+                } else if (obj instanceof Double) {
+                    preparedStatement.setDouble(index++, ((Double) obj).doubleValue());
+                } else if (obj instanceof java.sql.Timestamp) {
+                    preparedStatement.setTimestamp(index++, (java.sql.Timestamp) obj);
+                } else if (obj instanceof java.sql.Date) {
+                    preparedStatement.setDate(index++, (java.sql.Date) obj);
+                } else if (obj instanceof Boolean) {
+                    preparedStatement.setBoolean(index++, ((Boolean) obj).booleanValue());
+                } else {
+                    if (obj != null) {
+                        preparedStatement.setObject(index++, obj);
+                    }
+                }
+
+                if (doWhereValueFlag) {
+                    break;
+                } // only allow loop to continue one time
+                if (!i.hasNext()) {          // continue loop for whereValue
+                    doWhereValueFlag = true;
+                    obj = whereValue;
+                }
+            }
+
+            recordsUpdated = preparedStatement.executeUpdate();
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                preparedStatement.close();
+                if (closeConnection) {
+                    dbConnection.close();
+                }
+            } catch (SQLException e) {
+                throw e;
+            } // end try
+        } // end finally
+
+        return recordsUpdated;
+    }
+    
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor Deletes one or more
+     * records in a table based on a single, matching field value.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param whereField - a <code>String</code> representing the field name for
+     * the search criteria.
+     * @param whereValue - an <code>Object</code> containing the value for the
+     * search criteria.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return an <code>int</code> containing the number of records updated.
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
     @Override
     public int deleteRecords(String table, String whereField, Object whereValue, boolean closeConnection) throws SQLException, Exception {
         PreparedStatement preparedStatement = null;
         int recordsDeleted = 0;
-        
-        try{
+
+        try {
             preparedStatement = buildDeleteStatement(dbConnection, table, whereField);
             // delete all records if whereField is null
-			if(whereField != null ) {
-				if(whereValue instanceof String){
-					preparedStatement.setString( 1,(String)whereValue );
-				} else if(whereValue instanceof Integer ){
-					preparedStatement.setInt( 1,((Integer)whereValue).intValue() );
-				} else if(whereValue instanceof Long ){
-					preparedStatement.setLong( 1,((Long)whereValue).longValue() );
-				} else if(whereValue instanceof Double ){
-					preparedStatement.setDouble( 1,((Double)whereValue).doubleValue() );
-				} else if(whereValue instanceof java.sql.Date ){
-					preparedStatement.setDate(1, (java.sql.Date)whereValue );
-				} else if(whereValue instanceof Boolean ){
-					preparedStatement.setBoolean(1, ((Boolean)whereValue).booleanValue() );
-				} else {
-					if(whereValue != null) preparedStatement.setObject(1, whereValue);
-				}
-			}
+            if (whereField != null) {
+                if (whereValue instanceof String) {
+                    preparedStatement.setString(1, (String) whereValue);
+                } else if (whereValue instanceof Integer) {
+                    preparedStatement.setInt(1, ((Integer) whereValue).intValue());
+                } else if (whereValue instanceof Long) {
+                    preparedStatement.setLong(1, ((Long) whereValue).longValue());
+                } else if (whereValue instanceof Double) {
+                    preparedStatement.setDouble(1, ((Double) whereValue).doubleValue());
+                } else if (whereValue instanceof java.sql.Date) {
+                    preparedStatement.setDate(1, (java.sql.Date) whereValue);
+                } else if (whereValue instanceof Boolean) {
+                    preparedStatement.setBoolean(1, ((Boolean) whereValue).booleanValue());
+                } else {
+                    if (whereValue != null) {
+                        preparedStatement.setObject(1, whereValue);
+                    }
+                }
+            }
 
-			recordsDeleted = preparedStatement.executeUpdate();
+            recordsDeleted = preparedStatement.executeUpdate();
 
-		} catch (SQLException sqle) {
-			throw sqle;
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			try {
-				preparedStatement.close();
-				if(closeConnection) dbConnection.close();
-			} catch(SQLException e) {
-				throw e;
-			} // end try
-		} // end finally
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                preparedStatement.close();
+                if (closeConnection) {
+                    dbConnection.close();
+                }
+            } catch (SQLException e) {
+                throw e;
+            } // end try
+        } // end finally
 
-		return recordsDeleted;
-	}
-        
-	/*
-	 * Builds a java.sql.PreparedStatement for an sql delete using only one where clause test
-	 * @param dbConnection - a JDBC <code>Connection</code> object
-	 * @param table - a <code>String</code> representing the table name
-	 * @param whereField - a <code>String</code> representing the field name for the
-	 * search criteria.
-	 * @return java.sql.PreparedStatement
-	 * @throws SQLException
-	 */
+        return recordsDeleted;
+    }
+
+    /*
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
+     * Builds a java.sql.PreparedStatement for an sql insert
+     * @param conn - a valid connection
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - a <code>List</code> containing the column descriptors for
+     * the fields that can be inserted.
+     * @return java.sql.PreparedStatement
+     * @throws SQLException
+     */
+    private PreparedStatement buildInsertStatement(Connection dbConnection, String tableName, List colDescriptors)
+            throws SQLException {
+        StringBuffer sql = new StringBuffer("INSERT INTO ");
+        (sql.append(tableName)).append(" (");
+        final Iterator i = colDescriptors.iterator();
+        while (i.hasNext()) {
+            (sql.append((String) i.next())).append(", ");
+        }
+        sql = new StringBuffer((sql.toString()).substring(0, (sql.toString()).lastIndexOf(", ")) + ") VALUES (");
+        for (int j = 0; j < colDescriptors.size(); j++) {
+            sql.append("?, ");
+        }
+        final String finalSQL = (sql.toString()).substring(0, (sql.toString()).lastIndexOf(", ")) + ")";
+        //System.out.println(finalSQL);
+        return dbConnection.prepareStatement(finalSQL);
+    }
+    
+    /* Author: Jim Lombardo, WCTC Lead Java Instructor Updates one or more
+     * Builds a java.sql.PreparedStatement for an sql update using only one where clause test
+     * @param conn - a JDBC <code>Connection</code> object
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - a <code>List</code> containing the column descriptors for
+     * the fields that can be updated.
+     * @param whereField - a <code>String</code> representing the field name for the
+     * search criteria.
+     * @return java.sql.PreparedStatement
+     * @throws SQLException
+     */
+    private PreparedStatement buildUpdateStatement(Connection dbConnection, String tableName, List colDescriptors, String whereField)
+            throws SQLException {
+        StringBuffer sql = new StringBuffer("UPDATE ");
+        (sql.append(tableName)).append(" SET ");
+        final Iterator i = colDescriptors.iterator();
+        while (i.hasNext()) {
+            (sql.append((String) i.next())).append(" = ?, ");
+        }
+        sql = new StringBuffer((sql.toString()).substring(0, (sql.toString()).lastIndexOf(", ")));
+        ((sql.append(" WHERE ")).append(whereField)).append(" = ?");
+        final String finalSQL = sql.toString();
+        return dbConnection.prepareStatement(finalSQL);
+    }
+    
+    /*
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
+     * Builds a java.sql.PreparedStatement for an sql delete using only one where clause test
+     * @param dbConnection - a JDBC <code>Connection</code> object
+     * @param table - a <code>String</code> representing the table name
+     * @param whereField - a <code>String</code> representing the field name for the
+     * search criteria.
+     * @return java.sql.PreparedStatement
+     * @throws SQLException
+     */
     private PreparedStatement buildDeleteStatement(Connection dbConnection, String table, String whereField) throws SQLException {
         final StringBuffer sqlDeleteStatement = new StringBuffer("DELETE FROM ");
         sqlDeleteStatement.append(table);
-        
+
         if (whereField != null) {
             sqlDeleteStatement.append(" WHERE ");
-            (sqlDeleteStatement.append( whereField )).append(" = ? ");
+            (sqlDeleteStatement.append(whereField)).append(" = ? ");
         }
-        
         final String finalDeleteSQL = sqlDeleteStatement.toString();
-        
         return dbConnection.prepareStatement(finalDeleteSQL);
     }
-    
 
     // for testing
     public static void main(String[] args) throws IllegalArgumentException,
@@ -290,5 +516,4 @@ public class DB_MySQL implements DBAccessor {
             System.out.println(e.getLocalizedMessage());
         }
     }
-
 }

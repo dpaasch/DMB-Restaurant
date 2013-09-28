@@ -33,6 +33,7 @@ public interface DBAccessor {
             ClassNotFoundException, SQLException;
 
     /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
      * A utility method used to explicitly close a db connection. Pooled
      * connections should never be closed, but rather returned to the pool.
      * <p>
@@ -45,6 +46,7 @@ public interface DBAccessor {
     public abstract void closeDBConnection() throws SQLException;
 
     /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
      * Used to perform a generalized SQL query to find all records.
      *
      * @param sqlString - the sql statement (check your database for
@@ -62,6 +64,7 @@ public interface DBAccessor {
             throws SQLException, Exception;
 
     /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
      * Retrieves a record based on the primary key of a table.
      *
      * @param table - a <code>String</code> representing the table name.
@@ -81,6 +84,68 @@ public interface DBAccessor {
     public abstract Map findRecordById(String table, String pkField, Object keyValue, 
             boolean closeConnection) throws SQLException, Exception;
     
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor 
+     * Inserts a record into a table based on a <code>List</code> of column 
+     * descriptors and a one-to-one mapping of an associated <code>List</code> 
+     * of column values.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - <code>List</code> containing the column
+     * descriptors
+     * @param colValues - <code>List</code> containing the column values. The
+     * order of these values must match the order of the column descriptors.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return <code>true</code> if successful; <code>false</code> otherwise
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
+    public boolean insertRecord(String tableName, List colDescriptors, List 
+            colValues, boolean closeConnection) throws SQLException, Exception;
+    
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor Updates one or more
+     * records in a table based on a single, matching field value.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param colDescriptors - a <code>List</code> containing the column
+     * descriptors for the fields that can be updated.
+     * @param colValues - a <code>List</code> containing the values for the
+     * fields that can be updated.
+     * @param whereField - a <code>String</code> representing the field name for
+     * the search criteria.
+     * @param whereValue - an <code>Object</code> containing the value for the
+     * search criteria.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return an <code>int</code> containing the number of records updated.
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
+    public int updateRecords(String tableName, List colDescriptors, List colValues,
+            String whereField, Object whereValue, boolean closeConnection)
+            throws SQLException, Exception;
+    
+    /**
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
+     * Deletes one or more records in a table based on a single, matching field
+     * value.
+     *
+     * @param tableName - a <code>String</code> representing the table name
+     * @param whereField - a <code>String</code> representing the field name for
+     * the search criteria.
+     * @param whereValue - an <code>Object</code> containing the value for the
+     * search criteria.
+     * @param closeConnection - true if connection should be closed
+     * automatically; if false, connection must be explicitly closed using the
+     * closeConnection method.
+     * @return an <code>int</code> containing the number of records updated.
+     * @throws SQLException if database access error or illegal sql
+     * @throws Exception for all other problems
+     */
     public int deleteRecords(String table, String whereField, Object whereValue, 
-            boolean closeConnection) throws SQLException, Exception;
+            boolean closeConnection) throws SQLException, Exception;    
 }

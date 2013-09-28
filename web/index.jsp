@@ -13,18 +13,13 @@
     </head>
     <body>
     <center>
-        <h1>Welcome to The Blue Bistro!</h1>
-        <br/>    
-        <img src="images/bistro.jpg">
-        <br/>
-        <br/>
+        <h1>Welcome to The Blue Bistro!</h1><br/>    
+        <img src="images/bistro.jpg"><br/><br/>
         <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" id="placeOrder">
-            <p>Place Order</p>
+            <h4>Place Order</h4>
         </button>
-        <br/>
-        <br/>
+        <br/><br/>
     </center> 
-    <br/><br/> 
     <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a>
 </body>
 </html>

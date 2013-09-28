@@ -13,14 +13,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu</title>
-        <script type="text/javascript"></script>
     </head>
     <body>
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
-            <h1>Please make your menu selections</h1>
-            <center>
-                <br/>
+            <h1>Please make your menu selections</h1><br/>
                     <%
                         List<MenuItem> menuItems = null;
                         Object menu = request.getAttribute("menuItems");
@@ -32,15 +29,12 @@
                             int id = menuItem.getId();
                             String itemName = menuItem.getItemName();
                     %>
-                    <h3>
-                        <input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>
-                    </h3>
+                    <h3><input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>         </h3>
                     <%
                         }
                     %>
                     <br/>
                     <input type="submit" name="submit" id="submit" value="Submit Order"/>
-            </center>
         </form>
     </center>
 

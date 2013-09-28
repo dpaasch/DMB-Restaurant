@@ -15,7 +15,7 @@
         <title>Blue Bistro Order Summary</title>
     </head>
     <body>
-        <h1>Your Blue Bistro Order</h1>
+        <h1>Your Blue Bistro Order ...</h1>
         <%
             Object subTotal = request.getAttribute("subTotal");
             Object tax = request.getAttribute("tax");
@@ -29,46 +29,28 @@
             }
         %>
         <%
-     for (MenuItem m : orderedMenuItems) {%>
-        <h3> <%= m.getItemName() + " ... " + m.getItemPrice()%>
+            for (MenuItem m : orderedMenuItems) {%>
+        <h3> 
+            <%= m.getItemName() + " ... " + m.getItemPrice()%>
             <% }%>
         </h3>
-
         <br/>
-        <h4> 
-            <table>
-                <tr>
-                    <td> SubTotal: </td>
-                    <td>$${subTotal} </td>
-                </tr>
-                <tr>
-                    <td> WI Tax: </td>
-                    <td>$${tax} </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><div></div></td>
-                </tr>
-                <tr>
-                    <td> Total: </td>
-                    <td>$${total} </td>
-                </tr>
-                <tr>
-                    <td> Suggested Tip: </td>
-                    <td>$${tip} </td>
-                </tr>
-                <tr>
-                    <td> Grand Total: </td>
-                    <td>$${grandTotal} </td>
-                </tr>
-            </table>
-            <br/>
-            <br/>
-            <center>
-                <input type="submit" name="submit" id="submit" 
-                       onclick="location.href = 'RestaurantMenuController';" value="Place another order"/>   
-            </center>
-            <br/>
-            <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
-    </body>
+        <table>
+            <h4>
+            <tr> <td> SubTotal: </td><td> $${subTotal} </td> </tr>
+            <tr> <td> WI Tax: </td><td> $${tax} </td> </tr>
+            <tr> <td> Total: </td><td> $${total} </td> </tr> 
+            <tr> <td> Suggested Gratuity: </td><td> $${tip} </td> </tr> 
+            <tr> <td>Grand Total: </td><td> $${grandTotal} </td> </tr> 
+            </h4>
+        </table>
+        <br/>
+        <br/>
+    <center>
+        <input type="submit" name="submit" id="submit" 
+               onclick="location.href = 'RestaurantMenuController'" value="Place another order"/>   
+    </center>
+    <br/>
+    <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+</body>
 </html>

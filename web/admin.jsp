@@ -16,39 +16,31 @@
     </head>
     <body>
         <h1>Blue Bistro Administration</h1>
+        <br/>
         <p> Select the menu item you wish to modify</p>
-        <h4>
-        <table>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Menu Item</td>
-                <td>&nbsp;</td>
-                <td>Menu Price</td>
-                <%
-                        List<MenuItem> menuItems = null;
-                        Object menu = request.getAttribute("menuItems");
-                        if (menu != null) {
-                            menuItems = (List<MenuItem>) menu;
-                        }
 
-                        for (MenuItem menuItem : menuItems) {
-                            int id = menuItem.getId();
-                            String itemName = menuItem.getItemName();
-                    %>
-                    <h3>
-                        <input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>
-                    </h3>
-                    <%
-                        }
-                    %>
-            <br/>
-            <input type="submit" name="submit" id="submit" value="Submit Order"/>
+        <table border="2">
+            <h4>
+                <tr><th>&nbsp;</th> <th>Menu Item</th> <th>Menu Price</th> <th colspan="3">Menu Action</th>  
+                        <%
+                            List<MenuItem> menuItems = (List<MenuItem>) request.getAttribute("menuItems");
+                            int i = 0;
+
+                            for (MenuItem menuItem : menuItems) {
+                                out.println("<tr>");
+                                out.println("<td><input type='checkbox' name='menuItem" + i + "'/></td>"
+                                        + "<td>" + menuItem.getItemName() + "</td>"
+                                        + "<td>$" + menuItem.getItemPrice() + "</td>"
+                                        + "<td><input type='submit' value='Add/Edit' /></td>"
+                                        + "<td><input type='submit' value='Delete' /></td>");
+                                out.println("</tr>");
+                                i++;
+                            }
+                        %>   
+            </h4>
         </table>
-        </h4>
-    </center>
-</form>
-</center>
-
-</body>
+        <br/> 
+        <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+    </body>
 </html>
 

@@ -13,7 +13,6 @@ button {
 }
 
 h1 { 
-    display: block;
     text-align: center; 
     font-family: cursive; 
     font-style: italic; 
@@ -21,7 +20,6 @@ h1 {
 }
 
 h3 { 
-    display: block;
     text-align: center; 
     font-family: cursive; 
     font-style: italic; 
@@ -29,7 +27,6 @@ h3 {
 }
 
 h4 { 
-    display: block;
     text-align: left; 
     font-family: cursive; 
     font-style: italic; 
@@ -43,7 +40,26 @@ input {
 }
 
 p {
-    text-align: center; 
+    text-align: left; 
     font-family: cursive;
     color: royalblue;
+}
+
+table {
+    border-color: royalblue;
+    text-align: center; 
+    font-family: cursive; 
+    font-style: italic; 
+    color: royalblue;
+}
+
+td{
+    text-align: left;
+    vertical-align: bottom;
+    padding:10px;
+}
+th{
+    text-align: center;
+    vertical-align: bottom;
+    padding:10px;
 }
