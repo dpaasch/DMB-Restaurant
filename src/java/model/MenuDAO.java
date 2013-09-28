@@ -18,16 +18,16 @@ public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
     private DBAccessor db;
-    private final String DRIVER_CLASS = "com.mysql.jdbc.Driver", 
-            URL = "jdbc:mysql://localhost:3306/restaurant", USERNAME = "root", 
+    private final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
+            URL = "jdbc:mysql://localhost:3306/restaurant", USERNAME = "root",
             PASSWORD = "dawn00";
     private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
-            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu", 
+            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu",
             IAE_ERR = "Error: URL not found or empty.",
             CNF_ERR = "Error: Failed to load the JDBC driver.",
             SQL_ERR = "Error: Unable to connect to the database.";
-    
-        /**
+
+    /**
      * Default Constructor creates a new MenuDAO object.
      *
      */
@@ -73,7 +73,7 @@ public class MenuDAO implements IMenuDAO {
     @Override
     public MenuItem getMenuItemById(String id) throws DataAccessException {
         Map rawData = new HashMap();
-        
+
         try {
             this.openDBConnection();
             rawData = db.findRecordById("menu", "menu_id", new Integer(id), true);
@@ -95,9 +95,37 @@ public class MenuDAO implements IMenuDAO {
     public void deleteMenuItems(MenuItem menuItem) throws DataAccessException, Exception {
         try {
             this.openDBConnection();
-           db.deleteRecords("menu", "menu_id", menuItem.getId(), true);
+            db.deleteRecords("menu", "menu_id", menuItem.getId(), true);
         } catch (IllegalArgumentException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void save(MenuItem menuItem) throws DataAccessException, Exception {
+
+        this.openDBConnection();
+        String tableName = "menu";
+
+        List<String> colDescriptors = new ArrayList<String>();
+        colDescriptors.add("itemName");
+        colDescriptors.add("itemPrice");
+
+        List colValues = new ArrayList();
+        colValues.add(menuItem.getItemName());
+        colValues.add(menuItem.getItemPrice());
+
+        try {
+            if (menuItem.getId() == null) {
+
+                db.insertRecord(tableName, colDescriptors, colValues, true);
+            } else {
+                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", menuItem.getId(), true);
+            }
+        } catch (SQLException sql) {
+            throw new DataAccessException(SQL_ERR);
+        // NOTE: Need to use a better exception
+        } catch (Exception e) {
+            throw new DataAccessException(e.getLocalizedMessage());
         }
     }
 
@@ -141,7 +169,7 @@ public class MenuDAO implements IMenuDAO {
      */
     public void closeDBConnection() throws SQLException {
         db.closeDBConnection();
-    }    
+    }
 
     public final DBAccessor getDb() {
         return db;
@@ -152,7 +180,7 @@ public class MenuDAO implements IMenuDAO {
     }
 
     // for testing
-    public static void main(String[] args) throws DataAccessException, Exception  {
+    public static void main(String[] args) throws DataAccessException, Exception {
         MenuDAO dao = new MenuDAO(new DB_MySQL());
         // test get all items
         List<MenuItem> allMenuItems = dao.getAllMenuItems();
@@ -171,7 +199,7 @@ public class MenuDAO implements IMenuDAO {
         }
         // test delete
         MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
-        dao.deleteMenuItems(menuItem);    
+        dao.deleteMenuItems(menuItem);
 //        dao.deleteMenuItems("8");
     }
 }
