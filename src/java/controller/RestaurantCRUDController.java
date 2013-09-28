@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.DataAccessException;
 import model.MenuItem;
 import model.MenuService;
-
 /**
  *
  * @author Dawn Bykowski, dpaasch@my.wctc.edu
@@ -21,7 +20,7 @@ import model.MenuService;
  */
 public class RestaurantCRUDController extends HttpServlet {
 
-    private final static String RESULT_PAGE = "/admin.jsp";
+    private final static String RESULT_PAGE = "/delete.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -37,24 +36,22 @@ public class RestaurantCRUDController extends HttpServlet {
             throws ServletException, IOException, DataAccessException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String formAction = request.getParameter("formAction");
+
+        String action = request.getParameter("action");
         List<MenuItem> updatedMenuItems = null;
-
         MenuService ms = new MenuService();
-
-        if (formAction.equals("delete")) {
+        if (action.equalsIgnoreCase("delete")) {
             try {
                 ms.deleteMenuItems(request.getParameterValues("menuItems"));
-                request.setAttribute("menuItems", updatedMenuItems);
-            } catch (SQLException sql) {
-                throw new DataAccessException(sql.getLocalizedMessage());
-                // NOTE: Need to use a better exception
-            } catch (Exception e) {
-                throw new DataAccessException(e.getLocalizedMessage());
+                updatedMenuItems = ms.getAllMenuItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
             }
+                    request.setAttribute("menuItems", updatedMenuItems);
         }
-
-
+        
         // This object lets you forward both the request and response
         // objects to a destination page
         RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
@@ -78,7 +75,7 @@ public class RestaurantCRUDController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,7 +94,7 @@ public class RestaurantCRUDController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -60,5 +60,9 @@ public class MenuService {
             mi.add(m);
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
+        System.out.println("\n deleteMenuItem() ... ");
+        String[] menuItem={"8"};
+        ms.deleteMenuItems(menuItem);
+        System.out.println(menuItem.toString());        
     }
 }

@@ -1,4 +1,4 @@
-<%-- 
+a<%-- 
     Document   : admin - Blue Bistro
     Created on : Sep 25, 2013, 8:04:05 PM
     Author     : Dawn Bykowski
@@ -33,9 +33,9 @@
                                     out.println("<td><input type='checkbox' name='menuItem" + i + "'/></td>"
                                             + "<td>" + menuItem.getItemName() + "</td>"
                                             + "<td>$" + menuItem.getItemPrice() + "</td>"
-                                            + "<td><input type='submit' value='Edit' action='RestaurantCrudController?formAction=edit&id=" + menuItem.getId() + "'/></td>"
-                                            + "<td><input type='submit' value ='Delete' action='RestaurantCrudController?formAction=delete&id=" + menuItem.getId() + "'/></td>");
-                                            
+                                            + "<td><input type='submit' name='edit' id='edit' value='Edit' action='RestaurantCrudController?formAction=edit&id=" + menuItem.getId() + "'/></td>"
+                                            + "<td><input type='submit' name='delete' id='delete' value ='Delete' action='RestaurantCrudController?formAction=delete&id=" + menuItem.getId() + "'/></td>");
+                                         
                                     out.println("</tr>");
                                     i++;
                                 }
