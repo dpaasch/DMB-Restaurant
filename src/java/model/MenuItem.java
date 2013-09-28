@@ -11,7 +11,7 @@ package model;
 public class MenuItem {
 
     // Variable declarations //
-    private int id;
+    private Long id;
     private String itemName = null;  // Menu item name
     private double itemPrice;  // Menu item price
     private final String IAE_ERR = " Error: Value cannot be 0, less than 0, or null",
@@ -21,6 +21,19 @@ public class MenuItem {
      * Default MenuItem constructor
      */
     public MenuItem() {
+    }
+    
+    /**
+     * Creates a new MenuItem object by setting the id, itemName and itemPrice
+     * private variables.
+     * @param itemName : The value of the private variable that identifies the
+     * menu item name. Defaults to null if no value is passed in.
+     * @param itemPrice : The value of the private variable that identifies the
+     * menu item price. Defaults to null if no value is passed in.
+     */
+    public MenuItem(String itemName, double itemPrice) {
+        setItemName(itemName);
+        setItemPrice(itemPrice);
     }
 
     /**
@@ -33,7 +46,7 @@ public class MenuItem {
      * @param itemPrice : The value of the private variable that identifies the
      * menu item price. Defaults to null if no value is passed in.
      */
-    public MenuItem(int id, String itemName, double itemPrice) {
+    public MenuItem(Long id, String itemName, double itemPrice) {
         setId(id);
         setItemName(itemName);
         setItemPrice(itemPrice);
@@ -46,7 +59,7 @@ public class MenuItem {
      * @return id : The value of the private variable that identifies the menu
      * item. Defaults to null if no value is passed in.
      */
-    public final int getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -58,7 +71,7 @@ public class MenuItem {
      * @throws IllegalArgumentException : if id parameter < 0
      *
      */
-    public final void setId(int id) throws IllegalArgumentException {
+    public final void setId(Long id) throws IllegalArgumentException {
         if (id >= 0) {
             this.id = id;
         } else {
@@ -122,7 +135,7 @@ public class MenuItem {
     // for testing
     public static void main(String[] args) {
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(1);
+        menuItem.setId(Long.valueOf(9));
         menuItem.setItemName("Surf & Turf");
         menuItem.setItemPrice(32.75);
         System.out.println(menuItem.getId() + " " + menuItem.getItemName()

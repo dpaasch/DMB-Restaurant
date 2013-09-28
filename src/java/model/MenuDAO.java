@@ -60,7 +60,7 @@ public class MenuDAO implements IMenuDAO {
         for (Map map : rawData) {
             menuItem = new MenuItem();
             String id = map.get("menu_id").toString();
-            menuItem.setId(new Integer(id));
+            menuItem.setId(new Long(id));
             String name = map.get("item_name").toString();
             menuItem.setItemName(name);
             String price = map.get("item_price").toString();
@@ -76,7 +76,7 @@ public class MenuDAO implements IMenuDAO {
 
         try {
             this.openDBConnection();
-            rawData = db.findRecordById("menu", "menu_id", new Integer(id), true);
+            rawData = db.findRecordById("menu", "menu_id", new Long(id), true);
         } catch (SQLException sql) {
             throw new DataAccessException(SQL_ERR);
             // NOTE: Need to use a better exception
@@ -85,7 +85,7 @@ public class MenuDAO implements IMenuDAO {
         }
 
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(new Integer(rawData.get("menu_id").toString()));
+        menuItem.setId(new Long(rawData.get("menu_id").toString()));
         menuItem.setItemName(rawData.get("item_name").toString());
         menuItem.setItemPrice(new Double(rawData.get("item_price").toString()));
         return menuItem;
@@ -101,33 +101,64 @@ public class MenuDAO implements IMenuDAO {
         }
     }
 
-    public void save(MenuItem menuItem) throws DataAccessException, Exception {
-
+    public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
         this.openDBConnection();
         String tableName = "menu";
+        List<String> colDescriptors =
+                new ArrayList<String>();
+        colDescriptors.add("item_name");
+        colDescriptors.add("item_price");
 
-        List<String> colDescriptors = new ArrayList<String>();
-        colDescriptors.add("itemName");
-        colDescriptors.add("itemPrice");
-
-        List colValues = new ArrayList();
+        List colValues =
+                new ArrayList();
         colValues.add(menuItem.getItemName());
         colValues.add(menuItem.getItemPrice());
 
         try {
+ 
+            // if the id is null, it's a new record, else it's an update
             if (menuItem.getId() == null) {
-
                 db.insertRecord(tableName, colDescriptors, colValues, true);
             } else {
-                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", menuItem.getId(), true);
+                db.updateRecords(
+                        tableName, colDescriptors,
+                        colValues, "menu_id", menuItem.getId(), true);
             }
         } catch (SQLException sql) {
-            throw new DataAccessException(SQL_ERR);
-        // NOTE: Need to use a better exception
+            throw new DataAccessException(sql.getLocalizedMessage());
+            // NOTE: Need to use a better exception
         } catch (Exception e) {
             throw new DataAccessException(e.getLocalizedMessage());
         }
     }
+            
+//    public void save(MenuItem menuItem) throws DataAccessException, Exception {
+//        this.openDBConnection();
+//        String tableName = "menu";
+//
+//        List<String> colDescriptors = new ArrayList<String>();
+//        colDescriptors.add("item_name");
+//        colDescriptors.add("item_price");
+//
+//        List colValues = new ArrayList();
+//        colValues.add(menuItem.getItemName());
+//        colValues.add(menuItem.getItemPrice());
+//
+//        try {
+//
+//
+//            if (menuItem.getId() == null) {
+//                db.insertRecord(tableName, colDescriptors, colValues, true);
+//            } else {
+//                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", menuItem.getId(), true);
+//            }
+//        } catch (SQLException sql) {
+//            throw new DataAccessException(SQL_ERR);
+//            // NOTE: Need to use a better exception
+//        } catch (Exception e) {
+//            throw new DataAccessException(e.getLocalizedMessage());
+//        }
+//    }
 
     /**
      * A utility method to explicitly open a db connection. Note that the
@@ -145,7 +176,7 @@ public class MenuDAO implements IMenuDAO {
      * invalid url could cause this; or, a database that is no longer available
      * due to network or access permission problems.
      */
-    private void openDBConnection() throws IllegalArgumentException, ClassNotFoundException, SQLException {
+    private void openDBConnection() throws DataAccessException {
         try {
             db.openDBConnection(DRIVER_CLASS, URL, USERNAME, PASSWORD);
         } catch (IllegalArgumentException iae) {
@@ -182,24 +213,36 @@ public class MenuDAO implements IMenuDAO {
     // for testing
     public static void main(String[] args) throws DataAccessException, Exception {
         MenuDAO dao = new MenuDAO(new DB_MySQL());
-        // test get all items
-        List<MenuItem> allMenuItems = dao.getAllMenuItems();
+        dao.openDBConnection();
+//        // test get all items
+//        List<MenuItem> allMenuItems = dao.getAllMenuItems();
+//        System.out.println(" getAllMenuItems() ...");
+//        for (MenuItem m : allMenuItems) {
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+//        // test get by id
+//        String[] orderedMenuItems = {"1", "2", "3"};
+//        List<MenuItem> mi = new ArrayList<>();
+//        System.out.println("\n getMenuItemById() ... ");
+//        for (String s : orderedMenuItems) {
+//            MenuItem m = dao.getMenuItemById(s);
+//            mi.add(m);
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+        // test delete
+//        MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
+//        dao.deleteMenuItems(menuItem);
+//        dao.deleteMenuItems("8");
+
+        // test insert       
+       MenuItem menuItem = new MenuItem("Baked Salmon", 24.75);
+        dao.saveMenuItem(menuItem);
+       List<MenuItem> allMenuItems = dao.getAllMenuItems();
         System.out.println(" getAllMenuItems() ...");
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-        // test get by id
-        String[] orderedMenuItems = {"1", "2", "3"};
-        List<MenuItem> mi = new ArrayList<>();
-        System.out.println("\n getMenuItemById() ... ");
-        for (String s : orderedMenuItems) {
-            MenuItem m = dao.getMenuItemById(s);
-            mi.add(m);
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-        // test delete
-        MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
-        dao.deleteMenuItems(menuItem);
-//        dao.deleteMenuItems("8");
+         // test update   
     }
+    
 }
