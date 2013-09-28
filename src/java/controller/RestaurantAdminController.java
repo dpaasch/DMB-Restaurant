@@ -20,7 +20,7 @@ import model.MenuService;
  */
 public class RestaurantAdminController extends HttpServlet {
 
-    private final static String RESULT_PAGE = "/admin.jsp";
+    private final static String MENU_ITEMS = "menuItems", RESULT_PAGE = "/admin.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -36,10 +36,14 @@ public class RestaurantAdminController extends HttpServlet {
             throws ServletException, IOException, DataAccessException {
         response.setContentType("text/html;charset=UTF-8");
 
+        try {
         MenuService ms = new MenuService();
         List<MenuItem> menuItems = ms.getAllMenuItems();
 
-        request.setAttribute("menuItems", menuItems);     
+        request.setAttribute(MENU_ITEMS, menuItems);    
+        } catch (Exception e){
+            
+        }
         
         // This object lets you forward both the request and response
         // objects to a destination page
