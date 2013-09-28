@@ -26,7 +26,7 @@
                         }
 
                         for (MenuItem menuItem : menuItems) {
-                            int id = menuItem.getId();
+                            Long id = menuItem.getId();
                             String itemName = menuItem.getItemName();
                     %>
                     <h3><input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>         </h3>

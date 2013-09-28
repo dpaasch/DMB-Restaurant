@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import model.MenuService;
  * @author Dawn Bykowski, dpaasch@my.wctc.edu
  * @version 1.00
  */
-public class RestaurantAdminController extends HttpServlet {
+public class RestaurantCRUDController extends HttpServlet {
 
     private final static String RESULT_PAGE = "/admin.jsp";
 
@@ -36,11 +37,24 @@ public class RestaurantAdminController extends HttpServlet {
             throws ServletException, IOException, DataAccessException {
         response.setContentType("text/html;charset=UTF-8");
 
-        MenuService ms = new MenuService();
-        List<MenuItem> menuItems = ms.getAllMenuItems();
+        String formAction = request.getParameter("formAction");
+        List<MenuItem> updatedMenuItems = null;
 
-        request.setAttribute("menuItems", menuItems);     
-        
+        MenuService ms = new MenuService();
+
+        if (formAction.equals("delete")) {
+            try {
+                ms.deleteMenuItems(request.getParameterValues("menuItems"));
+                request.setAttribute("menuItems", updatedMenuItems);
+            } catch (SQLException sql) {
+                throw new DataAccessException(sql.getLocalizedMessage());
+                // NOTE: Need to use a better exception
+            } catch (Exception e) {
+                throw new DataAccessException(e.getLocalizedMessage());
+            }
+        }
+
+
         // This object lets you forward both the request and response
         // objects to a destination page
         RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);

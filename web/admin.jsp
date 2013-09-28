@@ -15,32 +15,37 @@
         <title>Blue Bistro Administration</title>
     </head>
     <body>
-        <h1>Blue Bistro Administration</h1>
+        <h1>Blue Bistro Menu Administration</h1>
         <br/>
         <p> Select the menu item you wish to modify</p>
+        <form name="admin" id="admin" action="RestaurantCRUDController" method="POST">
+            <table border="2">
+                <h4>
+                    <tr><th>&nbsp;</th> <th>Menu Item</th> <th>Menu Price</th> <th colspan="3">Menu Action</th>  
+                            <%
+                                List<MenuItem> menuItems = (List<MenuItem>) request.getAttribute("menuItems");
+                                int i = 0;
 
-        <table border="2">
-            <h4>
-                <tr><th>&nbsp;</th> <th>Menu Item</th> <th>Menu Price</th> <th colspan="3">Menu Action</th>  
-                        <%
-                            List<MenuItem> menuItems = (List<MenuItem>) request.getAttribute("menuItems");
-                            int i = 0;
-
-                            for (MenuItem menuItem : menuItems) {
-                                out.println("<tr>");
-                                out.println("<td><input type='checkbox' name='menuItem" + i + "'/></td>"
-                                        + "<td>" + menuItem.getItemName() + "</td>"
-                                        + "<td>$" + menuItem.getItemPrice() + "</td>"
-                                        + "<td><input type='submit' value='Add/Edit' /></td>"
-                                        + "<td><input type='submit' value='Delete' /></td>");
-                                out.println("</tr>");
-                                i++;
-                            }
-                        %>   
-            </h4>
-        </table>
-        <br/> 
-        <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
-    </body>
+                                for (MenuItem menuItem : menuItems) {
+                                    Long id = menuItem.getId();
+                                
+                                    out.println("<tr>");
+                                    out.println("<td><input type='checkbox' name='menuItem" + i + "'/></td>"
+                                            + "<td>" + menuItem.getItemName() + "</td>"
+                                            + "<td>$" + menuItem.getItemPrice() + "</td>"
+                                            + "<td><input type='submit' value='Edit' action='RestaurantCrudController?formAction=edit&id=" + menuItem.getId() + "'/></td>"
+                                            + "<td><input type='submit' value ='Delete' action='RestaurantCrudController?formAction=delete&id=" + menuItem.getId() + "'/></td>");
+                                            
+                                    out.println("</tr>");
+                                    i++;
+                                }
+                            %>   
+                </h4>
+            </table>
+        </form>
+    <br/> 
+    <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+</body>
 </html>
+
 

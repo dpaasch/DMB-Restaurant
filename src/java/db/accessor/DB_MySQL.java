@@ -362,8 +362,8 @@ public class DB_MySQL implements DBAccessor {
     }
     
     /**
-     * Author: Jim Lombardo, WCTC Lead Java Instructor Deletes one or more
-     * records in a table based on a single, matching field value.
+     * Author: Jim Lombardo, WCTC Lead Java Instructor
+     * Deletes one or more records in a table based on a single, matching field value.
      *
      * @param tableName - a <code>String</code> representing the table name
      * @param whereField - a <code>String</code> representing the field name for

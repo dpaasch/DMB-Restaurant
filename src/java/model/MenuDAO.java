@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -96,33 +94,36 @@ public class MenuDAO implements IMenuDAO {
         try {
             this.openDBConnection();
             db.deleteRecords("menu", "menu_id", menuItem.getId(), true);
-        } catch (IllegalArgumentException | ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException iae){
+            throw new IllegalArgumentException(IAE_ERR);
+        }catch (ClassNotFoundException cnf) {
+            throw new ClassNotFoundException(CNF_ERR);
+        } catch (SQLException sql) {
+            throw new SQLException(SQL_ERR);
         }
     }
 
+    @Override
     public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
-        this.openDBConnection();
+       
+        this.openDBConnection();        
         String tableName = "menu";
-        List<String> colDescriptors =
-                new ArrayList<String>();
+        
+        List<String> colDescriptors = new ArrayList<String>();
         colDescriptors.add("item_name");
         colDescriptors.add("item_price");
 
-        List colValues =
-                new ArrayList();
+        List colValues = new ArrayList();
         colValues.add(menuItem.getItemName());
         colValues.add(menuItem.getItemPrice());
 
-        try {
- 
+        try { 
             // if the id is null, it's a new record, else it's an update
             if (menuItem.getId() == null) {
                 db.insertRecord(tableName, colDescriptors, colValues, true);
             } else {
-                db.updateRecords(
-                        tableName, colDescriptors,
-                        colValues, "menu_id", menuItem.getId(), true);
+                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", 
+                        menuItem.getId(), true);
             }
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
@@ -132,34 +133,6 @@ public class MenuDAO implements IMenuDAO {
         }
     }
             
-//    public void save(MenuItem menuItem) throws DataAccessException, Exception {
-//        this.openDBConnection();
-//        String tableName = "menu";
-//
-//        List<String> colDescriptors = new ArrayList<String>();
-//        colDescriptors.add("item_name");
-//        colDescriptors.add("item_price");
-//
-//        List colValues = new ArrayList();
-//        colValues.add(menuItem.getItemName());
-//        colValues.add(menuItem.getItemPrice());
-//
-//        try {
-//
-//
-//            if (menuItem.getId() == null) {
-//                db.insertRecord(tableName, colDescriptors, colValues, true);
-//            } else {
-//                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", menuItem.getId(), true);
-//            }
-//        } catch (SQLException sql) {
-//            throw new DataAccessException(SQL_ERR);
-//            // NOTE: Need to use a better exception
-//        } catch (Exception e) {
-//            throw new DataAccessException(e.getLocalizedMessage());
-//        }
-//    }
-
     /**
      * A utility method to explicitly open a db connection. Note that the
      * connection will remain open until explicitly closed by member methods.
@@ -230,19 +203,29 @@ public class MenuDAO implements IMenuDAO {
 //            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
 //        }
         // test delete
-//        MenuItem menuItem = new MenuItem(8, "Mixed Drink", 6.95);
-//        dao.deleteMenuItems(menuItem);
-//        dao.deleteMenuItems("8");
+//        MenuItem menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 6.95);
+////        dao.deleteMenuItems(menuItem);
+//        System.out.println("Deleted item: " + menuItem.getItemName());
 
         // test insert       
-       MenuItem menuItem = new MenuItem("Baked Salmon", 24.75);
-        dao.saveMenuItem(menuItem);
-       List<MenuItem> allMenuItems = dao.getAllMenuItems();
-        System.out.println(" getAllMenuItems() ...");
-        for (MenuItem m : allMenuItems) {
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-         // test update   
+//       MenuItem menuItem = new MenuItem("Baked Salmon", 24.75);
+//        dao.saveMenuItem(menuItem);
+//       List<MenuItem> allMenuItems = dao.getAllMenuItems();
+//        System.out.println(" getAllMenuItems() ...");
+//        for (MenuItem m : allMenuItems) {
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+        
+          //test update         
+//        System.out.println(" saveMenuItem() ... update");
+//        MenuItem menuItemUpdate = dao.getMenuItemById("6");
+//        if (menuItemUpdate != null) {
+//            menuItemUpdate.setItemPrice(4.75);
+//            dao.saveMenuItem(menuItemUpdate);
+//            System.out.println("Updated menu item: " + menuItemUpdate.getItemName());            
+//        } else {
+//            System.out.println("Could not find menu item id=6 to update");
+//        }
     }
     
 }
