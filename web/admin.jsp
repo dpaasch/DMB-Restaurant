@@ -16,7 +16,8 @@
     </head>
     <body>
     <center>
-        <form name="admin" id="admin" action="RestaurantCRUDController" method="POST">
+        <form name="adminDelete" id="adminDelete" 
+              action="RestaurantDeleteController" method="POST">
             <h1>Menu Administration</h1>
             <p style="text-align: center"> Select the menu item you wish to modify 
                 and then choose "Add/Edit Item" or "Delete Item."</p>
@@ -34,8 +35,12 @@
                         double itemPrice = menuItem.getItemPrice();
                 %>
                 <tr>
-                <h4><td><input type="checkbox" name="menuItems[]" value="<%= id%>" /> <%= itemName%></td>          
-                    <td><%= itemPrice%></td>
+                <h4>
+                    <td>
+                        <input type="checkbox" name="menuItems[]" 
+                               value="<%= id%>" /> <%= itemName%>
+                    </td>          
+                    <td> <%= itemPrice%></td>
                     </tr>
                 </h4>
                 <%
@@ -46,17 +51,13 @@
             <br/>            
             <input type="submit" name="delete" id="delete" value="Delete Item" />
             <br/><br/>
-            <table>
-                <tr>
-                    <td>Item Name: <input type="text" name="itemName" value="${item.itemName}"/></td>
-                    <td>Item Price: <input type="text" name="itemPrice" value="${item.itemPrice}"/></td>
-                </tr>
-                <tr></tr>
-            </table>
-            <br/>
-            <input type="submit" name="insert_update" id="insert_update" value="Add/Edit Item">
-
-        </form>
+         </form>
+                <form name="adminUpdate" id="adminUpdate" 
+                      action="RestaurantUpdateController" method="POST">
+        
+            <input type="submit" name="update" id="update" value="Add/Edit Item" />
+            <br/><br/>
+                </form>
     </center>
     <br/> 
     <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>

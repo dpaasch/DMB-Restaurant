@@ -13,8 +13,12 @@
         <servlet-class>controller.RestaurantAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RestaurantCRUDController</servlet-name>
-        <servlet-class>controller.RestaurantCRUDController</servlet-class>
+        <servlet-name>RestaurantDeleteController</servlet-name>
+        <servlet-class>controller.RestaurantDeleteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RestaurantUpdateController</servlet-name>
+        <servlet-class>controller.RestaurantUpdateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RestaurantMenuController</servlet-name>
@@ -29,8 +33,12 @@
         <url-pattern>/RestaurantAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RestaurantCRUDController</servlet-name>
-        <url-pattern>/RestaurantCRUDController</url-pattern>
+        <servlet-name>RestaurantDeleteController</servlet-name>
+        <url-pattern>/RestaurantDeleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RestaurantUpdateController</servlet-name>
+        <url-pattern>/RestaurantUpdateController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
