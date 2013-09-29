@@ -18,23 +18,34 @@
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
             <h1>Please make your menu selections</h1><br/>
-                    <%
-                        List<MenuItem> menuItems = null;
-                        Object menu = request.getAttribute("menuItems");
-                        if (menu != null) {
-                            menuItems = (List<MenuItem>) menu;
-                        }
 
-                        for (MenuItem menuItem : menuItems) {
-                            Long id = menuItem.getId();
-                            String itemName = menuItem.getItemName();
-                    %>
-                    <h3><input type="checkbox" name="orderedItems[]" value="<%= id%>" /><td><%= itemName%></td>         </h3>
+
+            <table>
+                <%
+                    List<MenuItem> menuItems = null;
+                    Object menu = request.getAttribute("menuItems");
+                    if (menu != null) {
+                        menuItems = (List<MenuItem>) menu;
+                    }
+
+                    for (MenuItem menuItem : menuItems) {
+                        Long id = menuItem.getId();
+                        String itemName = menuItem.getItemName();
+                %>
+                <tr>
+                <h3>
+                    <td><input type="checkbox" name="orderedItems[]" value="<%= id%>" />&nbsp;<%= itemName%></td>
+                    </tr>
+                </h3>
+                <tr></tr>
+                <tr>
                     <%
                         }
                     %>
-                    <br/>
-                    <input type="submit" name="submit" id="submit" value="Submit Order"/>
+                    <td><input type="submit" name="submit" id="submit" value="Submit Order"/></td>
+                </tr>
+            </table>
+
         </form>
     </center>
 

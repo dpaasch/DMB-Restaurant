@@ -18,7 +18,7 @@
     <center>
         <form name="admin" id="admin" action="RestaurantCRUDController" method="POST">
             <h1>Menu Administration</h1>
-            <p> Select the menu item you wish to modify and then choose Edit or Delete</p>
+            <p style="text-align: center"> Select the menu item you wish to modify and then choose Edit or Delete</p>
             <table>
                 <%
                     List<MenuItem> menuItems = null;
@@ -40,9 +40,15 @@
                 <%
                     }
                 %>
+                <tr></tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="add" id="add" value="Add"/>
+                        <input type="submit" name="edit" id="edit" value="Edit">
+                        <input type="submit" name="delete" id="delete" value="Delete"/>
+                    </td>
+                </tr>
             </table>
-            <br/>
-            <input type="submit" name="delete" id="delete" value="Delete"/>
         </form>
     </center>
 

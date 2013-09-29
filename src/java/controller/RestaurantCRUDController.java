@@ -20,7 +20,7 @@ import model.MenuService;
 public class RestaurantCRUDController extends HttpServlet {
 
     private final static String RESULT_PAGE = "/admin.jsp";
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,20 +35,31 @@ public class RestaurantCRUDController extends HttpServlet {
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String[] menuItems = request.getParameterValues("menuItems[]");
+        String delete = request.getParameter("delete");
+        String edit = request.getParameter("edit");
         MenuService ms = new MenuService();
-        try {
-            ms.deleteMenuItem(menuItems);
-            List<MenuItem> updatedMenu = ms.getAllMenuItems();
-            request.setAttribute("menuItems", updatedMenu);
-        } catch (DataAccessException e) {
-            System.out.println(e.getLocalizedMessage());
+
+        if (delete.equals("Delete")) {
+            try {
+                ms.deleteMenuItem(menuItems);
+                List<MenuItem> updatedMenu = ms.getAllMenuItems();
+                request.setAttribute("menuItems", updatedMenu);
+
+            } catch (DataAccessException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+
+            // This object lets you forward both the request and response
+            // objects to a destination page
+            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+            view.forward(request, response);
+        } else if (edit.equals("Edit")){
+            String[] menuIds = request.getParameterValues("menuItems[]");
+            MenuItem menuItem = ms.getMenuItemById(menuIds[0]);
+            request.setAttribute("menuItem", menuItem);
         }
 
-        // This object lets you forward both the request and response
-        // objects to a destination page
-        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-        view.forward(request, response);
- }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
