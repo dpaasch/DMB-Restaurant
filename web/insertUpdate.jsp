@@ -15,33 +15,16 @@
         <title>Blue Bistro Menu Updates</title>
     </head>
     <body>
-        <h1>Edit Menu Item</h1>
+        <h1>Add/Edit Menu Item</h1>
     <center>
         <form name="insertUpdate" id="insertUpdate" action="RestaurantUpdateController" method="POST" />
-        <table border="1">
-             <%
-                    List<MenuItem> menuItems = null;
-                    Object menu = request.getAttribute("menuItems");
-                    if (menu != null) {
-                        menuItems = (List<MenuItem>) menu;
-                    }
-
-                    for (MenuItem menuItem : menuItems) {
-                        Long id = menuItem.getId();
-                        String itemName = menuItem.getItemName();
-                        double itemPrice = menuItem.getItemPrice();
-                %>
+        <table>
             <tr>
                 <td>Item Name: <input type="text" name="itemName" value="${item.itemName}"/></td>
                 <td>Item Price: <input type="text" name="itemPrice" value="${item.itemPrice}"/></td>
             </tr>
-            <tr></tr>
-            <tr>
-                <td>
-                    <input type="submit" name="submit" id="submit" value="Submit"/>
-                </td>
-            </tr>
         </table>
+            <br>                                <input type="submit" name="submit" id="submit" value="Submit"/>
     </form>
 </center>
 

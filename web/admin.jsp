@@ -19,8 +19,10 @@
         <form name="adminDelete" id="adminDelete" 
               action="RestaurantDeleteController" method="POST">
             <h1>Menu Administration</h1>
-            <p style="text-align: center"> Select the menu item you wish to modify 
-                and then choose "Add/Edit Item" or "Delete Item."</p>
+            <p style="text-align: center"> Select the menu item you wish to delete
+                and then choose "Delete Item."</p>
+            <p style="text-align: center">To add a new menu item, or 
+                update an existing item, choose "Add/Edit Item."</p>
             <table>
                 <%
                     List<MenuItem> menuItems = null;
@@ -50,14 +52,11 @@
             </table>
             <br/>            
             <input type="submit" name="delete" id="delete" value="Delete Item" />
-            <br/><br/>
-         </form>
-                <form name="adminUpdate" id="adminUpdate" 
-                      action="RestaurantUpdateController" method="POST">
-        
+        </form>
+        <form name="adminUpdate" id="adminUpdate" action="insertUpdate.jsp" method="POST">
+            <br/>
             <input type="submit" name="update" id="update" value="Add/Edit Item" />
-            <br/><br/>
-                </form>
+        </form>
     </center>
     <br/> 
     <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
