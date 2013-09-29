@@ -36,10 +36,9 @@ public class RestaurantCRUDController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String[] menuItems = request.getParameterValues("menuItems[]");
         String delete = request.getParameter("delete");
-        String edit = request.getParameter("edit");
-        MenuService ms = new MenuService();
 
-        if (delete.equals("Delete")) {
+        MenuService ms = new MenuService();
+        if (delete.equals("Delete Item")) {
             try {
                 ms.deleteMenuItem(menuItems);
                 List<MenuItem> updatedMenu = ms.getAllMenuItems();
@@ -48,17 +47,12 @@ public class RestaurantCRUDController extends HttpServlet {
             } catch (DataAccessException e) {
                 System.out.println(e.getLocalizedMessage());
             }
-
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);
-        } else if (edit.equals("Edit")){
-            String[] menuIds = request.getParameterValues("menuItems[]");
-            MenuItem menuItem = ms.getMenuItemById(menuIds[0]);
-            request.setAttribute("menuItem", menuItem);
         }
 
+        // This object lets you forward both the request and response
+        // objects to a destination page
+        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

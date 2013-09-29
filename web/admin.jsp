@@ -41,14 +41,13 @@
                     }
                 %>
                 <tr></tr>
-                <tr>
-                    <td>
-                        <input type="submit" name="add" id="add" value="Add"/>
-                        <input type="submit" name="edit" id="edit" value="Edit">
-                        <input type="submit" name="delete" id="delete" value="Delete"/>
-                    </td>
-                </tr>
             </table>
+            <br/>
+
+            <input type="submit" name="add" id="add" value="Add Item"/>
+            <input type="submit" name="edit" id="edit" value="Edit Item">
+            <input type="submit" name="delete" id="delete" value="Delete Item" />
+
         </form>
     </center>
 
