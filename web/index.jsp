@@ -18,8 +18,12 @@
         <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" id="placeOrder">
             <h4>Place Order</h4>
         </button>
+        &Tab;
+        <button onclick="location.href = 'RestaurantAdminController'" name="administerMenu" id="administerMenu">
+            <h4>Administer Menu</h4>
+        </button>
         <br/><br/>
     </center> 
-    <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a>
+    <!-- <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a> -->
 </body>
 </html>
