@@ -18,7 +18,7 @@ public interface IMenuDAO {
     
     public abstract MenuItem getMenuItemById(String id) throws DataAccessException;
 
-    public abstract void deleteMenuItems(MenuItem menuItem) throws DataAccessException, Exception;
+    public abstract void deleteMenuItem(MenuItem menuItem) throws DataAccessException, Exception;
     
     public void saveMenuItem(MenuItem menuItem) throws DataAccessException;
     

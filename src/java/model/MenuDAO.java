@@ -16,14 +16,14 @@ public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
     private DBAccessor db;
-    private final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
-            URL = "jdbc:mysql://localhost:3306/restaurant", USERNAME = "root",
-            PASSWORD = "dawn00";
-    private static final String FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
-            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu",
-            IAE_ERR = "Error: URL not found or empty.",
-            CNF_ERR = "Error: Failed to load the JDBC driver.",
-            SQL_ERR = "Error: Unable to connect to the database.";
+    private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
+            URL = "jdbc:mysql://localhost:3306/restaurant", 
+            USERNAME = "root",
+            PASSWORD = "dawn00",
+            TABLE = "menu",
+            PK_FIELD = "menu_id",
+            FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
+            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
 
     /**
      * Default Constructor creates a new MenuDAO object.
@@ -48,7 +48,7 @@ public class MenuDAO implements IMenuDAO {
             this.openDBConnection();
             rawData = db.findAllRecords(FIND_ALL_MENU_ITEMS, true);
         } catch (SQLException sql) {
-            throw new DataAccessException(SQL_ERR);
+            throw new DataAccessException(sql.getLocalizedMessage());
         } catch (Exception e) {
             throw new DataAccessException(e.getLocalizedMessage());
         }
@@ -76,7 +76,7 @@ public class MenuDAO implements IMenuDAO {
             this.openDBConnection();
             rawData = db.findRecordById("menu", "menu_id", new Long(id), true);
         } catch (SQLException sql) {
-            throw new DataAccessException(SQL_ERR);
+            throw new DataAccessException(sql.getLocalizedMessage());
             // NOTE: Need to use a better exception
         } catch (Exception e) {
             throw new DataAccessException(e.getLocalizedMessage());
@@ -90,25 +90,24 @@ public class MenuDAO implements IMenuDAO {
     }
 
     @Override
-    public void deleteMenuItems(MenuItem menuItem) throws DataAccessException, Exception {
+    public void deleteMenuItem(MenuItem menuItem) throws DataAccessException {
+        this.openDBConnection();
+        
         try {
-            this.openDBConnection();
-            db.deleteRecords("menu", "menu_id", menuItem.getId(), true);
-        } catch (IllegalArgumentException iae){
-            throw new IllegalArgumentException(IAE_ERR);
-        }catch (ClassNotFoundException cnf) {
-            throw new ClassNotFoundException(CNF_ERR);
+            db.deleteRecords(TABLE, PK_FIELD, menuItem.getId(), true);
         } catch (SQLException sql) {
-            throw new SQLException(SQL_ERR);
+            throw new DataAccessException(sql.getLocalizedMessage());
+        } catch (Exception e) {
+            throw new DataAccessException(e.getLocalizedMessage());
         }
+
     }
 
     @Override
     public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
-       
-        this.openDBConnection();        
-        String tableName = "menu";
-        
+
+        this.openDBConnection();
+
         List<String> colDescriptors = new ArrayList<String>();
         colDescriptors.add("item_name");
         colDescriptors.add("item_price");
@@ -117,12 +116,12 @@ public class MenuDAO implements IMenuDAO {
         colValues.add(menuItem.getItemName());
         colValues.add(menuItem.getItemPrice());
 
-        try { 
+        try {
             // if the id is null, it's a new record, else it's an update
             if (menuItem.getId() == null) {
-                db.insertRecord(tableName, colDescriptors, colValues, true);
+                db.insertRecord(TABLE, colDescriptors, colValues, true);
             } else {
-                db.updateRecords(tableName, colDescriptors, colValues, "menu_id", 
+                db.updateRecords(TABLE, colDescriptors, colValues, PK_FIELD,
                         menuItem.getId(), true);
             }
         } catch (SQLException sql) {
@@ -132,7 +131,7 @@ public class MenuDAO implements IMenuDAO {
             throw new DataAccessException(e.getLocalizedMessage());
         }
     }
-            
+
     /**
      * A utility method to explicitly open a db connection. Note that the
      * connection will remain open until explicitly closed by member methods.
@@ -152,12 +151,10 @@ public class MenuDAO implements IMenuDAO {
     private void openDBConnection() throws DataAccessException {
         try {
             db.openDBConnection(DRIVER_CLASS, URL, USERNAME, PASSWORD);
-        } catch (IllegalArgumentException iae) {
-            System.err.println(IAE_ERR);
-        } catch (ClassNotFoundException cnf) {
-            System.err.println(CNF_ERR);
         } catch (SQLException sql) {
-            System.err.println(SQL_ERR);
+            throw new DataAccessException(sql.getLocalizedMessage());
+        } catch (Exception e) {
+            throw new DataAccessException(e.getLocalizedMessage());
         }
     }
 
@@ -203,9 +200,9 @@ public class MenuDAO implements IMenuDAO {
 //            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
 //        }
         // test delete
-//        MenuItem menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 6.95);
-////        dao.deleteMenuItems(menuItem);
-//        System.out.println("Deleted item: " + menuItem.getItemName());
+        MenuItem menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 6.95);
+//        dao.deleteMenuItems(menuItem);
+        System.out.println("Deleted item: " + menuItem.getItemName());
 
         // test insert       
 //       MenuItem menuItem = new MenuItem("Baked Salmon", 24.75);
@@ -215,8 +212,8 @@ public class MenuDAO implements IMenuDAO {
 //        for (MenuItem m : allMenuItems) {
 //            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
 //        }
-        
-          //test update         
+
+        //test update         
 //        System.out.println(" saveMenuItem() ... update");
 //        MenuItem menuItemUpdate = dao.getMenuItemById("6");
 //        if (menuItemUpdate != null) {
@@ -227,5 +224,4 @@ public class MenuDAO implements IMenuDAO {
 //            System.out.println("Could not find menu item id=6 to update");
 //        }
     }
-    
 }

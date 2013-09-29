@@ -33,7 +33,7 @@ public class RestaurantAdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DataAccessException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
@@ -42,6 +42,7 @@ public class RestaurantAdminController extends HttpServlet {
 
         request.setAttribute(MENU_ITEMS, menuItems);    
         } catch (Exception e){
+            System.err.println(e.getLocalizedMessage());
             
         }
         
@@ -65,11 +66,7 @@ public class RestaurantAdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -84,11 +81,7 @@ public class RestaurantAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**

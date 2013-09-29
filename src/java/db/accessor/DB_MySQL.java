@@ -378,7 +378,8 @@ public class DB_MySQL implements DBAccessor {
      * @throws Exception for all other problems
      */
     @Override
-    public int deleteRecords(String table, String whereField, Object whereValue, boolean closeConnection) throws SQLException, Exception {
+    public int deleteRecords(String table, String whereField, Object whereValue, boolean closeConnection) 
+            throws SQLException, Exception {
         PreparedStatement preparedStatement = null;
         int recordsDeleted = 0;
 

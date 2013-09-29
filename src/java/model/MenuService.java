@@ -1,7 +1,6 @@
 package model;
 
 import db.accessor.DB_MySQL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +30,15 @@ public class MenuService {
         return dao.getMenuItemById(id);
     }
     
-    public void deleteMenuItems(String[] menuItems) throws SQLException, Exception {
-        for (String s : menuItems) {
-            MenuItem menuItem = dao.getMenuItemById(s);
-            dao.deleteMenuItems(menuItem);
+   public void deleteMenuItem(String[] menuIds) throws DataAccessException, Exception {
+        
+        for (String s : menuIds) {
+            MenuItem m = dao.getMenuItemById(s);
+            dao.deleteMenuItem(m);            
         }
     }
     
-    public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
+    public void updateMenuItem(MenuItem menuItem) throws DataAccessException {
         dao.saveMenuItem(menuItem);
     
     }
@@ -62,7 +62,7 @@ public class MenuService {
         }
         System.out.println("\n deleteMenuItem() ... ");
         String[] menuItem={"8"};
-        ms.deleteMenuItems(menuItem);
+        ms.deleteMenuItem(menuItem);
         System.out.println(menuItem.toString());        
     }
 }

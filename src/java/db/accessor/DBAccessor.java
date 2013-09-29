@@ -146,6 +146,6 @@ public interface DBAccessor {
      * @throws SQLException if database access error or illegal sql
      * @throws Exception for all other problems
      */
-    public int deleteRecords(String table, String whereField, Object whereValue, 
+    public abstract int deleteRecords(String table, String whereField, Object whereValue, 
             boolean closeConnection) throws SQLException, Exception;    
 }
