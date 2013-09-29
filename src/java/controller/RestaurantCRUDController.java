@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +16,9 @@ import model.MenuService;
 
 /**
  *
- * @author Dawn Bykowski, dpaasch@my.wctc.edu
- * @version 1.00
+ * @author tim
  */
 public class RestaurantCRUDController extends HttpServlet {
-
-    private final static String RESULT_PAGE = "/admin.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -35,31 +33,25 @@ public class RestaurantCRUDController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-
-
         String action = request.getParameter("action");
-        List<MenuItem> updatedMenuItems = null;
+        List<MenuItem> updatedItems = null;
         MenuService ms = new MenuService();
         if (action.equals("Delete")) {
-            try {
-                ms.deleteMenuItem(request.getParameterValues("menuItem"));
-                updatedMenuItems = ms.getAllMenuItems();
 
-            } catch (DataAccessException ex) {
-                // this error output throws more detail then any error I could create
-                System.out.println(ex.getLocalizedMessage());
-            }
-                    request.setAttribute("menuItems", updatedMenuItems);
+        try {
+            ms.deleteMenuItem(request.getParameterValues("menuItems"));
+            request.setAttribute("menuItems", updatedItems);
+            
+        } catch (DataAccessException e) {
+            System.err.println(e.getLocalizedMessage());
         }
-        
-        // This object lets you forward both the request and response
-        // objects to a destination page
-        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-        view.forward(request, response);
-
+                        // This object lets you forward both the request and response
+                // objects to a destination page
+                RequestDispatcher view =
+                        request.getRequestDispatcher("/adminForm.jsp");
+                view.forward(request, response);
+        }
     }
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

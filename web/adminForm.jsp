@@ -1,5 +1,5 @@
 <%-- 
-    Document   : admin - Blue Bistro
+    Document   : adminForm - Blue Bistro
     Created on : Sep 25, 2013, 8:04:05 PM
     Author     : Dawn Bykowski
 --%>
@@ -18,7 +18,7 @@
         <h1>Blue Bistro Administration</h1><br/><br/>
         <p> Select the menu item you wish to modify and then choose Edit or Delete</p>
         <h4>
-            <form name="adminForm" id="adminForm" method="POST" action="Update">
+            <form name="adminForm" id="adminForm" method="POST" action="RestaurantCRUDController">
                 <table>
                     <tr>
                         <td>&nbsp;</td>
