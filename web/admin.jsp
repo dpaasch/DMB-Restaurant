@@ -18,7 +18,8 @@
     <center>
         <form name="admin" id="admin" action="RestaurantCRUDController" method="POST">
             <h1>Menu Administration</h1>
-            <p style="text-align: center"> Select the menu item you wish to modify and then choose Edit or Delete</p>
+            <p style="text-align: center"> Select the menu item you wish to modify 
+                and then choose "Add/Edit Item" or "Delete Item."</p>
             <table>
                 <%
                     List<MenuItem> menuItems = null;
@@ -42,15 +43,21 @@
                 %>
                 <tr></tr>
             </table>
-            <br/>
-
-            <input type="submit" name="add" id="add" value="Add Item"/>
-            <input type="submit" name="edit" id="edit" value="Edit Item">
+            <br/>            
             <input type="submit" name="delete" id="delete" value="Delete Item" />
+            <br/><br/>
+            <table>
+                <tr>
+                    <td>Item Name: <input type="text" name="itemName" value="${item.itemName}"/></td>
+                    <td>Item Price: <input type="text" name="itemPrice" value="${item.itemPrice}"/></td>
+                </tr>
+                <tr></tr>
+            </table>
+            <br/>
+            <input type="submit" name="insert_update" id="insert_update" value="Add/Edit Item">
 
         </form>
     </center>
-
     <br/> 
     <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
 </body>

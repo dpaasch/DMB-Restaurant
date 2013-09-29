@@ -60,9 +60,20 @@ public class MenuService {
             mi.add(m);
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-        System.out.println("\n deleteMenuItem() ... ");
-        String[] menuItem={"8"};
-        ms.deleteMenuItem(menuItem);
-        System.out.println(menuItem.toString());        
+//        System.out.println("\n deleteMenuItem() ... ");
+//        String[] menuItem={"8"};
+//        ms.deleteMenuItem(menuItem);
+//        System.out.println(menuItem.toString());        
+        
+        System.out.println("\n updateMenuItem() ...");
+        MenuItem menuItemUpdate = ms.getMenuItemById("6");
+        System.out.println("Updating menu item: " + menuItemUpdate.getItemName() 
+                + " \nOriginal Price: $" + menuItemUpdate.getItemPrice());        
+        if (menuItemUpdate != null) {
+            menuItemUpdate.setItemPrice(3.75);
+            ms.updateMenuItem(menuItemUpdate);     
+            System.out.println(" New Price: $" + 
+                    menuItemUpdate.getItemPrice());
+        }
     }
 }

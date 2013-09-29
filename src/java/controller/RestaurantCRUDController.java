@@ -35,19 +35,44 @@ public class RestaurantCRUDController extends HttpServlet {
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String[] menuItems = request.getParameterValues("menuItems[]");
+        List<MenuItem> updatedMenuItems;
         String delete = request.getParameter("delete");
+        String update = request.getParameter("insert_update");
 
         MenuService ms = new MenuService();
-        if (delete.equals("Delete Item")) {
-            try {
-                ms.deleteMenuItem(menuItems);
-                List<MenuItem> updatedMenu = ms.getAllMenuItems();
-                request.setAttribute("menuItems", updatedMenu);
+//        if (delete.equals("Delete Item")) {
+//            try {
+//                ms.deleteMenuItem(menuItems);
+//                updatedMenuItems = ms.getAllMenuItems();
+//                request.setAttribute("menuItems", updatedMenuItems);
+//
+//            } catch (DataAccessException e) {
+//                System.out.println(e.getLocalizedMessage());
+//            }
+//        }
+//
+//        // This object lets you forward both the request and response
+//        // objects to a destination page
+//        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+//        view.forward(request, response);
+//    }
 
-            } catch (DataAccessException e) {
-                System.out.println(e.getLocalizedMessage());
+        if (update.equals("Add/Edit Item")) {
+
+            String id = request.getParameter("id");
+            Long objId = (id.equals("null") || id.length() == 0) ? null : new Long(id);
+            String itemName = request.getParameter("itemName");
+            double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
+                           MenuItem menuItem = new MenuItem(objId, itemName, itemPrice);
+                try {
+                    ms.updateMenuItem(menuItem);
+                    updatedMenuItems = ms.getAllMenuItems();
+                    request.setAttribute("menuItems", updatedMenuItems);
+                } catch (DataAccessException e) {
+                    System.out.println(e.getLocalizedMessage());
+                }
             }
-        }
+        
 
         // This object lets you forward both the request and response
         // objects to a destination page
