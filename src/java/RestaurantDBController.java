@@ -1,25 +1,20 @@
-package controller;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DataAccessException;
-import model.MenuItem;
-import model.MenuService;
 
 /**
  *
  * @author tim
  */
-public class RestaurantAdminController extends HttpServlet {
-
-    private final static String RESULT_PAGE = "/admin.jsp";
+public class RestaurantDBController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,17 +27,23 @@ public class RestaurantAdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DataAccessException {
-
-            // Retrieve the menu to display on the main admin page
-            MenuService ms = new MenuService();
-            List<MenuItem> menuItems = ms.getAllMenuItems();
-            request.setAttribute("menuItems", menuItems);
-
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);           
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RestaurantDBController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RestaurantDBController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,11 +59,7 @@ public class RestaurantAdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -77,11 +74,7 @@ public class RestaurantAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

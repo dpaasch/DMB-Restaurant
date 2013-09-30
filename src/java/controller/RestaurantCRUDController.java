@@ -17,7 +17,7 @@ import model.MenuService;
  *
  * @author tim
  */
-public class RestaurantDeleteController extends HttpServlet {
+public class RestaurantCRUDController extends HttpServlet {
 
     private final static String RESULT_PAGE = "/admin.jsp";
 
@@ -34,56 +34,47 @@ public class RestaurantDeleteController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-
         try {
-            String action = request.getParameter("action");
-            String itemId = request.getParameter("itemId");
-            List<MenuItem> updatedMenuItems = null;
-
-            MenuService ms = new MenuService();
-
-            if (action.equals("Delete Item")) {
-
-                ms.deleteMenuItem(request.getParameterValues("menuItem"));
-                updatedMenuItems = ms.getAllMenuItems();
-                request.setAttribute("menuItems", updatedMenuItems);
-
+            // delete 
+            String d = request.getParameter("delete");
+            if (d.equalsIgnoreCase("delete")) {
+                String[] mItems = request.getParameterValues("menuItems[]");
+                MenuService ms = new MenuService();
+                try {
+                    ms.deleteMenuItem(mItems);
+                    List<MenuItem> updatedMenuItems = ms.getAllMenuItems();
+                    request.setAttribute("menuItems", updatedMenuItems);
+                } catch (DataAccessException e) {
+                    System.out.println(e.getLocalizedMessage());
+                } catch (Exception ex) {
+                    System.out.println(ex.getLocalizedMessage());
+                }
                 // This object lets you forward both the request and response
                 // objects to a destination page
                 RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
                 view.forward(request, response);
-            } else if (action.equals("Add/Edit Item")) {
-
-                String[] menuIds = request.getParameterValues("menuItem");
-                if (menuIds == null) {
-                    MenuItem menuItem = new MenuItem();
-                    request.setAttribute("menuItem", menuItem);
-                } else {
-                    MenuItem menuItem = ms.getMenuItemById(menuIds[0]);
-                    request.setAttribute("menuItem", menuItem);
-                }
-
-                RequestDispatcher view = request.getRequestDispatcher("/insertUpdate.jsp");
-                view.forward(request, response);
-            } else if (action.equals("Submit Update")) {
-                String itemName = request.getParameter("itemName");
-                String itemPrice = request.getParameter("itemPrice");
-
-                MenuItem menuItem = new MenuItem(null, itemName, Double.valueOf(itemPrice));
+            }
+            String edit = request.getParameter("edit");
+            if (edit.equalsIgnoreCase("edit")) {
+                String[] menuIds = request.getParameter("id");
+                MenuService ms = new MenuService();
                 try {
-                    ms.updateMenuItem(menuItem);
-                    updatedMenuItems = ms.getAllMenuItems();
-                    request.setAttribute("menuItem", updatedMenuItems);
+                    MenuItem menuItem = ms.getMenuItemById(request.getParameter(id));
+                    if (menuItem != null) {
+                        ms.updateMenuItem(menuItem);
+                        request.setAttribute("menuItem", menuItem);
+                    }
                 } catch (DataAccessException e) {
                     System.out.println(e.getLocalizedMessage());
+                } catch (Exception ex) {
+                    System.out.println(ex.getLocalizedMessage());
                 }
+                // This object lets you forward both the request and response
+                // objects to a destination page
+                RequestDispatcher view = request.getRequestDispatcher("/insertUpdate.jsp");
+                view.forward(request, response);
             }
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);
-
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -104,9 +95,9 @@ public class RestaurantDeleteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -126,9 +117,9 @@ public class RestaurantDeleteController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantCRUDController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

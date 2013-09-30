@@ -20,9 +20,9 @@
         <form name="insertUpdate" id="insertUpdate" action="RestaurantDeleteController" method="POST" />
         <table>           
             <tr>
-                <td>Item Id: <input type="text" name="itemId" value="${menuItem.id}"/></td>
-                <td>Item Name: <input type="text" name="itemName" value="${menuItem.itemName}"/></td>
-                <td>Item Price: <input type="text" name="itemPrice" value="${menuItem.itemPrice}"/></td>
+                <td>Item Id: <input type="text" name="itemId" value="${id}"/></td>
+                <td>Item Name: <input type="text" name="itemName" value="${itemName}"/></td>
+                <td>Item Price: <input type="text" name="itemPrice" value="$${itemPrice}"/></td>
             </tr>
         </table>
         <br> 

@@ -17,11 +17,14 @@ public class MenuDAO implements IMenuDAO {
     // Variable declarations //
     private DBAccessor db;
     private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
-            URL = "jdbc:mysql://localhost:3306/restaurant", 
+            URL = "jdbc:mysql://localhost:3306/restaurant",
             USERNAME = "root",
             PASSWORD = "dawn00",
             TABLE = "menu",
             PK_FIELD = "menu_id",
+            MENU_ID = "menu_id",
+            ITEM_NAME = "item_name",
+            ITEM_PRICE = "item_price",
             FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
             FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
 
@@ -57,11 +60,11 @@ public class MenuDAO implements IMenuDAO {
 
         for (Map map : rawData) {
             menuItem = new MenuItem();
-            String id = map.get("menu_id").toString();
+            String id = map.get(MENU_ID).toString();
             menuItem.setId(new Long(id));
-            String name = map.get("item_name").toString();
+            String name = map.get(ITEM_NAME).toString();
             menuItem.setItemName(name);
-            String price = map.get("item_price").toString();
+            String price = map.get(ITEM_PRICE).toString();
             menuItem.setItemPrice(new Double(price));
             records.add(menuItem);
         }
@@ -69,12 +72,12 @@ public class MenuDAO implements IMenuDAO {
     }
 
     @Override
-    public MenuItem getMenuItemById(String id) throws DataAccessException {
+    public MenuItem getMenuItemById(String ID) throws DataAccessException {
         Map rawData = new HashMap();
 
         try {
             this.openDBConnection();
-            rawData = db.findRecordById("menu", "menu_id", new Long(id), true);
+            rawData = db.findRecordById(TABLE, PK_FIELD, ID, true);
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
             // NOTE: Need to use a better exception
@@ -83,16 +86,20 @@ public class MenuDAO implements IMenuDAO {
         }
 
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(new Long(rawData.get("menu_id").toString()));
-        menuItem.setItemName(rawData.get("item_name").toString());
-        menuItem.setItemPrice(new Double(rawData.get("item_price").toString()));
+        String id = rawData.get(MENU_ID).toString();
+        menuItem.setId(new Long(id));
+        String itemName = rawData.get(ITEM_NAME).toString();
+        menuItem.setItemName(itemName);
+        String itemPrice = rawData.get(ITEM_PRICE).toString();
+        menuItem.setItemPrice(new Double(itemPrice));
+
         return menuItem;
     }
 
     @Override
     public void deleteMenuItem(MenuItem menuItem) throws DataAccessException {
         this.openDBConnection();
-        
+
         try {
             db.deleteRecords(TABLE, PK_FIELD, menuItem.getId(), true);
         } catch (SQLException sql) {
@@ -109,8 +116,8 @@ public class MenuDAO implements IMenuDAO {
         this.openDBConnection();
 
         List<String> colDescriptors = new ArrayList<String>();
-        colDescriptors.add("item_name");
-        colDescriptors.add("item_price");
+        colDescriptors.add(ITEM_NAME);
+        colDescriptors.add(ITEM_PRICE);
 
         List colValues = new ArrayList();
         colValues.add(menuItem.getItemName());
@@ -184,44 +191,59 @@ public class MenuDAO implements IMenuDAO {
     public static void main(String[] args) throws DataAccessException, Exception {
         MenuDAO dao = new MenuDAO(new DB_MySQL());
         dao.openDBConnection();
-//        // test get all items
-//        List<MenuItem> allMenuItems = dao.getAllMenuItems();
-//        System.out.println(" getAllMenuItems() ...");
-//        for (MenuItem m : allMenuItems) {
-//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-//        }
-//        // test get by id
-//        String[] orderedMenuItems = {"1", "2", "3"};
-//        List<MenuItem> mi = new ArrayList<>();
-//        System.out.println("\n getMenuItemById() ... ");
-//        for (String s : orderedMenuItems) {
-//            MenuItem m = dao.getMenuItemById(s);
-//            mi.add(m);
-//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-//        }
-        // test delete
-        MenuItem menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 6.95);
-//        dao.deleteMenuItems(menuItem);
+        // get MENU
+        System.out.println(" getAllMenuItems() ... ");
+        List<MenuItem> allMenuItems = dao.getAllMenuItems();
+        for (MenuItem m : allMenuItems) {
+            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+        }
+        // get Item By Id
+        System.out.println("\n getMenuItemById() ... ");
+        String[] orderedMenuItems = {"5"};
+        List<MenuItem> mi = new ArrayList<>();
+        for (String s : orderedMenuItems) {
+            MenuItem m = dao.getMenuItemById(s);
+            mi.add(m);
+            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+        }
+        // delete
+        System.out.println("\n deleteMenuItem() ... ");
+        MenuItem menuItem = new MenuItem(Long.valueOf(18), "Mixed Drink", 6.95);
+        dao.deleteMenuItem(menuItem);
         System.out.println("Deleted item: " + menuItem.getItemName());
-
-        // test insert       
-//       MenuItem menuItem = new MenuItem("Baked Salmon", 24.75);
-//        dao.saveMenuItem(menuItem);
-//       List<MenuItem> allMenuItems = dao.getAllMenuItems();
-//        System.out.println(" getAllMenuItems() ...");
-//        for (MenuItem m : allMenuItems) {
-//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-//        }
-
-        //test update         
-//        System.out.println(" saveMenuItem() ... update");
-//        MenuItem menuItemUpdate = dao.getMenuItemById("6");
-//        if (menuItemUpdate != null) {
-//            menuItemUpdate.setItemPrice(4.75);
-//            dao.saveMenuItem(menuItemUpdate);
-//            System.out.println("Updated menu item: " + menuItemUpdate.getItemName());            
-//        } else {
-//            System.out.println("Could not find menu item id=6 to update");
-//        }
+        allMenuItems = dao.getAllMenuItems();
+        // get MENU
+        System.out.println("\n  ... MENU ... ");
+        for (MenuItem m : allMenuItems) {
+            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+        }
+        // insert
+        System.out.println("\n saveMenuItem(insert) ... ");
+        menuItem = new MenuItem(null, "Mixed Drink", 7.00);
+        if (menuItem.getId() == null) {
+            System.out.println("Inserting menu item: " + menuItem.getItemName()
+                    + " @ " + menuItem.getItemPrice());
+            dao.saveMenuItem(menuItem);
+            // get MENU
+            System.out.println("\n  ... MENU ... ");
+            for (MenuItem m : allMenuItems) {
+                System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+            }
+            // update
+            System.out.println("This is the value of Long obj: " + Long.valueOf(20));
+//            menuItem = new MenuItem(Long.valueOf("20"), "Mixed Drink", 7.00);
+//            if (menuItem.getId() != null) {
+//                System.out.println("\n saveMenuItem(update) ...");
+//                System.out.println("Updating menu item: " + menuItem.getItemName()
+//                        + " ... " + menuItem.getItemPrice());
+//                dao.saveMenuItem(menuItem);
+//            }
+//            //get MENU
+//            System.out.println("\n ... MENU ... ");
+//            allMenuItems = dao.getAllMenuItems();
+//            for (MenuItem m : allMenuItems) {
+//                System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//            }
+        }
     }
 }
