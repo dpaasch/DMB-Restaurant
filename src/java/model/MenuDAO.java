@@ -17,8 +17,7 @@ public class MenuDAO implements IMenuDAO {
     // Variable declarations //
     private DBAccessor db;
     // Constructors
-    private static final String 
-            DRIVER_CLASS = "com.mysql.jdbc.Driver",
+    private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
             URL = "jdbc:mysql://localhost:3306/restaurant",
             USERNAME = "root",
             PASSWORD = "dawn00",
@@ -192,59 +191,45 @@ public class MenuDAO implements IMenuDAO {
     // for testing
     public static void main(String[] args) throws DataAccessException, Exception {
         MenuDAO dao = new MenuDAO(new DB_MySQL());
-        dao.openDBConnection();
-        // get MENU
-        System.out.println(" getAllMenuItems() ... ");
+        MenuItem menuItem;
         List<MenuItem> allMenuItems = dao.getAllMenuItems();
+        dao.openDBConnection();
+
+        // get MENU
+        System.out.println(" ... ORIGINAL MENU ... ");
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-        // get Item By Id
-        System.out.println("\n getMenuItemById() ... ");
+        // get by id
         String[] orderedMenuItems = {"5"};
         List<MenuItem> mi = new ArrayList<>();
         for (String s : orderedMenuItems) {
             MenuItem m = dao.getMenuItemById(s);
             mi.add(m);
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+            System.out.println("\nRetrieved menu item by id: " + m.getItemName() + " ... " + m.getItemPrice());
         }
         // delete
-        System.out.println("\n deleteMenuItem() ... ");
-        MenuItem menuItem = new MenuItem(Long.valueOf(18), "Mixed Drink", 6.95);
+        menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 7.00);
         dao.deleteMenuItem(menuItem);
-        System.out.println("Deleted item: " + menuItem.getItemName());
+        System.out.println("\nDeleted item: " + menuItem.getItemName() + " ... " + menuItem.getItemPrice());
+
+        // insert
+        menuItem = new MenuItem(null, "Mixed Drink", 7.25);
+        dao.saveMenuItem(menuItem);
+        System.out.println("\nInserted: " + menuItem.getItemName() + " @$" + menuItem.getItemPrice());
+
+        // update
+        menuItem = new MenuItem(Long.valueOf("6"), "Rice Pilaf", 3.75);
+        dao.saveMenuItem(menuItem);
+        System.out.println("\nUpdated: " + menuItem.getItemName() + " ( " + menuItem.getItemId() + ")"
+                + " ... " + menuItem.getItemPrice());
+
+        //get MENU
+        System.out.println(
+                "\n ... CURRENT MENU ... ");
         allMenuItems = dao.getAllMenuItems();
-        // get MENU
-        System.out.println("\n  ... MENU ... ");
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-        // insert
-        System.out.println("\n saveMenuItem(insert) ... ");
-        menuItem = new MenuItem(null, "Mixed Drink", 7.00);
-        if (menuItem.getItemId() == null) {
-            dao.saveMenuItem(menuItem);
-            System.out.println("Inserted: " + menuItem.getItemName()
-                    + " @..." + menuItem.getItemPrice());
-            // get MENU
-            System.out.println("\n  ... MENU ... ");
-            for (MenuItem m : allMenuItems) {
-                System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-            }
-            // update
-            System.out.println("This is the value of Long obj: " + Long.valueOf("6"));
-            menuItem = new MenuItem(Long.valueOf("6"), "Soft Drink", 3.00);
-            if (menuItem.getItemId() != null) {
-                dao.saveMenuItem(menuItem);
-                System.out.println("Updated: " + menuItem.getItemName()
-                        + " ... " + menuItem.getItemPrice() + menuItem.getItemId());
-            }
-            //get MENU
-            System.out.println("\n ... MENU ... ");
-            allMenuItems = dao.getAllMenuItems();
-            for (MenuItem m : allMenuItems) {
-                System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-            }
         }
     }
 }
