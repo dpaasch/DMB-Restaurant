@@ -17,18 +17,18 @@
     <body>
         <h1>Add/Edit Menu Item</h1>
     <center>
-        <form name="insertUpdate" id="insertUpdate" action="RestaurantUpdateController" method="POST" />
-        <table>
+        <form name="insertUpdate" id="insertUpdate" action="RestaurantDeleteController" method="POST" />
+        <table>           
             <tr>
-                <td>Item Name: <input type="text" name="itemName" value="${item.itemName}"/></td>
-                <td>Item Price: <input type="text" name="itemPrice" value="${item.itemPrice}"/></td>
+                <td>Item Id: <input type="text" name="itemId" value="${menuItem.id}"/></td>
+                <td>Item Name: <input type="text" name="itemName" value="${menuItem.itemName}"/></td>
+                <td>Item Price: <input type="text" name="itemPrice" value="${menuItem.itemPrice}"/></td>
             </tr>
         </table>
-            <br>                                <input type="submit" name="submit" id="submit" value="Submit"/>
+        <br> 
+        <input type="submit" name="action" id="action" value="Submit Update"/>
     </form>
 </center>
-
-<br/> 
 <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
 </body>
 </html>

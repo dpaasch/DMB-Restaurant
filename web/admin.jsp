@@ -39,7 +39,7 @@
                 <tr>
                 <h4>
                     <td>
-                        <input type="checkbox" name="menuItems[]" 
+                        <input type="checkbox" name="menuItem" 
                                value="<%= id%>" /> <%= itemName%>
                     </td>          
                     <td> <%= itemPrice%></td>
@@ -51,11 +51,11 @@
                 <tr></tr>
             </table>
             <br/>            
-            <input type="submit" name="delete" id="delete" value="Delete Item" />
+            <input type="submit" name="action" id="action" value="Delete Item" />
         </form>
         <form name="adminUpdate" id="adminUpdate" action="insertUpdate.jsp" method="POST">
             <br/>
-            <input type="submit" name="update" id="update" value="Add/Edit Item" />
+            <input type="submit" name="action" id="action" value="Add/Edit Item" />
         </form>
     </center>
     <br/> 

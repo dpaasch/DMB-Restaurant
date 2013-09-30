@@ -18,8 +18,6 @@
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
             <h1>Please make your menu selections</h1><br/>
-
-
             <table>
                 <%
                     List<MenuItem> menuItems = null;
