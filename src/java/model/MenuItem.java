@@ -70,7 +70,6 @@ public class MenuItem {
      * Sets the value of the private variable for the menu item identifier.
      *
      * @param id : The menu item identifier expressed as a Long object. 
-     * @throws IllegalArgumentException : if id parameter < 0
      *
      */
     public final void setItemId(Long id) throws IllegalArgumentException {

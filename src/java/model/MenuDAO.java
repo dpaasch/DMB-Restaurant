@@ -16,13 +16,15 @@ public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
     private DBAccessor db;
-    private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
+    // Constructors
+    private static final String 
+            DRIVER_CLASS = "com.mysql.jdbc.Driver",
             URL = "jdbc:mysql://localhost:3306/restaurant",
             USERNAME = "root",
             PASSWORD = "dawn00",
             TABLE = "menu",
             PK_FIELD = "menu_id",
-            MENU_ID = "menu_id",
+            ITEM_ID = "menu_id",
             ITEM_NAME = "item_name",
             ITEM_PRICE = "item_price",
             FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
@@ -60,7 +62,7 @@ public class MenuDAO implements IMenuDAO {
 
         for (Map map : rawData) {
             menuItem = new MenuItem();
-            String id = map.get(MENU_ID).toString();
+            String id = map.get(ITEM_ID).toString();
             menuItem.setItemId(new Long(id));
             String name = map.get(ITEM_NAME).toString();
             menuItem.setItemName(name);
@@ -86,7 +88,7 @@ public class MenuDAO implements IMenuDAO {
         }
 
         MenuItem menuItem = new MenuItem();
-        String id = rawData.get(MENU_ID).toString();
+        String id = rawData.get(ITEM_ID).toString();
         menuItem.setItemId(new Long(id));
         String itemName = rawData.get(ITEM_NAME).toString();
         menuItem.setItemName(itemName);
@@ -101,7 +103,7 @@ public class MenuDAO implements IMenuDAO {
         this.openDBConnection();
 
         try {
-            db.deleteRecords(TABLE, PK_FIELD, menuItem.getItemId(), true);
+            db.deleteRecords(TABLE, ITEM_ID, menuItem.getItemId(), true);
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
         } catch (Exception e) {
@@ -128,7 +130,7 @@ public class MenuDAO implements IMenuDAO {
             if (menuItem.getItemId() == null) {
                 db.insertRecord(TABLE, colDescriptors, colValues, true);
             } else {
-                db.updateRecords(TABLE, colDescriptors, colValues, PK_FIELD,
+                db.updateRecords(TABLE, colDescriptors, colValues, ITEM_ID,
                         menuItem.getItemId(), true);
             }
         } catch (SQLException sql) {
