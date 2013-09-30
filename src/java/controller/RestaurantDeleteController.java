@@ -67,9 +67,9 @@ public class RestaurantDeleteController extends HttpServlet {
                 view.forward(request, response);
             } else if (action.equals("Submit Update")) {
                 String itemName = request.getParameter("itemName");
-                String itemPrice = request.getParameter("itemPrice");
+                double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
 
-                MenuItem menuItem = new MenuItem(null, itemName, Double.valueOf(itemPrice));
+                MenuItem menuItem = new MenuItem(null, itemName, itemPrice);
                 try {
                     ms.updateMenuItem(menuItem);
                     updatedMenuItems = ms.getAllMenuItems();

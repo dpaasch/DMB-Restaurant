@@ -21,10 +21,6 @@
         <servlet-class>controller.RestaurantUpdateController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RestaurantCRUDController</servlet-name>
-        <servlet-class>controller.RestaurantCRUDController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RestaurantDBController</servlet-name>
         <servlet-class>RestaurantDBController</servlet-class>
     </servlet>
@@ -47,10 +43,6 @@
     <servlet-mapping>
         <servlet-name>RestaurantUpdateController</servlet-name>
         <url-pattern>/RestaurantUpdateController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RestaurantCRUDController</servlet-name>
-        <url-pattern>/RestaurantCRUDController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RestaurantDBController</servlet-name>
