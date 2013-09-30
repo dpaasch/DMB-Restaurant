@@ -62,7 +62,7 @@ public class MenuItem {
      * @return id : The value of the private variable that identifies the menu
      * item. 
      */
-    public final Long getId() {
+    public final Long getItemId() {
         return id;
     }
 
@@ -73,12 +73,8 @@ public class MenuItem {
      * @throws IllegalArgumentException : if id parameter < 0
      *
      */
-    public final void setId(Long id) throws IllegalArgumentException {
-        if (id == null) {
+    public final void setItemId(Long id) throws IllegalArgumentException {
         this.id = id;
-    } else {
-            id = null;
-        }
     }
 
     /**
@@ -137,11 +133,11 @@ public class MenuItem {
     // for testing
     public static void main(String[] args) {
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(Long.valueOf(9));
-        System.out.println(menuItem.getId());
+        menuItem.setItemId(Long.valueOf("9"));
+        System.out.println("Printing value of Long object for id: " + menuItem.getItemId());
         menuItem.setItemName("Surf & Turf");
         menuItem.setItemPrice(32.75);
-        System.out.println(menuItem.getId() + " " + menuItem.getItemName()
+        System.out.println(menuItem.getItemId() + " " + menuItem.getItemName()
                 + " ... " + menuItem.getItemPrice());
     }
 }
