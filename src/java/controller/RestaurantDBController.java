@@ -1,6 +1,12 @@
 package controller;
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +23,9 @@ import model.MenuService;
  *
  * @author tim
  */
-public class RestaurantDeleteController extends HttpServlet {
-
-    private final static String RESULT_PAGE = "/admin.jsp";
+public class RestaurantDBController extends HttpServlet {
+    
+private final static String RESULT_PAGE = "/admin.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -100,14 +106,13 @@ public class RestaurantDeleteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    try {
+        processRequest(request, response);
+    } catch (DataAccessException ex) {
+        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (Exception ex) {
+        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**
@@ -122,13 +127,13 @@ public class RestaurantDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        processRequest(request, response);
+    } catch (DataAccessException ex) {
+        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (Exception ex) {
+        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**

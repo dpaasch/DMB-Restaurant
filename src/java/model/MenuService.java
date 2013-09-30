@@ -29,51 +29,62 @@ public class MenuService {
     public MenuItem getMenuItemById(String id) throws DataAccessException {
         return dao.getMenuItemById(id);
     }
-    
-   public void deleteMenuItem(String[] menuIds) throws DataAccessException, Exception {
-        
+
+    public void deleteMenuItem(String[] menuIds) throws DataAccessException {
         for (String s : menuIds) {
             MenuItem m = dao.getMenuItemById(s);
-            dao.deleteMenuItem(m);            
+            dao.deleteMenuItem(m);
         }
     }
-    
-    public void updateMenuItem(MenuItem menuItem) throws DataAccessException {
+
+    public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
         dao.saveMenuItem(menuItem);
-    
+
     }
 
     // for testing
     public static void main(String[] args) throws Exception {
         MenuService ms = new MenuService();
+        MenuItem menuItem;
         List<MenuItem> allMenuItems = ms.getAllMenuItems();
-        System.out.println(" getAllMenuItems() ... ");
+
+        // get MENU
+        System.out.println(" ... ORIGINAL MENU (MenuService class) ... ");
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-
-        String[] orderedMenuItems = {"1", "2", "3"};
+        // get by id
+        String[] orderedMenuItems = {"5"};
         List<MenuItem> mi = new ArrayList<>();
-        System.out.println("\n getMenuItemById() ... ");
         for (String s : orderedMenuItems) {
             MenuItem m = ms.getMenuItemById(s);
             mi.add(m);
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+            System.out.println("\nRetrieved menu item by id: " + m.getItemName() + " ... " + m.getItemPrice());
         }
-//        System.out.println("\n deleteMenuItem() ... ");
-//        String[] menuItem={"8"};
-//        ms.deleteMenuItem(menuItem);
-//        System.out.println(menuItem.toString());        
+        // delete
+        String[] menuIds = {"8"}; 
+        List<MenuItem> deletedMenuItems = new ArrayList<>();
+        for (String s : menuIds) {
+            menuItem = ms.getMenuItemById(s);
+            deletedMenuItems.add(menuItem);
+            ms.deleteMenuItem(menuIds);
+            System.out.println("\nDeleted item: " + menuItem.getItemName() + " ... " + menuItem.getItemPrice());
+        }        
+        // insert
+        menuItem = new MenuItem(null, "Mixed Drink", 7.25);
+        ms.saveMenuItem(menuItem);
+        System.out.println("\nInserted: " + menuItem.getItemName() + " @$" + menuItem.getItemPrice());
         
-        System.out.println("\n updateMenuItem() ...");
-        MenuItem menuItemUpdate = ms.getMenuItemById("6");
-        System.out.println("Updating menu item: " + menuItemUpdate.getItemName() 
-                + " \nOriginal Price: $" + menuItemUpdate.getItemPrice());        
-        if (menuItemUpdate != null) {
-            menuItemUpdate.setItemPrice(3.75);
-            ms.updateMenuItem(menuItemUpdate);     
-            System.out.println(" New Price: $" + 
-                    menuItemUpdate.getItemPrice());
+        menuItem = new MenuItem(Long.valueOf("6"), "Rice Pilaf", 3.75);
+        ms.saveMenuItem(menuItem);
+        System.out.println("\nUpdated: " + menuItem.getItemName() + " ( " + menuItem.getItemId() + ")"
+                + " ... " + menuItem.getItemPrice());
+        
+        // get MENU
+        System.out.println(" ... CURRENT MENU ... ");
+        allMenuItems = ms.getAllMenuItems();
+        for (MenuItem m : allMenuItems) {
+            System.out.println("(" + m.getItemId() + ")" + m.getItemName() + " ... " + m.getItemPrice());
         }
     }
 }

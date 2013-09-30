@@ -17,7 +17,7 @@
     <body>
     <center>
         <form name="adminDelete" id="adminDelete" 
-              action="RestaurantDeleteController" method="POST">
+              action="RestaurantDBController" method="POST">
             <h1>Menu Administration</h1>
             <p style="text-align: center"> Select the menu item you wish to delete
                 and then choose "Delete Item."</p>
