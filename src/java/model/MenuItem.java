@@ -92,14 +92,13 @@ public class MenuItem {
      *
      * @param itemName : The menu item name expressed as a String. Defaults to
      * null if no value is passed in.
-     * @throws NullPointerException if itemName is null or an empty string
      *
      */
     public final void setItemName(String itemName) {
         if (itemName != null || !"".equals(itemName)) {
             this.itemName = itemName;
         } else {
-            throw new NullPointerException(NPE_ERR);
+            itemName = null;
         }
     }
 

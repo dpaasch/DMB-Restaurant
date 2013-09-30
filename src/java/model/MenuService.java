@@ -33,6 +33,7 @@ public class MenuService {
     public void deleteMenuItem(String[] menuIds) throws DataAccessException {
         for (String s : menuIds) {
             MenuItem m = dao.getMenuItemById(s);
+            System.out.println("Menu Item id: " + s);
             dao.deleteMenuItem(m);
         }
     }

@@ -4,6 +4,7 @@
     Author     : Dawn Bykowski
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.MenuItem"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,10 +18,10 @@
     <body>
         <h1>Add/Edit Menu Item</h1>
     <center>
-        <form name="insertUpdate" id="insertUpdate" action="RestaurantDeleteController" method="POST" />
-        <table>           
+        <form name="insertUpdate" id="insertUpdate" action="RestaurantDBController" method="POST" />
+        <table>   
             <tr>
-                <td><input type="hidden" name="itemId" value="${id}"/></td>
+                <td><input type="hidden" name="itemId" value="${itemId}"/></td>
                 <td>Item Name: <input type="text" name="itemName" value="${itemName}"/></td>
                 <td>Item Price: <input type="text" name="itemPrice" value="${itemPrice}"/></td>
             </tr>

@@ -1,12 +1,6 @@
 package controller;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +15,12 @@ import model.MenuService;
 
 /**
  *
- * @author tim
+ * @author Dawn Bykowski, dpaasch@my.wctc.edu
  */
 public class RestaurantDBController extends HttpServlet {
-    
-private final static String RESULT_PAGE = "/admin.jsp";
+
+    private final static String RESULT_PAGE = "/admin.jsp",
+            UPDATE_PAGE = "/insertUpdate.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -43,50 +38,50 @@ private final static String RESULT_PAGE = "/admin.jsp";
 
         try {
             String action = request.getParameter("action");
-            String itemId = request.getParameter("itemId");
             List<MenuItem> updatedMenuItems = null;
-
             MenuService ms = new MenuService();
+            MenuItem menuItem;
 
+            // delete functionality handled within this section
             if (action.equals("Delete Item")) {
                 ms.deleteMenuItem(request.getParameterValues("menuItem"));
                 updatedMenuItems = ms.getAllMenuItems();
                 request.setAttribute("menuItems", updatedMenuItems);
 
-                // This object lets you forward both the request and response
-                // objects to a destination page
                 RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
                 view.forward(request, response);
+                // insert & update functionality handled here
             } else if (action.equals("Add/Edit Item")) {
-
-                String[] menuIds = request.getParameterValues("menuItem");
-                if (menuIds == null) {
-                    MenuItem menuItem = new MenuItem();
-                    request.setAttribute("menuItem", menuItem);
-                } else {
-                    MenuItem menuItem = ms.getMenuItemById(menuIds[0]);
-                    request.setAttribute("menuItem", menuItem);
-                }
-
-                RequestDispatcher view = request.getRequestDispatcher("/insertUpdate.jsp");
+                // forward to the update page
+                RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
                 view.forward(request, response);
+
             } else if (action.equals("Submit Update")) {
+                String itemId = request.getParameter("itemId");
+                // need to convert itemId into a Long object
+                Long objItemId = (itemId.equals("null") || itemId.length() == 0) ? null : new Long(itemId);
                 String itemName = request.getParameter("itemName");
                 double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
-
-                MenuItem menuItem = new MenuItem(null, itemName, itemPrice);
-                try {
+                // insert
+                if (objItemId == null) {
+                    menuItem = new MenuItem(objItemId, itemName, itemPrice);
                     ms.saveMenuItem(menuItem);
+                    request.setAttribute("menuItems", updatedMenuItems);
+//                } else {
+//                    String[] menuIds = request.getParameterValues("menuItem");
+//                    if (menuIds != null) {
+//                        menuItem = ms.getMenuItemById(menuIds[0]);
+//                        ms.saveMenuItem(menuItem);
+//                        request.setAttribute("menuItems", updatedMenuItems);
+//                    }
+
                     updatedMenuItems = ms.getAllMenuItems();
-                    request.setAttribute("menuItem", updatedMenuItems);
-                } catch (DataAccessException e) {
-                    System.out.println(e.getLocalizedMessage());
+                    request.setAttribute("menuItems", updatedMenuItems);
+
+                    RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+                    view.forward(request, response);
                 }
             }
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);
 
         } catch (DataAccessException e) {
             System.out.println(e.getLocalizedMessage());
@@ -106,13 +101,17 @@ private final static String RESULT_PAGE = "/admin.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (Exception ex) {
-        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+
+
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantDBController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantDBController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -127,13 +126,17 @@ private final static String RESULT_PAGE = "/admin.jsp";
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (DataAccessException ex) {
-        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (Exception ex) {
-        Logger.getLogger(RestaurantDBController.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+
+
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantDBController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantDBController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

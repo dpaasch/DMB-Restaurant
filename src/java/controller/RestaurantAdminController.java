@@ -15,7 +15,7 @@ import model.MenuService;
 
 /**
  *
- * @author tim
+ * @author Dawn Bykowski, dpaasch@my.wctc.edu
  */
 public class RestaurantAdminController extends HttpServlet {
 
