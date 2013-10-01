@@ -14,7 +14,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu Administration</title>
     </head>
-    <body  style="background-color: ${color}">
+    <body style="background-color: ${color}">
     <center>
         <form name="adminDelete" id="adminDelete" 
               action="RestaurantDBController" method="POST">
