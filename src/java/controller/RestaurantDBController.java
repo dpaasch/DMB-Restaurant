@@ -19,8 +19,7 @@ import model.MenuService;
  */
 public class RestaurantDBController extends HttpServlet {
 
-    private final static String 
-            RESULT_PAGE = "/admin.jsp",
+    private final static String RESULT_PAGE = "/admin.jsp",
             UPDATE_PAGE = "/insertUpdate.jsp";
 
     /**

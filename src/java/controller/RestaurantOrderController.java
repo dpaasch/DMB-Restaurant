@@ -22,8 +22,8 @@ import model.OrderService;
  *
  */
 public class RestaurantOrderController extends HttpServlet {
-        private final static String RESULT_PAGE = "/order.jsp";
 
+    private final static String RESULT_PAGE = "/order.jsp";
     double subTotal, tax, tip, total, grandTotal;
 
     /**
@@ -39,6 +39,7 @@ public class RestaurantOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
         response.setContentType("text/html;charset=UTF-8");
+
         String[] orderedItems = request.getParameterValues("orderedItems[]");
         OrderService os = new OrderService(new MenuDAO(new DB_MySQL()), orderedItems);
         ArrayList<MenuItem> orderedMenuItems = os.getOrderedMenuItems();
@@ -56,7 +57,7 @@ public class RestaurantOrderController extends HttpServlet {
         request.setAttribute("tip", tip);
         request.setAttribute("grandTotal", grandTotal);
 
-        
+
         // This object lets you forward both the request and response
         // objects to a destination page
         RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
@@ -76,11 +77,11 @@ public class RestaurantOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            try {
-                processRequest(request, response);
-            } catch (DataAccessException ex) {
-                Logger.getLogger(RestaurantOrderController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            processRequest(request, response);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantOrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -95,11 +96,11 @@ public class RestaurantOrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            try {
-                processRequest(request, response);
-            } catch (DataAccessException ex) {
-                Logger.getLogger(RestaurantOrderController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            processRequest(request, response);
+        } catch (DataAccessException ex) {
+            Logger.getLogger(RestaurantOrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
