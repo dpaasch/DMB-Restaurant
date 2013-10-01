@@ -33,6 +33,9 @@ public class RestaurantAdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
+        
+        String color = this.getServletContext().getInitParameter("color");
+        request.setAttribute("color", color);
 
             // Retrieve the menu to display on the main admin page
             MenuService ms = new MenuService();

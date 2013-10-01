@@ -14,13 +14,13 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu Administration</title>
     </head>
-    <body>
+    <body  style="background-color: ${color}">
     <center>
         <form name="adminDelete" id="adminDelete" 
               action="RestaurantDBController" method="POST">
             <h1>Menu Administration</h1>
             <p style="text-align: center"> Select the menu item you wish to delete
-                and then choose "Delete Item."</p>
+                and then choose "Delete Item." </p>
             <p style="text-align: center">To add a new menu item, or 
                 update an existing item, choose "Add/Edit Item."</p>
             <table>

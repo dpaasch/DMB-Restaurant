@@ -32,6 +32,19 @@
         <servlet-name>RestaurantDBController</servlet-name>
         <url-pattern>/RestaurantDBController</url-pattern>
     </servlet-mapping>
+    <!-- Application specific initializtion parameters -->
+    <context-param>
+        <param-name>driverClassName</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>
+    </context-param>
+    <context-param>
+        <param-name>color</param-name>
+        <param-value>#F0F8FF</param-value>
+    </context-param>
     <session-config>
         <session-timeout>
             30

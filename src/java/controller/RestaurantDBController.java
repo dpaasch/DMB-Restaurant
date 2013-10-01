@@ -19,7 +19,8 @@ import model.MenuService;
  */
 public class RestaurantDBController extends HttpServlet {
 
-    private final static String RESULT_PAGE = "/admin.jsp",
+    private final static String 
+            RESULT_PAGE = "/admin.jsp",
             UPDATE_PAGE = "/insertUpdate.jsp";
 
     /**
@@ -65,6 +66,14 @@ public class RestaurantDBController extends HttpServlet {
                 // insert
                 if (objItemId == null) {
                     menuItem = new MenuItem(objItemId, itemName, itemPrice);
+                    ms.saveMenuItem(menuItem);
+                    updatedMenuItems = ms.getAllMenuItems();
+                    request.setAttribute("menuItems", updatedMenuItems);
+
+                    RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+                    view.forward(request, response);
+                } else {
+                    menuItem = new MenuItem(Long.valueOf(itemId), itemName, itemPrice);
                     ms.saveMenuItem(menuItem);
                     updatedMenuItems = ms.getAllMenuItems();
                     request.setAttribute("menuItems", updatedMenuItems);
