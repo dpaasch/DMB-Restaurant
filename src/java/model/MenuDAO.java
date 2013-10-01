@@ -108,7 +108,6 @@ public class MenuDAO implements IMenuDAO {
         } catch (Exception e) {
             throw new DataAccessException(e.getLocalizedMessage());
         }
-
     }
 
     @Override

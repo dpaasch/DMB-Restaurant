@@ -13,10 +13,6 @@
         <servlet-class>controller.RestaurantAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RestaurantDeleteController</servlet-name>
-        <servlet-class>controller.RestaurantDeleteController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RestaurantDBController</servlet-name>
         <servlet-class>controller.RestaurantDBController</servlet-class>
     </servlet>
@@ -31,10 +27,6 @@
     <servlet-mapping>
         <servlet-name>RestaurantAdminController</servlet-name>
         <url-pattern>/RestaurantAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RestaurantDeleteController</servlet-name>
-        <url-pattern>/RestaurantDeleteController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RestaurantDBController</servlet-name>
