@@ -168,10 +168,12 @@ public class MenuDAO implements IMenuDAO {
         return menuItem;
     }
 
+    @Override
     public final DBAccessor getDb() {
         return db;
     }
 
+    @Override
     public final void setDb(DBAccessor db) {
         this.db = db;
     }
@@ -198,7 +200,7 @@ public class MenuDAO implements IMenuDAO {
                     + m.getItemName() + "(" + m.getId() + ") ... " + m.getItemPrice());
         }
         // delete
-        MenuItem miDeletable = dao.getMenuItemById("35");
+        MenuItem miDeletable = dao.getMenuItemById("8");
         dao.deleteMenuItem(miDeletable);
         System.out.println("\nDeleted item: " + miDeletable.getItemName() 
                 + " ... " + miDeletable.getItemPrice());
