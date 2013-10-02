@@ -1,82 +1,83 @@
 package model;
 
 /**
- * MenuItem is a low-level class that provides information about the menu item;
- * the identifier (id), the item name (itemName), and the item price
- * (itemPrice).
+ * MenuItem is a low-level class that provitemIdes information about the menu
+ * item; the itemIdentifier (itemId), the item name (itemName), and the item
+ * price (itemPrice).
  *
  * @author dawn bykowski, dpaasch@my.wctc.edu
- * @version 1.00
+ * @version 1.01 
+ * changes: id to itemId. getItemId to getId. setItemId to setId. 
+ * setId validation from null to 0L
  */
 public class MenuItem {
 
     // Variable declarations //
-    private Long id;
+    private Long itemId;
     private String itemName;  // Menu item name
     private double itemPrice;  // Menu item price
-    private final String IAE_ERR = " Error: Value cannot be 0, less than 0, or null",
-            NPE_ERR = " Error: Value cannot be null or empty";
+    private final String IAE_ERR = "\n\n Error: Value cannot be 0, less than 0, or null (Value = ",
+            NPE_ERR = "\n\n  Error: Value cannot be null or empty (Value = ";
 
     /**
      * Default MenuItem constructor
      */
     public MenuItem() {
     }
-//    
-//    /**
-//     * Creates a new MenuItem object by setting the id, itemName and itemPrice
-//     * private variables.
-//     * @param itemName : The value of the private variable that identifies the
-//     * menu item name. Defaults to null if no value is passed in.
-//     * @param itemPrice : The value of the private variable that identifies the
-//     * menu item price. Defaults to null if no value is passed in.
-//     */
-//    public MenuItem(String itemName, double itemPrice) {
-//        setItemName(itemName);
-//        setItemPrice(itemPrice);
-//    }
 
     /**
-     * Creates a new MenuItem object by setting the id, itemName and itemPrice
-     * private variables.
-     * @param id : The menu item identifier expressed as an int. Defaults to
-     * null if no value is passed in.
-     * @param itemName : The value of the private variable that identifies the
-     * menu item name. Defaults to null if no value is passed in.
-     * @param itemPrice : The value of the private variable that identifies the
-     * menu item price. Defaults to null if no value is passed in.
+     * Creates a new MenuItem object by setting the itemId, itemName and
+     * itemPrice private variables.
+     *
+     * @param itemName : The value of the private variable that itemIdentifies
+     * the menu item name. Defaults to null if no value is passed in.
+     * @param itemPrice : The value of the private variable that itemIdentifies
+     * the menu item price. Defaults to null if no value is passed in.
      */
-    public MenuItem(Long id, String itemName, double itemPrice) {
-        this.id = id;
+    public MenuItem(String itemName, double itemPrice) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        // setId(id);
-        // setItemName(itemName);
-        // setItemPrice(itemPrice);
     }
 
     /**
-     * Returns the value of the menu item identifier received in the form of the
-     * private variable.
+     * Creates a new MenuItem object by setting the itemId, itemName and
+     * itemPrice private variables.
      *
-     * @return id : The value of the private variable that identifies the menu
-     * item. 
+     * @param itemId : The menu item itemIdentifier expressed as an int.
+     * Defaults to null if no value is passed in.
+     * @param itemName : The value of the private variable that itemIdentifies
+     * the menu item name. Defaults to null if no value is passed in.
+     * @param itemPrice : The value of the private variable that itemIdentifies
+     * the menu item price. Defaults to null if no value is passed in.
      */
-    public final Long getItemId() {
-        return id;
+    public MenuItem(Long itemId, String itemName, double itemPrice) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
     }
 
     /**
-     * Sets the value of the private variable for the menu item identifier.
+     * Returns the value of the menu item itemIdentifier received in the form of
+     * the private variable.
      *
-     * @param id : The menu item identifier expressed as a Long object. 
+     * @return itemId : The value of the private variable that itemIdentifies
+     * the menu item.
+     */
+    public final Long getId() {
+        return itemId;
+    }
+
+    /**
+     * Sets the value of the private variable for the menu item itemIdentifier.
+     *
+     * @param itemId : The menu item itemIdentifier expressed as a Long object.
      *
      */
-    public final void setItemId(Long id) throws IllegalArgumentException {
-        if (id != null) {
-        this.id = id;
+    public final void setId(Long itemId) throws IllegalArgumentException {
+        if (itemId != 0L) {
+            this.itemId = itemId;
         } else {
-            throw new NullPointerException(IAE_ERR);
+            throw new NullPointerException(IAE_ERR + "itemId)");
         }
     }
 
@@ -84,8 +85,8 @@ public class MenuItem {
      * Returns the value of the menu item name received in the form of the
      * private variable.
      *
-     * @return itemName : The value of the private variable that identifies the
-     * menu item name. Defaults to null if no value is passed in.
+     * @return itemName : The value of the private variable that itemIdentifies
+     * the menu item name. Defaults to null if no value is passed in.
      */
     public final String getItemName() {
         return itemName;
@@ -99,19 +100,18 @@ public class MenuItem {
      *
      */
     public final void setItemName(String itemName) {
-        if (itemName != null || !"".equals(itemName)) {
-            this.itemName = itemName;
-        } else {
-            itemName = null;
+        if (itemName == null) {
+            throw new NullPointerException(NPE_ERR + "itemName)");
         }
+        this.itemName = itemName;
     }
 
     /**
      * Returns the value of the menu item price received in the form of the
      * private variable.
      *
-     * @return itemPrice : The value of the private variable that identifies the
-     * menu item price. Defaults to null if no value is passed in.
+     * @return itemPrice : The value of the private variable that itemIdentifies
+     * the menu item price. Defaults to null if no value is passed in.
      */
     public final double getItemPrice() {
         return itemPrice;
@@ -125,21 +125,21 @@ public class MenuItem {
      * @throws IllegalArgumentException : if itemPrice parameter < 0
      */
     public final void setItemPrice(double itemPrice) {
-        if (itemPrice >= 0) {
-            this.itemPrice = itemPrice;
+        if (itemPrice <= 0) {
+            throw new IllegalArgumentException(IAE_ERR + "itemPrice)");
         } else {
-            throw new IllegalArgumentException(IAE_ERR);
+            this.itemPrice = itemPrice;
         }
     }
 
     // for testing
     public static void main(String[] args) {
         MenuItem menuItem = new MenuItem();
-        menuItem.setItemId(Long.valueOf("9"));
-        System.out.println("Printing value of Long object for id: " + menuItem.getItemId());
-        menuItem.setItemName("Surf & Turf");
-        menuItem.setItemPrice(32.75);
-        System.out.println(menuItem.getItemId() + " " + menuItem.getItemName()
+        menuItem.setId(Long.valueOf(6));
+        System.out.println("Printing value of Long object for itemId: " + menuItem.getId());
+        menuItem.setItemName("Salmon");
+        menuItem.setItemPrice(32.50);
+        System.out.println(menuItem.getId() + " " + menuItem.getItemName()
                 + " ... " + menuItem.getItemPrice());
     }
 }

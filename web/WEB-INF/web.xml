@@ -16,6 +16,10 @@
         <servlet-name>RestaurantDBController</servlet-name>
         <servlet-class>controller.RestaurantDBController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RestaurantDeleteController</servlet-name>
+        <servlet-class>controller.RestaurantDeleteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RestaurantMenuController</servlet-name>
         <url-pattern>/RestaurantMenuController</url-pattern>
@@ -45,6 +49,10 @@
         <param-name>color</param-name>
         <param-value>#F0F8FF</param-value>
     </context-param>
+    <servlet-mapping>
+        <servlet-name>RestaurantDeleteController</servlet-name>
+        <url-pattern>/RestaurantDeleteController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

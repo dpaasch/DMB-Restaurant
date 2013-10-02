@@ -21,9 +21,9 @@
         <form name="insertUpdate" id="insertUpdate" action="RestaurantDBController" method="POST" />
         <table>   
             <tr>
-                <td><input type="hidden" name="itemId" value="${itemId}"/></td>
-                <td>Item Name: <input type="text" name="itemName" value="${itemName}"/></td>
-                <td>Item Price: <input type="text" name="itemPrice" value="${itemPrice}"/></td>
+                <td><input type="hidden" name="id" value="${id}"/>${id}</td>
+                <td>Item Name: <input type="text" name="itemName" value="${itemName}"/>${itemName}</td>
+                <td>Item Price: <input type="text" name="itemPrice" value="${itemPrice}"/>${itemPrice}</td>
             </tr>
         </table>
         <br> 

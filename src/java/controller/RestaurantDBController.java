@@ -52,6 +52,7 @@ public class RestaurantDBController extends HttpServlet {
                 view.forward(request, response);
                 // insert & update functionality handled here
             } else if (action.equals("Add/Edit Item")) {
+                
                 // forward to the update page
                 RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
                 view.forward(request, response);
@@ -64,20 +65,14 @@ public class RestaurantDBController extends HttpServlet {
                 double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
                 menuItem = new MenuItem(objItemId, itemName, itemPrice);
                 // insert
-                if (objItemId != null) {
+                if (objItemId == null) {
                     ms.saveMenuItem(menuItem);
-                    request.setAttribute("itemId", itemId);
-                    request.setAttribute("itemName", itemName);
-                    request.setAttribute("itemPrice", itemPrice);
-                } else {
-
-                    ms.saveMenuItem(menuItem);
-                    updatedMenuItems = ms.getAllMenuItems();
-                    request.setAttribute("menuItems", updatedMenuItems);
-
-                    RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-                    view.forward(request, response);
                 }
+                updatedMenuItems = ms.getAllMenuItems();
+                request.setAttribute("menuItems", updatedMenuItems);
+
+                RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+                view.forward(request, response);
             }
 
         } catch (DataAccessException e) {

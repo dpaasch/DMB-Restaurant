@@ -22,25 +22,29 @@ public class MenuDAO implements IMenuDAO {
             USERNAME = "root",
             PASSWORD = "dawn00",
             TABLE = "menu",
-            PK_FIELD = "menu_id",
-            ITEM_ID = "menu_id",
+            PK_FIELD = "item_id",
+            ITEM_ID = "item_id",
             ITEM_NAME = "item_name",
             ITEM_PRICE = "item_price",
             FIND_ALL_MENU_ITEMS = "SELECT * FROM menu",
-            FIND_MENU_ITEM_BY_ID = "SELECT menu_id FROM menu";
+            FIND_MENU_ITEM_BY_ID = "SELECT menu_itemId FROM menu";
 
     /**
      * Default Constructor creates a new MenuDAO object.
      *
      */
+    public MenuDAO() {
+    
+    }
+       
     public MenuDAO(DBAccessor db) {
-        setDb(db);
+        this.db = db;    
     }
 
     /**
      * Returns the list of all menu items.
      *
-     * @return menuItems : The value of the private variable that identifies the
+     * @return menuItems : The value of the private variable that itemIdentifies the
      * menu items. Defaults to null if no value is passed in.
      */
     @Override
@@ -61,8 +65,8 @@ public class MenuDAO implements IMenuDAO {
 
         for (Map map : rawData) {
             menuItem = new MenuItem();
-            String id = map.get(ITEM_ID).toString();
-            menuItem.setItemId(new Long(id));
+            String itemId = map.get(ITEM_ID).toString();
+            menuItem.setItemId(new Long(itemId));
             String name = map.get(ITEM_NAME).toString();
             menuItem.setItemName(name);
             String price = map.get(ITEM_PRICE).toString();
@@ -87,8 +91,8 @@ public class MenuDAO implements IMenuDAO {
         }
 
         MenuItem menuItem = new MenuItem();
-        String id = rawData.get(ITEM_ID).toString();
-        menuItem.setItemId(new Long(id));
+        String itemId = rawData.get(ITEM_ID).toString();
+        menuItem.setItemId(new Long(itemId));
         String itemName = rawData.get(ITEM_NAME).toString();
         menuItem.setItemName(itemName);
         String itemPrice = rawData.get(ITEM_PRICE).toString();
@@ -124,14 +128,12 @@ public class MenuDAO implements IMenuDAO {
         colValues.add(menuItem.getItemPrice());
 
         try {
-            // if the id is null, it's a new record, else it's an update
+            // if the itemId is null, it's a new record, else it's an update
             if (menuItem.getItemId() == null) {
-                System.out.println("Menu Id = NULL");
                 db.insertRecord(TABLE, colDescriptors, colValues, true);
             } else {
-                Long id = Long.valueOf(menuItem.getItemId());
                 db.updateRecords(TABLE, colDescriptors, colValues, ITEM_ID,
-                        id, true);
+                        menuItem.getItemId(), true);
             }
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
@@ -154,7 +156,7 @@ public class MenuDAO implements IMenuDAO {
      * @throws IllegalArgumentException if url is null or zero length
      * @throws ClassNotFoundException if driver class cannot be found
      * @throws SQLException if database access error occurs. For example, an
-     * invalid url could cause this; or, a database that is no longer available
+     * invalitemId url could cause this; or, a database that is no longer available
      * due to network or access permission problems.
      */
     private void openDBConnection() throws DataAccessException {
@@ -201,13 +203,13 @@ public class MenuDAO implements IMenuDAO {
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
-        // get by id
+        // get by itemId
         String[] orderedMenuItems = {"5"};
         List<MenuItem> mi = new ArrayList<>();
         for (String s : orderedMenuItems) {
             MenuItem m = dao.getMenuItemById(s);
             mi.add(m);
-            System.out.println("\nRetrieved menu item by id: " + m.getItemName() + " ... " + m.getItemPrice());
+            System.out.println("\nRetrieved menu item by itemId: " + m.getItemName() + " ... " + m.getItemPrice());
         }
         // delete
         menuItem = new MenuItem(Long.valueOf(8), "Mixed Drink", 7.00);
