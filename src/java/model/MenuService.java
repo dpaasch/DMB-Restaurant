@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MenuService {
 
-    private IMenuDAO dao;
+    private MenuDAO dao;
 
     /**
      * Default MenuService constructor
@@ -24,31 +24,40 @@ public class MenuService {
         dao = new MenuDAO(db);
     }
 
-//    public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
-//        dao.saveMenuItem(menuItem);
-//    }
-//
-//        public void deleteMenuItem(String[] menuIds) throws DataAccessException {
-//        for (String s : menuIds) {
-//            MenuItem m = dao.getMenuItemById(s);
-//            System.out.println("Menu Item id: " + s);
-//            dao.deleteMenuItem(m);
-//        }
-//    }
+    public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
+        dao.saveMenuItem(menuItem);
+    }
+
+        public void deleteMenuItem(String[] ids) throws DataAccessException {
+        for (String s : ids) {
+            MenuItem m = dao.getMenuItemById(s);
+            dao.deleteMenuItem(m);
+        }
+    }
         
-    public List<MenuItem> getAllMenuItems() throws DataAccessException {
+    public List getAllMenuItems() throws DataAccessException {
         return dao.getAllMenuItems();
     }
-//
-//    public MenuItem getMenuItemById(String id) throws DataAccessException {
-//        return dao.getMenuItemById(id);
-//    }
+
+    public MenuItem getMenuItemById(String id) throws DataAccessException {
+        return dao.getMenuItemById(id);
+    }
+    
+      /**
+     * @return the dao
+     */
+    public MenuDAO getMenuDAO() {
+        return dao;
+    }
+    public void setMenuDAO(MenuDAO dao) {
+        this.dao = dao;
+    }
 
 // for testing
     public static void main(String[] args) throws DataAccessException, Exception {
-        MenuDAO dao = new MenuDAO(new DB_MySQL());
+        MenuService ms = new MenuService();
         MenuItem menuItem;
-        List<MenuItem> allMenuItems = dao.getAllMenuItems();
+        List<MenuItem> allMenuItems = ms.getAllMenuItems();
 
         // get MENU
         System.out.println(" ... ORIGINAL MENU ... ");
@@ -59,35 +68,39 @@ public class MenuService {
         String[] orderedMenuItems = {"5"};
         List<MenuItem> mi = new ArrayList<>();
         for (String s : orderedMenuItems) {
-            MenuItem m = dao.getMenuItemById(s);
+            MenuItem m = ms.getMenuItemById(s);
             mi.add(m);
             System.out.println("\nRetrieved menu item by itemId: " 
                     + m.getItemName() + "(" + m.getId() + ") ... " + m.getItemPrice());
         }
         // delete
-        MenuItem miDeletable = dao.getMenuItemById("8");
-        dao.deleteMenuItem(miDeletable);
-        System.out.println("\nDeleted item: " + miDeletable.getItemName() 
-                + " ... " + miDeletable.getItemPrice());
-
+        String[] ids = {"8"};
+        List<MenuItem> miDeletable = new ArrayList<>();
+        for (String s : ids) {
+            menuItem = ms.getMenuItemById(s);
+            miDeletable.add(menuItem);
+        ms.deleteMenuItem(ids);
+        System.out.println("\nDeleted item: " + menuItem.getItemName() 
+                + " ... " + menuItem.getItemPrice());
+        }      
+        
         // insert
         menuItem = new MenuItem(null, "Mixed Drink", 7.25);
-        dao.saveMenuItem(menuItem);
+        ms.saveMenuItem(menuItem);
         System.out.println("\nInserted: " + menuItem.getItemName() + " @ $" 
                 + menuItem.getItemPrice());
 
         // update
-        MenuItem miUpdateable = dao.getMenuItemById("6");
+        MenuItem miUpdateable = ms.getMenuItemById("6");
         if (miUpdateable != null) {
         miUpdateable.setItemPrice(4.75);
-        dao.saveMenuItem(miUpdateable);
+        ms.saveMenuItem(miUpdateable);
         System.out.println("\nUpdated: " + miUpdateable.getItemName() + " ( " 
                     + Long.valueOf(miUpdateable.getId()) + ") ... " + miUpdateable.getItemPrice());
         }
         //get MENU
-        System.out.println(
-                "\n ... CURRENT MENU ... ");
-        allMenuItems = dao.getAllMenuItems();
+        System.out.println("\n ... CURRENT MENU ... ");
+        allMenuItems = ms.getAllMenuItems();
         for (MenuItem m : allMenuItems) {
             System.out.println(m.getItemName() + " ... " + m.getItemPrice());
         }
