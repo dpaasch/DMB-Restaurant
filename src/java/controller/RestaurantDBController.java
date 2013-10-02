@@ -57,15 +57,13 @@ public class RestaurantDBController extends HttpServlet {
                 view.forward(request, response);
 
             } else if (action.equals("Submit Update")) {
-//                String[] ids = request.getParameterValues("id");
-                String id = request.getParameter("id");
+                String itemId = request.getParameter("itemId");
                 // need to convert itemId into a Long object
-                Long objItemId = (id.equals("null") || id.length() == 0) ? null : new Long(id);
+                Long objItemId = (itemId.equals("null") || itemId.length() == 0) ? null : new Long(itemId);
                 String itemName = request.getParameter("itemName");
                 double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
                 // insert
                 if (objItemId == null) {
-//                    menuItem = new MenuItem();
                     menuItem = new MenuItem(objItemId, itemName, itemPrice);
                     ms.saveMenuItem(menuItem);
                     updatedMenuItems = ms.getAllMenuItems();

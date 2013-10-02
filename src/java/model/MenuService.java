@@ -63,7 +63,7 @@ public class MenuService {
             System.out.println("\nRetrieved menu item by id: " + m.getItemName() + " ... " + m.getItemPrice());
         }
         // delete
-        String[] menuIds = {"10"}; 
+        String[] menuIds = {"8"}; 
         List<MenuItem> deletedMenuItems = new ArrayList<>();
         for (String s : menuIds) {
             menuItem = ms.getMenuItemById(s);
@@ -72,20 +72,20 @@ public class MenuService {
             System.out.println("\nDeleted item: " + menuItem.getItemName() + " ... " + menuItem.getItemPrice());
         }        
         // insert
-        menuItem = new MenuItem(Long.valueOf(0), "Mixed Drink", 7.25);
+        menuItem = new MenuItem(null, "Mixed Drink", 7.25);
         ms.saveMenuItem(menuItem);
         System.out.println("\nInserted: " + menuItem.getItemName() + " @$" + menuItem.getItemPrice());
         
-        menuItem = new MenuItem(Long.valueOf("6"), "Rice Pilaf", 4.75);
+        menuItem = new MenuItem(Long.valueOf("6"), "Rice Pilaf", 3.75);
         ms.saveMenuItem(menuItem);
-        System.out.println("\nUpdated: " + menuItem.getItemName() + " ( " + menuItem.getId() + ")"
+        System.out.println("\nUpdated: " + menuItem.getItemName() + " ( " + menuItem.getItemId() + ")"
                 + " ... " + menuItem.getItemPrice());
         
         // get MENU
         System.out.println(" ... CURRENT MENU ... ");
         allMenuItems = ms.getAllMenuItems();
         for (MenuItem m : allMenuItems) {
-            System.out.println("(" + m.getId() + ")" + m.getItemName() + " ... " + m.getItemPrice());
+            System.out.println("(" + m.getItemId() + ")" + m.getItemName() + " ... " + m.getItemPrice());
         }
     }
 }

@@ -7,12 +7,11 @@ package model;
  *
  * @author dawn bykowski, dpaasch@my.wctc.edu
  * @version 1.00
- * @version 1.01 - Changed from Long to long for id
  */
 public class MenuItem {
 
     // Variable declarations //
-    private long id;
+    private Long id;
     private String itemName;  // Menu item name
     private double itemPrice;  // Menu item price
     private final String IAE_ERR = " Error: Value cannot be 0, less than 0, or null",
@@ -23,19 +22,19 @@ public class MenuItem {
      */
     public MenuItem() {
     }
-    
-    /**
-     * Creates a new MenuItem object by setting the id, itemName and itemPrice
-     * private variables.
-     * @param itemName : The value of the private variable that identifies the
-     * menu item name. Defaults to null if no value is passed in.
-     * @param itemPrice : The value of the private variable that identifies the
-     * menu item price. Defaults to null if no value is passed in.
-     */
-    public MenuItem(String itemName, double itemPrice) {
-        setItemName(itemName);
-        setItemPrice(itemPrice);
-    }
+//    
+//    /**
+//     * Creates a new MenuItem object by setting the id, itemName and itemPrice
+//     * private variables.
+//     * @param itemName : The value of the private variable that identifies the
+//     * menu item name. Defaults to null if no value is passed in.
+//     * @param itemPrice : The value of the private variable that identifies the
+//     * menu item price. Defaults to null if no value is passed in.
+//     */
+//    public MenuItem(String itemName, double itemPrice) {
+//        setItemName(itemName);
+//        setItemPrice(itemPrice);
+//    }
 
     /**
      * Creates a new MenuItem object by setting the id, itemName and itemPrice
@@ -47,10 +46,13 @@ public class MenuItem {
      * @param itemPrice : The value of the private variable that identifies the
      * menu item price. Defaults to null if no value is passed in.
      */
-    public MenuItem(long id, String itemName, double itemPrice) {
-         setId(id);
-         setItemName(itemName);
-         setItemPrice(itemPrice);
+    public MenuItem(Long id, String itemName, double itemPrice) {
+        this.id = id;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        // setId(id);
+        // setItemName(itemName);
+        // setItemPrice(itemPrice);
     }
 
     /**
@@ -60,17 +62,17 @@ public class MenuItem {
      * @return id : The value of the private variable that identifies the menu
      * item. 
      */
-    public final long getId() {
+    public final Long getItemId() {
         return id;
     }
 
     /**
      * Sets the value of the private variable for the menu item identifier.
      *
-     * @param id : The menu item identifier expressed as a long object. 
+     * @param id : The menu item identifier expressed as a Long object. 
      *
      */
-    public final void setId(long id) throws IllegalArgumentException {
+    public final void setItemId(Long id) throws IllegalArgumentException {
         this.id = id;
     }
 
@@ -129,11 +131,11 @@ public class MenuItem {
     // for testing
     public static void main(String[] args) {
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(Long.valueOf("9"));
-        System.out.println("Printing value of long object for id: " + menuItem.getId());
+        menuItem.setItemId(Long.valueOf("9"));
+        System.out.println("Printing value of Long object for id: " + menuItem.getItemId());
         menuItem.setItemName("Surf & Turf");
         menuItem.setItemPrice(32.75);
-        System.out.println(menuItem.getId() + " " + menuItem.getItemName()
+        System.out.println(menuItem.getItemId() + " " + menuItem.getItemName()
                 + " ... " + menuItem.getItemPrice());
     }
 }
