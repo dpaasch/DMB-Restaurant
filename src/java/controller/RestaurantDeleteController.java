@@ -15,12 +15,11 @@ import model.MenuService;
 
 /**
  *
- * @author Dawn Bykowski, dpaasch@my.wctc.edu
+ * @author tim
  */
-public class RestaurantDBController extends HttpServlet {
+public class RestaurantDeleteController extends HttpServlet {
 
-    private final static String RESULT_PAGE = "/admin.jsp",
-            UPDATE_PAGE = "/insertUpdate.jsp";
+    private final static String RESULT_PAGE = "/admin.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -38,43 +37,51 @@ public class RestaurantDBController extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
+            String itemId = request.getParameter("itemId");
             List<MenuItem> updatedMenuItems = null;
-            MenuService ms = new MenuService();
-            MenuItem menuItem;
 
-            // delete functionality handled within this section
+            MenuService ms = new MenuService();
+
             if (action.equals("Delete Item")) {
+
                 ms.deleteMenuItem(request.getParameterValues("menuItem"));
                 updatedMenuItems = ms.getAllMenuItems();
                 request.setAttribute("menuItems", updatedMenuItems);
 
+                // This object lets you forward both the request and response
+                // objects to a destination page
                 RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
                 view.forward(request, response);
-                // insert & update functionality handled here
             } else if (action.equals("Add/Edit Item")) {
-                // forward to the update page
-                RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
+
+                String[] menuIds = request.getParameterValues("menuItem");
+                if (menuIds == null) {
+                    MenuItem menuItem = new MenuItem();
+                    request.setAttribute("menuItem", menuItem);
+                } else {
+                    MenuItem menuItem = ms.getMenuItemById(menuIds[0]);
+                    request.setAttribute("menuItem", menuItem);
+                }
+
+                RequestDispatcher view = request.getRequestDispatcher("/insertUpdate.jsp");
                 view.forward(request, response);
-
             } else if (action.equals("Submit Update")) {
-//                String[] ids = request.getParameterValues("id");
-                String id = request.getParameter("id");
-                // need to convert itemId into a Long object
-                Long objItemId = (id.equals("null") || id.length() == 0) ? null : new Long(id);
                 String itemName = request.getParameter("itemName");
-                double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
-                // insert
-                if (objItemId == null) {
-//                    menuItem = new MenuItem();
-                    menuItem = new MenuItem(objItemId, itemName, itemPrice);
-                    ms.saveMenuItem(menuItem);
-                    updatedMenuItems = ms.getAllMenuItems();
-                    request.setAttribute("menuItems", updatedMenuItems);
+                String itemPrice = request.getParameter("itemPrice");
 
-                    RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-                    view.forward(request, response);
+                MenuItem menuItem = new MenuItem(null, itemName, Double.valueOf(itemPrice));
+                try {
+                    ms.updateMenuItem(menuItem);
+                    updatedMenuItems = ms.getAllMenuItems();
+                    request.setAttribute("menuItem", updatedMenuItems);
+                } catch (DataAccessException e) {
+                    System.out.println(e.getLocalizedMessage());
                 }
             }
+            // This object lets you forward both the request and response
+            // objects to a destination page
+            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+            view.forward(request, response);
 
         } catch (DataAccessException e) {
             System.out.println(e.getLocalizedMessage());
@@ -96,15 +103,12 @@ public class RestaurantDBController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-
-
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDBController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(RestaurantDBController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     /**
@@ -121,14 +125,10 @@ public class RestaurantDBController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-
-
         } catch (DataAccessException ex) {
-            Logger.getLogger(RestaurantDBController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(RestaurantDBController.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RestaurantDeleteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

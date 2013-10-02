@@ -1,26 +1,23 @@
 package model;
 
-import db.accessor.DBAccessor;
 import java.util.List;
 
 /**
- *
- * @author Dawn Bykowski
+ * Interface implemented by the MenuDAO.  Contains methods that interact with
+ * the database to manipulate the data.
+ * 
+ * @author Dawn Bykowski, dpaasch@my.wctc.edu
  * @version 1.00
  */
 public interface IMenuDAO {
 
-//    public abstract DBAccessor getDb();
-//
-//    public abstract void setDb(DBAccessor db);
-
-    public abstract List<MenuItem> getAllMenuItems() throws DataAccessException;
+    public abstract List getAllMenuItems() throws DataAccessException;
     
     public abstract MenuItem getMenuItemById(String id) throws DataAccessException;
 
     public abstract void deleteMenuItem(MenuItem menuItem) throws DataAccessException;
     
-    public void saveMenuItem(MenuItem menuItem) throws DataAccessException;
+    public abstract void saveMenuItem(MenuItem menuItem) throws DataAccessException;
     
 }
 
