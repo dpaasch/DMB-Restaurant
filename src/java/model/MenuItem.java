@@ -73,7 +73,11 @@ public class MenuItem {
      *
      */
     public final void setItemId(Long id) throws IllegalArgumentException {
+        if (id != null) {
         this.id = id;
+        } else {
+            throw new NullPointerException(IAE_ERR);
+        }
     }
 
     /**

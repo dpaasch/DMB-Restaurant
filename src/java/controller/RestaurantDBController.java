@@ -62,9 +62,15 @@ public class RestaurantDBController extends HttpServlet {
                 Long objItemId = (itemId.equals("null") || itemId.length() == 0) ? null : new Long(itemId);
                 String itemName = request.getParameter("itemName");
                 double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
+                menuItem = new MenuItem(objItemId, itemName, itemPrice);
                 // insert
-                if (objItemId == null) {
-                    menuItem = new MenuItem(objItemId, itemName, itemPrice);
+                if (objItemId != null) {
+                    ms.saveMenuItem(menuItem);
+                    request.setAttribute("itemId", itemId);
+                    request.setAttribute("itemName", itemName);
+                    request.setAttribute("itemPrice", itemPrice);
+                } else {
+
                     ms.saveMenuItem(menuItem);
                     updatedMenuItems = ms.getAllMenuItems();
                     request.setAttribute("menuItems", updatedMenuItems);

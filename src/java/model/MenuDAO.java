@@ -126,10 +126,12 @@ public class MenuDAO implements IMenuDAO {
         try {
             // if the id is null, it's a new record, else it's an update
             if (menuItem.getItemId() == null) {
+                System.out.println("Menu Id = NULL");
                 db.insertRecord(TABLE, colDescriptors, colValues, true);
             } else {
+                Long id = Long.valueOf(menuItem.getItemId());
                 db.updateRecords(TABLE, colDescriptors, colValues, ITEM_ID,
-                        menuItem.getItemId(), true);
+                        id, true);
             }
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
