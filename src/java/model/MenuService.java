@@ -71,7 +71,7 @@ public class MenuService {
             MenuItem m = ms.getMenuItemById(s);
             mi.add(m);
             System.out.println("\nRetrieved menu item by itemId: " 
-                    + m.getItemName() + "(" + m.getId() + ") ... " + m.getItemPrice());
+                    + m.getItemName() + "(" + m.getItemId() + ") ... " + m.getItemPrice());
         }
         // delete
         String[] ids = {"8"};
@@ -95,7 +95,7 @@ public class MenuService {
         miUpdateable.setItemPrice(4.75);
         ms.saveMenuItem(miUpdateable);
         System.out.println("\nUpdated: " + miUpdateable.getItemName() + " ( " 
-                    + Long.valueOf(miUpdateable.getId()) + ") ... " + miUpdateable.getItemPrice());
+                    + Long.valueOf(miUpdateable.getItemId()) + ") ... " + miUpdateable.getItemPrice());
         }
         //get MENU
         System.out.println("\n ... CURRENT MENU ... ");

@@ -7,7 +7,7 @@ package model;
  *
  * @author dawn bykowski, dpaasch@my.wctc.edu
  * @version 1.01 
- * changes: id to itemId. getItemId to getId. setItemId to setId. 
+ * changes: id to itemId. getItemId to getItemId. setItemId to setId. 
  * setId validation from null to 0L
  */
 public class MenuItem {
@@ -63,7 +63,7 @@ public class MenuItem {
      * @return itemId : The value of the private variable that itemIdentifies
      * the menu item.
      */
-    public final Long getId() {
+    public final Long getItemId() {
         return itemId;
     }
 
@@ -73,7 +73,7 @@ public class MenuItem {
      * @param itemId : The menu item itemIdentifier expressed as a Long object.
      *
      */
-    public final void setId(Long itemId) throws IllegalArgumentException {
+    public final void setItemId(Long itemId) throws NullPointerException {
         if (itemId != 0L || itemId != null) {
             this.itemId = itemId;
         } else {
@@ -135,11 +135,11 @@ public class MenuItem {
     // for testing
     public static void main(String[] args) {
         MenuItem menuItem = new MenuItem();
-        menuItem.setId(Long.valueOf(6));
-        System.out.println("Printing value of Long object for itemId: " + menuItem.getId());
+        menuItem.setItemId(Long.valueOf(6));
+        System.out.println("Printing value of Long object for itemId: " + menuItem.getItemId());
         menuItem.setItemName("Salmon");
         menuItem.setItemPrice(32.50);
-        System.out.println(menuItem.getId() + " " + menuItem.getItemName()
+        System.out.println(menuItem.getItemId() + " " + menuItem.getItemName()
                 + " ... " + menuItem.getItemPrice());
     }
 }

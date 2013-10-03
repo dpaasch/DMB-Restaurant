@@ -31,15 +31,14 @@
                     }
 
                     for (MenuItem menuItem : menuItems) {
-                        Long itemId = menuItem.getId();
+                        Long itemId = menuItem.getItemId();
                         String itemName = menuItem.getItemName();
                         double itemPrice = menuItem.getItemPrice();
                 %>
                 <tr>
                 <h4>
                     <td>
-                        <input type="checkbox" name="menuItem" 
-                               value="<%= itemId%>" /> <%= itemName%>
+                        <input type="checkbox" name="menuItem" id="menuItem" value="<%= itemId%>" /> <%= itemName%>
                     </td>          
                     <td> <%= itemPrice%></td>
                     </tr>

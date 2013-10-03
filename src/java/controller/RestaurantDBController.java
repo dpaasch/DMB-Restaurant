@@ -41,8 +41,6 @@ public class RestaurantDBController extends HttpServlet {
             String action = request.getParameter("action");
             List<MenuItem> updatedMenuItems = null;
             MenuService ms = new MenuService();
-            MenuItem menuItem = null;
-
 
             // delete functionality handled within this section
             if (action.equals("Delete Item")) {
@@ -57,35 +55,36 @@ public class RestaurantDBController extends HttpServlet {
 
                 String[] idValues = request.getParameterValues("menuItem");
                 if (idValues == null) {
-                    menuItem = new MenuItem();
+                    MenuItem menuItem = new MenuItem();
                     request.setAttribute("menuItem", menuItem);
                 } else {
-                    List mi = new ArrayList<>();
-                    for (String s : idValues) {
-                        menuItem = ms.getMenuItemById(s);
-                        mi.add(menuItem);
+//                    List mi = new ArrayList<>();
+//                    for (String s : idValues) {
+                        MenuItem menuItem = ms.getMenuItemById(idValues[0]);
+//                        mi.add(menuItem);
                         System.out.println("\nRetrieved menu item by itemId: "
-                                + menuItem.getItemName() + "(" + menuItem.getId()
+                                + menuItem.getItemName() + "(" + menuItem.getItemId()
                                 + ") ... " + menuItem.getItemPrice());
-                        ms.saveMenuItem(menuItem);
-                        System.out.println(menuItem);
+//                        ms.saveMenuItem(menuItem);
+//                        System.out.println(menuItem);
                         request.setAttribute("menuItem", menuItem);
 
                         // forward to the update page
                         RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
                         view.forward(request, response);
-                    }
-
+//                    }
                 }
 
             } else if (action.equals("Submit Update")) {
                 String itemId = request.getParameter("itemId");
+                System.out.println(itemId);
                 String itemName = request.getParameter("itemName");
-                double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
+                System.out.println(itemName);
+                String itemPrice = request.getParameter("itemPrice");
+                System.out.println(itemPrice);
                 // need to convert itemId into a Long object
-                Long objItemId = (itemId.equals("null") || itemId.length() == 0L) ? null : new Long(itemId);
-                System.out.println(objItemId);
-                menuItem = new MenuItem(objItemId, itemName, itemPrice);
+                Long objItemId = (itemId == null || itemId.length() == 0L) ? null : new Long(itemId);
+                MenuItem menuItem = new MenuItem(objItemId, itemName, Double.valueOf(itemPrice));
                 try {
 
                     ms.saveMenuItem(menuItem);

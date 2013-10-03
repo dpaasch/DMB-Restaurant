@@ -81,11 +81,11 @@ public class MenuDAO implements IMenuDAO {
 
         try {
             // if the itemId is null, it's a new record, else it's an update
-            if (menuItem.getId() == null) {
+            if (menuItem.getItemId() == null) {
                 db.insertRecord(TABLE, colDescriptors, colValues, true);
             } else {
                 db.updateRecords(TABLE, colDescriptors, colValues, ITEM_ID,
-                        menuItem.getId(), true);
+                        menuItem.getItemId(), true);
             }
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
@@ -100,7 +100,7 @@ public class MenuDAO implements IMenuDAO {
         this.openDBConnection();
 
         try {
-            db.deleteRecords(TABLE, ITEM_ID, menuItem.getId(), true);
+            db.deleteRecords(TABLE, ITEM_ID, menuItem.getItemId(), true);
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class MenuDAO implements IMenuDAO {
         for (Map map : rawData) {
             menuItem = new MenuItem();
             String itemId = map.get(ITEM_ID).toString();
-            menuItem.setId(new Long(itemId));
+            menuItem.setItemId(new Long(itemId));
             String name = map.get(ITEM_NAME).toString();
             menuItem.setItemName(name);
             String price = map.get(ITEM_PRICE).toString();
@@ -159,7 +159,7 @@ public class MenuDAO implements IMenuDAO {
 
         MenuItem menuItem = new MenuItem();
         String id = rawData.get(ITEM_ID).toString();
-        menuItem.setId(new Long(id));
+        menuItem.setItemId(new Long(id));
         String itemName = rawData.get(ITEM_NAME).toString();
         menuItem.setItemName(itemName);
         String itemPrice = rawData.get(ITEM_PRICE).toString();
@@ -197,7 +197,7 @@ public class MenuDAO implements IMenuDAO {
             MenuItem m = dao.getMenuItemById(s);
             mi.add(m);
             System.out.println("\nRetrieved menu item by itemId: " 
-                    + m.getItemName() + "(" + m.getId() + ") ... " + m.getItemPrice());
+                    + m.getItemName() + "(" + m.getItemId() + ") ... " + m.getItemPrice());
         }
         // delete
         MenuItem miDeletable = dao.getMenuItemById("8");
@@ -217,7 +217,7 @@ public class MenuDAO implements IMenuDAO {
         miUpdateable.setItemPrice(3.75);
         dao.saveMenuItem(miUpdateable);
         System.out.println("\nUpdated: " + miUpdateable.getItemName() + " ( " 
-                    + Long.valueOf(miUpdateable.getId()) + ") ... " + miUpdateable.getItemPrice());
+                    + Long.valueOf(miUpdateable.getItemId()) + ") ... " + miUpdateable.getItemPrice());
         }
         //get MENU
         System.out.println(
