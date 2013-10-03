@@ -58,22 +58,17 @@ public class RestaurantDBController extends HttpServlet {
                     MenuItem menuItem = new MenuItem();
                     request.setAttribute("menuItem", menuItem);
                 } else {
-//                    List mi = new ArrayList<>();
-//                    for (String s : idValues) {
+
                         MenuItem menuItem = ms.getMenuItemById(idValues[0]);
-//                        mi.add(menuItem);
-                        System.out.println("\nRetrieved menu item by itemId: "
-                                + menuItem.getItemName() + "(" + menuItem.getItemId()
-                                + ") ... " + menuItem.getItemPrice());
-//                        ms.saveMenuItem(menuItem);
-//                        System.out.println(menuItem);
+//                        System.out.println("\nRetrieved menu item by itemId: "
+//                                + menuItem.getItemName() + "(" + menuItem.getItemId()
+//                                + ") ... " + menuItem.getItemPrice());
                         request.setAttribute("menuItem", menuItem);
 
+                }                
                         // forward to the update page
                         RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
                         view.forward(request, response);
-//                    }
-                }
 
             } else if (action.equals("Submit Update")) {
                 String itemId = request.getParameter("itemId");
@@ -85,6 +80,7 @@ public class RestaurantDBController extends HttpServlet {
                 // need to convert itemId into a Long object
                 Long objItemId = (itemId == null || itemId.length() == 0L) ? null : new Long(itemId);
                 MenuItem menuItem = new MenuItem(objItemId, itemName, Double.valueOf(itemPrice));
+                
                 try {
 
                     ms.saveMenuItem(menuItem);
