@@ -18,14 +18,19 @@
     <body>
         <h1>Add/Edit Menu Item</h1>
     <center>
-        <form name="insertUpdate" id="insertUpdate" action="RestaurantDBController" method="POST" />
-        <table>   
-            <tr>
-                <td><input type="hidden" name="id" value="${id}"/>${id}</td>
-                <td>Item Name: <input type="text" name="itemName" value="${itemName}"/>${itemName}</td>
-                <td>Item Price: <input type="text" name="itemPrice" value="${itemPrice}"/>${itemPrice}</td>
-            </tr>
-        </table>
+        <form name="update" id="update" action="RestaurantDBController" method="POST" />
+        <p style="text-align: center">Enter the item name and item price that you wish to add/edit</p>
+
+        <%
+            Object itemId = request.getAttribute("itemId");
+            Object itemName = request.getAttribute("itemName");
+            Object itemPrice = request.getAttribute("itemPrice");
+        %>
+        <h3>
+            <input type="hidden" name="itemId" id="itemId" value ="${itemId}"/> 
+            Item Name: <input type="text" name="itemName" id="itemName" value ="${itemName}" /> 
+            Item Price: <input type="text" name="itemPrice" id="itemPrice" value="${itemPrice}"/>
+        </h3>
         <br> 
         <input type="submit" name="action" id="action" value="Submit Update"/>
     </form>

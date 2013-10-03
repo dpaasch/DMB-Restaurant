@@ -27,7 +27,7 @@
                     }
 
                     for (MenuItem menuItem : menuItems) {
-                        Long id = menuItem.getItemId();
+                        Long id = menuItem.getId();
                         String itemName = menuItem.getItemName();
                         double itemPrice = menuItem.getItemPrice();
                 %>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,8 @@ public class RestaurantDBController extends HttpServlet {
             String action = request.getParameter("action");
             List<MenuItem> updatedMenuItems = null;
             MenuService ms = new MenuService();
-            MenuItem menuItem;
+            MenuItem menuItem = null;
+
 
             // delete functionality handled within this section
             if (action.equals("Delete Item")) {
@@ -52,23 +54,46 @@ public class RestaurantDBController extends HttpServlet {
                 view.forward(request, response);
                 // insert & update functionality handled here
             } else if (action.equals("Add/Edit Item")) {
-                
-                // forward to the update page
-                RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
-                view.forward(request, response);
+
+                String[] idValues = request.getParameterValues("menuItem");
+                if (idValues == null) {
+                    menuItem = new MenuItem();
+                    request.setAttribute("menuItem", menuItem);
+                } else {
+                    List mi = new ArrayList<>();
+                    for (String s : idValues) {
+                        menuItem = ms.getMenuItemById(s);
+                        mi.add(menuItem);
+                        System.out.println("\nRetrieved menu item by itemId: "
+                                + menuItem.getItemName() + "(" + menuItem.getId()
+                                + ") ... " + menuItem.getItemPrice());
+                        ms.saveMenuItem(menuItem);
+                        System.out.println(menuItem);
+                        request.setAttribute("menuItem", menuItem);
+
+                        // forward to the update page
+                        RequestDispatcher view = request.getRequestDispatcher(UPDATE_PAGE);
+                        view.forward(request, response);
+                    }
+
+                }
 
             } else if (action.equals("Submit Update")) {
                 String itemId = request.getParameter("itemId");
-                // need to convert itemId into a Long object
-                Long objItemId = (itemId.equals("null") || itemId.length() == 0) ? null : new Long(itemId);
                 String itemName = request.getParameter("itemName");
                 double itemPrice = Double.valueOf(request.getParameter("itemPrice"));
+                // need to convert itemId into a Long object
+                Long objItemId = (itemId.equals("null") || itemId.length() == 0L) ? null : new Long(itemId);
+                System.out.println(objItemId);
                 menuItem = new MenuItem(objItemId, itemName, itemPrice);
-                // insert
-                if (objItemId == null) {
+                try {
+
                     ms.saveMenuItem(menuItem);
+                    updatedMenuItems = ms.getAllMenuItems();
+
+                } catch (DataAccessException e) {
+                    System.out.println(e.getLocalizedMessage());
                 }
-                updatedMenuItems = ms.getAllMenuItems();
                 request.setAttribute("menuItems", updatedMenuItems);
 
                 RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);

@@ -16,8 +16,7 @@
     </head>
     <body style="background-color: ${color}">
     <center>
-        <form name="adminDelete" id="adminDelete" 
-              action="RestaurantDBController" method="POST">
+        <form name="adminDelete" id="adminDelete"  action="RestaurantDBController" method="POST">
             <h1>Menu Administration</h1>
             <p style="text-align: center"> Select the menu item you wish to delete
                 and then choose "Delete Item." </p>
@@ -32,7 +31,7 @@
                     }
 
                     for (MenuItem menuItem : menuItems) {
-                        Long id = menuItem.getItemId();
+                        Long itemId = menuItem.getId();
                         String itemName = menuItem.getItemName();
                         double itemPrice = menuItem.getItemPrice();
                 %>
@@ -40,7 +39,7 @@
                 <h4>
                     <td>
                         <input type="checkbox" name="menuItem" 
-                               value="<%= id%>" /> <%= itemName%>
+                               value="<%= itemId%>" /> <%= itemName%>
                     </td>          
                     <td> <%= itemPrice%></td>
                     </tr>
@@ -52,11 +51,9 @@
             </table>
             <br/>            
             <input type="submit" name="action" id="action" value="Delete Item" />
-        </form>
-        <form name="adminUpdate" id="adminUpdate" action="insertUpdate.jsp" method="POST">
-            <br/>
-            <input type="submit" name="action" id="action" value="Add/Edit Item" />
-        </form>
+            &Tab;
+            <input type="submit" name="action" id="action" value="Add/Edit Item"/>
+        </form>       
     </center>
     <br/> 
     <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>

@@ -82,8 +82,7 @@ public class MenuService {
         ms.deleteMenuItem(ids);
         System.out.println("\nDeleted item: " + menuItem.getItemName() 
                 + " ... " + menuItem.getItemPrice());
-        }      
-        
+        }           
         // insert
         menuItem = new MenuItem(null, "Mixed Drink", 7.25);
         ms.saveMenuItem(menuItem);
