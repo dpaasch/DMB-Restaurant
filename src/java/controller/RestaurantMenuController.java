@@ -33,6 +33,9 @@ public class RestaurantMenuController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
+        
+        String url = this.getServletContext().getInitParameter("url");
+        request.setAttribute("url", url);
 
         MenuService ms = new MenuService();
         List<MenuItem> menuItems = ms.getAllMenuItems();

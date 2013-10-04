@@ -15,7 +15,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu Updates</title>
     </head>
-    <body>
+    <body style="background-color: ${color}">
         <h1>Add/Edit Menu Item</h1>
     <center>
         <form name="update" id="update" action="RestaurantDBController" method="POST" />
