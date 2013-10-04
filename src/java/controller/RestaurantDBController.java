@@ -36,9 +36,6 @@ public class RestaurantDBController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String color = this.getServletContext().getInitParameter("color");
-        request.setAttribute("color", color);
 
         try {
             String action = request.getParameter("action");

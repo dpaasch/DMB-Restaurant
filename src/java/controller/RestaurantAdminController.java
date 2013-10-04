@@ -36,7 +36,7 @@ public class RestaurantAdminController extends HttpServlet {
         
         String color = this.getServletContext().getInitParameter("color");
         request.setAttribute("color", color);
-
+        
             // Retrieve the menu to display on the main admin page
             MenuService ms = new MenuService();
             List<MenuItem> menuItems = ms.getAllMenuItems();
