@@ -24,15 +24,6 @@ public class RestaurantAdminController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {        
-        // servlet initialization parameter
-        String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
-        request.setAttribute("driverClassName", driverClassName);
-        String url = this.getServletConfig().getInitParameter("url");
-        request.setAttribute("url", url);
-        String userName = this.getServletConfig().getInitParameter("userName");
-        request.setAttribute("userName", userName);
-        String password = this.getServletConfig().getInitParameter("password");
-        request.setAttribute("password", password);
         
         // app initialization parameters
         String email = this.getServletContext().getInitParameter("email");

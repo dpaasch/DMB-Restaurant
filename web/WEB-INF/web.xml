@@ -3,6 +3,24 @@
     <servlet>
         <servlet-name>RestaurantMenuController</servlet-name>
         <servlet-class>controller.RestaurantMenuController</servlet-class>
+        <init-param>
+            <param-name>driverClassName</param-name>
+            <param-value>com.mysql.jdbc.Driver</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>    
+        </init-param>        
+        <init-param>
+            <param-name>userName</param-name>
+            <param-value>root</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>dawn00</param-value>    
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>RestaurantOrderController</servlet-name>
