@@ -16,8 +16,9 @@
     </head>
     <body>
     <center>
-        <form name="adminDelete" id="adminDelete"  action="RestaurantDBController" method="POST">
+        <form name="admin" id="admin"  action="RestaurantDBController" method="POST">
             <h2>Menu Administration</h2>
+                            <img src="images/grilled-steak.jpg">
             <p> Select the menu item you wish to delete and then choose 
                 "Delete Item." </p><p>To add a new menu item, or update an existing 
                 item, choose "Add/Edit Item."</p>

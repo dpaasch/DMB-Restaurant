@@ -16,6 +16,7 @@
     </head>
     <body>
         <h2>Your Blue Bistro Order</h2>
+                <img src="images/grilled-steak.jpg">
         <%
             Object subTotal = request.getAttribute("subTotal");
             Object tax = request.getAttribute("tax");

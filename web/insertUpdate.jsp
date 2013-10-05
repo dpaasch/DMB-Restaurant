@@ -17,6 +17,7 @@
     </head>
     <body style="background-color: ${color}">
         <h1>Add/Edit Menu Item</h1>
+                <img src="images/grilled-steak.jpg">
     <center>
         <form name="update" id="update" action="RestaurantDBController" method="POST" />
         <p style="text-align: center">Enter the item name and item price that you wish to add/edit</p>
@@ -25,6 +26,7 @@
             Item Name: <input type="text" name="itemName" id="itemName" value="${menuItem.itemName}" /> 
             Item Price: <input type="text" name="itemPrice" id="itemPrice" value="${menuItem.itemPrice}" />
         </h3>
+
         <br> 
         <input type="submit" name="action" id="action" value="Submit Update"/>
             <br/>
