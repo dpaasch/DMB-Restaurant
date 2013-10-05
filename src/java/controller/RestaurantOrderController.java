@@ -1,6 +1,6 @@
 package controller;
 
-import db.accessor.DB_MySQL;
+import db.accessor.DBConnector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -39,18 +39,31 @@ public class RestaurantOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
         response.setContentType("text/html;charset=UTF-8");
+        
+                
+         // servlet initialization parameter
+        String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
+//        request.setAttribute("driverClassName", driverClassName);
+        String url = this.getServletConfig().getInitParameter("url");
+//        request.setAttribute("url", url);
+        String userName = this.getServletConfig().getInitParameter("userName");
+//        request.setAttribute("userName", userName);
+        String password = this.getServletConfig().getInitParameter("password");
+//        request.setAttribute("password", password);
+        
+        DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
 
         String[] orderedItems = request.getParameterValues("orderedItems[]");
-//        OrderService os = new OrderService(new MenuDAO(new DB_MySQL()), orderedItems);
-//        ArrayList<MenuItem> orderedMenuItems = os.getOrderedMenuItems();
-//
-//        subTotal = os.getSubTotal();
-//        tax = os.getTax();
-//        total = os.getTotal();
-//        tip = os.getTip();
-//        grandTotal = os.getGrandTotal();
+        OrderService os = new OrderService(dbConnector, orderedItems);
+        ArrayList<MenuItem> orderedMenuItems = os.getOrderedMenuItems();
 
-//        request.setAttribute("orderedMenuItems", orderedMenuItems);
+        subTotal = os.getSubTotal();
+        tax = os.getTax();
+        total = os.getTotal();
+        tip = os.getTip();
+        grandTotal = os.getGrandTotal();
+
+        request.setAttribute("orderedMenuItems", orderedMenuItems);
         request.setAttribute("subTotal", subTotal);
         request.setAttribute("tax", tax);
         request.setAttribute("total", total);

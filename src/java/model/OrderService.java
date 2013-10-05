@@ -1,5 +1,6 @@
 package model;
 
+import db.accessor.DBConnector;
 import db.accessor.DB_MySQL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -17,14 +18,19 @@ import java.util.logging.Logger;
 public class OrderService {
 
     private IMenuDAO dao;
+    private DBConnector dbConnector;
     // this is the list of items the customer ordered
     private ArrayList<MenuItem> orderedMenuItems = new ArrayList<MenuItem>();
     private OrderCalculator orderCalculator = new OrderCalculator(orderedMenuItems);
-    
-    
-    // Constructor: Takes the choices made by the customer for the order, as parameters.
-    public OrderService(IMenuDAO dao, String[] s) throws DataAccessException {
-        setDao(dao);
+
+    //    // Constructor: Takes the choices made by the customer for the order, as parameters.
+    //    public OrderService(IMenuDAO dao, String[] s) throws DataAccessException {
+    //        setDao(dao);
+    //        addToOrderedMenuItems(s);
+    //    }
+    public OrderService(DBConnector dbConnector, String[] s) throws DataAccessException {
+        this.dbConnector = dbConnector;
+        dao = new MenuDAO(dbConnector);
         addToOrderedMenuItems(s);
     }
 
@@ -50,13 +56,12 @@ public class OrderService {
         this.dao = dao;
     }
 
-
     public double getSubTotal() {
         return orderCalculator.getSubTotal();
     }
 
     public double getTax() {
-return orderCalculator.getTax();
+        return orderCalculator.getTax();
     }
 
     public double getTotal() {
@@ -70,7 +75,6 @@ return orderCalculator.getTax();
     public double getGrandTotal() {
         return orderCalculator.getGrandTotal();
     }
-
     // for testing
 //    public static void main(String[] args) throws DataAccessException {
 //        String[] mItem = {"1", "3"};

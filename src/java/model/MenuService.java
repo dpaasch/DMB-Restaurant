@@ -1,9 +1,6 @@
 package model;
 
-import db.accessor.DBAccessor;
 import db.accessor.DBConnector;
-import db.accessor.DB_MySQL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
