@@ -1,5 +1,6 @@
 package controller;
 
+import db.accessor.DBConnector;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,15 +37,17 @@ public class RestaurantMenuController extends HttpServlet {
         
         // servlet initialization parameter
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
-        request.setAttribute("driverClassName", driverClassName);
+//        request.setAttribute("driverClassName", driverClassName);
         String url = this.getServletConfig().getInitParameter("url");
-        request.setAttribute("url", url);
+//        request.setAttribute("url", url);
         String userName = this.getServletConfig().getInitParameter("userName");
-        request.setAttribute("userName", userName);
+//        request.setAttribute("userName", userName);
         String password = this.getServletConfig().getInitParameter("password");
-        request.setAttribute("password", password);
+//        request.setAttribute("password", password);
         
-        MenuService ms = new MenuService();
+        DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
+        
+        MenuService ms = new MenuService(dbConnector);
         List<MenuItem> menuItems = ms.getAllMenuItems();
 
         request.setAttribute("menuItems", menuItems);

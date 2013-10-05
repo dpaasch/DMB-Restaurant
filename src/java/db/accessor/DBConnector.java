@@ -4,11 +4,11 @@ package db.accessor;
  *
  * @author tim
  */
-public class DBConnection {
+public class DBConnector {
 
     private String driverClassName, url, userName, password;
 
-    public DBConnection(String driverClassName, String url, String userName, String password) {
+    public DBConnector(String driverClassName, String url, String userName, String password) {
         this.driverClassName = driverClassName;
         this.url = url;
         this.userName = userName;

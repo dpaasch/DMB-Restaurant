@@ -41,16 +41,16 @@ public class RestaurantOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String[] orderedItems = request.getParameterValues("orderedItems[]");
-        OrderService os = new OrderService(new MenuDAO(new DB_MySQL()), orderedItems);
-        ArrayList<MenuItem> orderedMenuItems = os.getOrderedMenuItems();
+//        OrderService os = new OrderService(new MenuDAO(new DB_MySQL()), orderedItems);
+//        ArrayList<MenuItem> orderedMenuItems = os.getOrderedMenuItems();
+//
+//        subTotal = os.getSubTotal();
+//        tax = os.getTax();
+//        total = os.getTotal();
+//        tip = os.getTip();
+//        grandTotal = os.getGrandTotal();
 
-        subTotal = os.getSubTotal();
-        tax = os.getTax();
-        total = os.getTotal();
-        tip = os.getTip();
-        grandTotal = os.getGrandTotal();
-
-        request.setAttribute("orderedMenuItems", orderedMenuItems);
+//        request.setAttribute("orderedMenuItems", orderedMenuItems);
         request.setAttribute("subTotal", subTotal);
         request.setAttribute("tax", tax);
         request.setAttribute("total", total);

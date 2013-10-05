@@ -25,6 +25,24 @@
     <servlet>
         <servlet-name>RestaurantOrderController</servlet-name>
         <servlet-class>controller.RestaurantOrderController</servlet-class>
+                <init-param>
+            <param-name>driverClassName</param-name>
+            <param-value>com.mysql.jdbc.Driver</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>    
+        </init-param>        
+        <init-param>
+            <param-name>userName</param-name>
+            <param-value>root</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>dawn00</param-value>    
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>RestaurantAdminController</servlet-name>
@@ -51,6 +69,24 @@
     <servlet>
         <servlet-name>RestaurantDBController</servlet-name>
         <servlet-class>controller.RestaurantDBController</servlet-class>
+                <init-param>
+            <param-name>driverClassName</param-name>
+            <param-value>com.mysql.jdbc.Driver</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>    
+        </init-param>        
+        <init-param>
+            <param-name>userName</param-name>
+            <param-value>root</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>dawn00</param-value>    
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>RestaurantMenuController</servlet-name>
@@ -73,12 +109,7 @@
         <param-name>email</param-name>
         <param-value>dpaasch@my.wctc.edu</param-value>
     </context-param>
-    
-    <listener>
-        <listener-class>
-            edu.wctc.listeners.MyServletContextListener
-        </listener-class>
-    </listener>
+
     <session-config>
         <session-timeout>
             30

@@ -1,6 +1,7 @@
 package model;
 
 import db.accessor.DBAccessor;
+import db.accessor.DBConnector;
 import db.accessor.DB_MySQL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,18 @@ import java.util.List;
 public class MenuService {
 
     private IMenuDAO dao;
+    private DBConnector dbConnector;
 
     /**
      * Default MenuService constructor
      */
-    public MenuService() {
-//        DBAccessor db = new DB_MySQL();
-        dao = new MenuDAO();
+//    public MenuService() {
+////        DBAccessor db = new DB_MySQL();
+//        dao = new MenuDAO();
+//    }
+    public MenuService(DBConnector dbConnector) {
+        this.dbConnector = dbConnector;
+        dao = new MenuDAO(dbConnector);
     }
 
     public void saveMenuItem(MenuItem menuItem) throws DataAccessException {
@@ -54,54 +60,54 @@ public class MenuService {
     }
 
 // for testing
-    public static void main(String[] args) throws DataAccessException, Exception {
-        MenuService ms = new MenuService();
-        MenuItem menuItem;
-        List<MenuItem> allMenuItems = ms.getAllMenuItems();
-
-        // get MENU
-        System.out.println(" ... ORIGINAL MENU ... ");
-        for (MenuItem m : allMenuItems) {
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-        // get by itemId
-        String[] orderedMenuItems = {"5"};
-        List<MenuItem> mi = new ArrayList<>();
-        for (String s : orderedMenuItems) {
-            MenuItem m = ms.getMenuItemById(s);
-            mi.add(m);
-            System.out.println("\nRetrieved menu item by itemId: " 
-                    + m.getItemName() + "(" + m.getItemId() + ") ... " + m.getItemPrice());
-        }
-        // delete
-        String[] ids = {"8"};
-        List<MenuItem> miDeletable = new ArrayList<>();
-        for (String s : ids) {
-            menuItem = ms.getMenuItemById(s);
-            miDeletable.add(menuItem);
-        ms.deleteMenuItem(ids);
-        System.out.println("\nDeleted item: " + menuItem.getItemName() 
-                + " ... " + menuItem.getItemPrice());
-        }           
-        // insert
-        menuItem = new MenuItem(null, "Mixed Drink", 7.25);
-        ms.saveMenuItem(menuItem);
-        System.out.println("\nInserted: " + menuItem.getItemName() + " @ $" 
-                + menuItem.getItemPrice());
-
-        // update
-        MenuItem miUpdateable = ms.getMenuItemById("6");
-        if (miUpdateable != null) {
-        miUpdateable.setItemPrice(4.75);
-        ms.saveMenuItem(miUpdateable);
-        System.out.println("\nUpdated: " + miUpdateable.getItemName() + " ( " 
-                    + Long.valueOf(miUpdateable.getItemId()) + ") ... " + miUpdateable.getItemPrice());
-        }
-        //get MENU
-        System.out.println("\n ... CURRENT MENU ... ");
-        allMenuItems = ms.getAllMenuItems();
-        for (MenuItem m : allMenuItems) {
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-    }
+//    public static void main(String[] args) throws DataAccessException, Exception {
+//        MenuService ms = new MenuService();
+//        MenuItem menuItem;
+//        List<MenuItem> allMenuItems = ms.getAllMenuItems();
+//
+//        // get MENU
+//        System.out.println(" ... ORIGINAL MENU ... ");
+//        for (MenuItem m : allMenuItems) {
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+//        // get by itemId
+//        String[] orderedMenuItems = {"5"};
+//        List<MenuItem> mi = new ArrayList<>();
+//        for (String s : orderedMenuItems) {
+//            MenuItem m = ms.getMenuItemById(s);
+//            mi.add(m);
+//            System.out.println("\nRetrieved menu item by itemId: " 
+//                    + m.getItemName() + "(" + m.getItemId() + ") ... " + m.getItemPrice());
+//        }
+//        // delete
+//        String[] ids = {"8"};
+//        List<MenuItem> miDeletable = new ArrayList<>();
+//        for (String s : ids) {
+//            menuItem = ms.getMenuItemById(s);
+//            miDeletable.add(menuItem);
+//        ms.deleteMenuItem(ids);
+//        System.out.println("\nDeleted item: " + menuItem.getItemName() 
+//                + " ... " + menuItem.getItemPrice());
+//        }           
+//        // insert
+//        menuItem = new MenuItem(null, "Mixed Drink", 7.25);
+//        ms.saveMenuItem(menuItem);
+//        System.out.println("\nInserted: " + menuItem.getItemName() + " @ $" 
+//                + menuItem.getItemPrice());
+//
+//        // update
+//        MenuItem miUpdateable = ms.getMenuItemById("6");
+//        if (miUpdateable != null) {
+//        miUpdateable.setItemPrice(4.75);
+//        ms.saveMenuItem(miUpdateable);
+//        System.out.println("\nUpdated: " + miUpdateable.getItemName() + " ( " 
+//                    + Long.valueOf(miUpdateable.getItemId()) + ") ... " + miUpdateable.getItemPrice());
+//        }
+//        //get MENU
+//        System.out.println("\n ... CURRENT MENU ... ");
+//        allMenuItems = ms.getAllMenuItems();
+//        for (MenuItem m : allMenuItems) {
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+//    }
 }

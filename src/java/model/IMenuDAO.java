@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface IMenuDAO {
 
-    public abstract DBAccessor getDb();
+    public abstract DBAccessor getDBAccessor();
 
-    public abstract void setDb(DBAccessor db);
+    public abstract void setDBAccessor(DBAccessor dbAccessor);
     
     public abstract void saveMenuItem(MenuItem menuItem) throws DataAccessException;
     

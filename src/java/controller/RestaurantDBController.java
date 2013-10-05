@@ -1,5 +1,6 @@
 package controller;
 
+import db.accessor.DBConnector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,23 @@ public class RestaurantDBController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        
+         // servlet initialization parameter
+        String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
+//        request.setAttribute("driverClassName", driverClassName);
+        String url = this.getServletConfig().getInitParameter("url");
+//        request.setAttribute("url", url);
+        String userName = this.getServletConfig().getInitParameter("userName");
+//        request.setAttribute("userName", userName);
+        String password = this.getServletConfig().getInitParameter("password");
+//        request.setAttribute("password", password);
+        
+        DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
 
         try {
             String action = request.getParameter("action");
             List<MenuItem> updatedMenuItems = null;
-            MenuService ms = new MenuService();
+            MenuService ms = new MenuService(dbConnector);
 
             // delete functionality handled within this section
             if (action.equals("Delete Item")) {

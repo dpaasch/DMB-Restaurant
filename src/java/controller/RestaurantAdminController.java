@@ -1,5 +1,6 @@
 package controller;
 
+import db.accessor.DBConnector;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,14 +24,26 @@ public class RestaurantAdminController extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DataAccessException {        
+            throws ServletException, IOException, DataAccessException {  
+        
+         // servlet initialization parameter
+        String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
+//        request.setAttribute("driverClassName", driverClassName);
+        String url = this.getServletConfig().getInitParameter("url");
+//        request.setAttribute("url", url);
+        String userName = this.getServletConfig().getInitParameter("userName");
+//        request.setAttribute("userName", userName);
+        String password = this.getServletConfig().getInitParameter("password");
+//        request.setAttribute("password", password);
+        
+        DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
         
         // app initialization parameters
         String email = this.getServletContext().getInitParameter("email");
         request.setAttribute("email", email);
 
         // Retrieve the menu to display on the main admin page
-        MenuService ms = new MenuService();
+        MenuService ms = new MenuService(dbConnector);
         List<MenuItem> menuItems = ms.getAllMenuItems();
         request.setAttribute("menuItems", menuItems);
 

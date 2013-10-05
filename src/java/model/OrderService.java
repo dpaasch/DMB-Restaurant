@@ -72,17 +72,17 @@ return orderCalculator.getTax();
     }
 
     // for testing
-    public static void main(String[] args) throws DataAccessException {
-        String[] mItem = {"1", "3"};
-        OrderService orderService = new OrderService(new MenuDAO(new DB_MySQL()), mItem);
-        List<MenuItem> orderedMenuItems = orderService.getOrderedMenuItems();
-        for (MenuItem m : orderedMenuItems) {
-            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
-        }
-        double subTotal = orderService.getSubTotal();
-        double tax = orderService.getTax();
-        double total = orderService.getTotal();
-        System.out.println(subTotal + "..." + tax + "..." + total);
-
-    }
+//    public static void main(String[] args) throws DataAccessException {
+//        String[] mItem = {"1", "3"};
+//        OrderService orderService = new OrderService(new MenuDAO(new DB_MySQL()), mItem);
+//        List<MenuItem> orderedMenuItems = orderService.getOrderedMenuItems();
+//        for (MenuItem m : orderedMenuItems) {
+//            System.out.println(m.getItemName() + " ... " + m.getItemPrice());
+//        }
+//        double subTotal = orderService.getSubTotal();
+//        double tax = orderService.getTax();
+//        double total = orderService.getTotal();
+//        System.out.println(subTotal + "..." + tax + "..." + total);
+//
+//    }
 }
