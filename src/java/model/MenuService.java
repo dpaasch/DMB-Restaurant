@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MenuService {
 
-    private MenuDAO dao;
+    private IMenuDAO dao;
 
     /**
      * Default MenuService constructor
@@ -46,7 +46,7 @@ public class MenuService {
       /**
      * @return the dao
      */
-    public MenuDAO getMenuDAO() {
+    public IMenuDAO getMenuDAO() {
         return dao;
     }
     public void setMenuDAO(MenuDAO dao) {

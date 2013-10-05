@@ -12,7 +12,7 @@
         <servlet-name>RestaurantAdminController</servlet-name>
         <servlet-class>controller.RestaurantAdminController</servlet-class>
         <init-param>
-            <param-name>driver</param-name>
+            <param-name>driverClassName</param-name>
             <param-value>com.mysql.jdbc.Driver</param-value>    
         </init-param>
         
@@ -21,7 +21,7 @@
             <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>    
         </init-param>        
         <init-param>
-            <param-name>username</param-name>
+            <param-name>userName</param-name>
             <param-value>root</param-value>    
         </init-param>
         
@@ -52,13 +52,15 @@
     </servlet-mapping>
     <!-- Application specific initializtion parameters -->
     <context-param>
-            <param-name>email</param-name>
-            <param-value>dpaasch@my.wctc.edu</param-value>
+        <param-name>email</param-name>
+        <param-value>dpaasch@my.wctc.edu</param-value>
     </context-param>
-    <context-param>
-        <param-name>color</param-name>
-        <param-value>#F0F8FF</param-value>
-    </context-param>
+    
+    <listener>
+        <listener-class>
+            edu.wctc.listeners.MyServletContextListener
+        </listener-class>
+    </listener>
     <session-config>
         <session-timeout>
             30
