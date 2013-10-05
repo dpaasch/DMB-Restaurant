@@ -18,13 +18,14 @@
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
             <h2>Please make your menu selections</h2>
+            <img src="images/grilled-steak.jpg">
             <table>
                 <%
                     List<MenuItem> menuItems = null;
                     Object menu = request.getAttribute("menuItems");
                     if (menu != null) {
                         menuItems = (List<MenuItem>) menu;
-                    }
+                    }            
 
                     for (MenuItem menuItem : menuItems) {
                         Long id = menuItem.getItemId();
@@ -33,9 +34,9 @@
                 %>
                 <tr>
                 <h3>
-                    <td>&Tab;
+                    <td>&nbsp;
                         <input type="checkbox" name="orderedItems[]" value="<%= id%>"/> 
-                        <%= itemName%>
+                        &nbsp; <%= itemName%>
                     </td>          
                     <td><%= itemPrice%></td>
                 </h3>
@@ -46,11 +47,11 @@
             </table>
             <br/>
             <input type="submit" name="submit" id="submit" value="Submit Order"/>
-        </form>
+            <br/>
+            <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+                <a href="mailto:${email}"> Contact Us </a></h4>
+        </form>       
     </center>
-
-    <br/> 
-    <br/> <a href="index.jsp">The Blue Bistro Home</a>
 </body>
 </html>
 

@@ -10,13 +10,8 @@ body {
     font-family: cursive;
     font-style: italic;
     color: royalblue;
-    text-align: center;    
-}
-
-a {
-    font-family: sans-serif;
-    font-style: italic;
-    font-size: 80%;
+    background-color: #F0F8FF;
+    text-align: center;
 }
 
 button, input {
@@ -26,7 +21,10 @@ button, input {
     color: royalblue;
 }
 
-h4, p { 
+h4 { 
+    font-family: times;
+    font-style: italic;
+    font-size: 90%;
     text-align: left; 
 }
 
@@ -35,6 +33,7 @@ td{
     vertical-align: bottom;
     padding:10px;
 }
+
 th{
     text-align: center;
     vertical-align: bottom;

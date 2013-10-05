@@ -27,8 +27,10 @@
         </h3>
         <br> 
         <input type="submit" name="action" id="action" value="Submit Update"/>
-    </form>
+            <br/>
+            <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+                <a href="mailto:${email}"> Contact Us </a></h4>
+        </form>       
 </center>
-<br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
 </body>
 </html>

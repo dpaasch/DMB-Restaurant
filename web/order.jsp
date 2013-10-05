@@ -15,7 +15,7 @@
         <title>Blue Bistro Order Summary</title>
     </head>
     <body>
-        <h1>Your Blue Bistro Order ...</h1>
+        <h2>Your Blue Bistro Order</h2>
         <%
             Object subTotal = request.getAttribute("subTotal");
             Object tax = request.getAttribute("tax");
@@ -37,21 +37,23 @@
         <br/>
         <table>
             <h4>
-            <tr> <td> SubTotal: </td><td> $${subTotal} </td> </tr>
-            <tr> <td> WI Tax: </td><td> $${tax} </td> </tr>
-            <tr> <td> Total: </td><td> $${total} </td> </tr> 
-            <tr> <td> Suggested Gratuity: </td><td> $${tip} </td> </tr> 
-            <tr> <td>Grand Total: </td><td> $${grandTotal} </td> </tr> 
+                <tr> <td> SubTotal: </td><td> $${subTotal} </td> </tr>
+                <tr> <td> WI Tax: </td><td> $${tax} </td> </tr>
+                <tr> <td> Total: </td><td> $${total} </td> </tr> 
+                <tr> <td> Suggested Gratuity: </td><td> $${tip} </td> </tr> 
+                <tr> <td>Grand Total: </td><td> $${grandTotal} </td> </tr> 
             </h4>
         </table>
         <br/>
         <br/>
     <center>
-        <input type="submit" name="submit" id="submit" 
-               onclick="location.href = 'RestaurantMenuController'" value="Place another order"/>   
+        <button onclick="location.href = 'RestaurantMenuController'" 
+                name="placeOrder" id="placeOrder">Place Another Order
+        </button>
     </center>
     <br/>
-    <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+    <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+        <a href="mailto:${email}"> Contact Us </a></h4>   
 </body>
 </html>
 

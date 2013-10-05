@@ -14,50 +14,49 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu Administration</title>
     </head>
-    <body style="background-color: ${color}">
+    <body>
     <center>
         <form name="adminDelete" id="adminDelete"  action="RestaurantDBController" method="POST">
             <h2>Menu Administration</h2>
-            <p style="text-align: center"> Select the menu item you wish to delete
-                and then choose "Delete Item." </p>
-            <p style="text-align: center">To add a new menu item, or 
-                update an existing item, choose "Add/Edit Item."</p>
+            <p> Select the menu item you wish to delete and then choose 
+                "Delete Item." </p><p>To add a new menu item, or update an existing 
+                item, choose "Add/Edit Item."</p>
             <table>
-                <%
-                    List<MenuItem> menuItems = null;
-                    Object menu = request.getAttribute("menuItems");
-                    if (menu != null) {
-                        menuItems = (List<MenuItem>) menu;
-                    }
-
-                    for (MenuItem menuItem : menuItems) {
-                        Long itemId = menuItem.getItemId();
-                        String itemName = menuItem.getItemName();
-                        double itemPrice = menuItem.getItemPrice();
-                %>
-                <tr>
                 <h4>
-                    <td>
-                        <input type="checkbox" name="menuItem" id="menuItem" 
-                               value="<%= itemId%>" /> &Tab; <%= itemName%>
-                    </td>          
-                    <td> <%= itemPrice%></td>
+                    <%
+                        List<MenuItem> menuItems = null;
+                        Object menu = request.getAttribute("menuItems");
+                        if (menu != null) {
+                            menuItems = (List<MenuItem>) menu;
+                        }
+
+                        for (MenuItem menuItem : menuItems) {
+                            Long itemId = menuItem.getItemId();
+                            String itemName = menuItem.getItemName();
+                            double itemPrice = menuItem.getItemPrice();
+                    %>
+                    <tr>
+                        <td>&nbsp;
+                            <input type="checkbox" name="menuItem" id="menuItem" 
+                                   value="<%= itemId%>" /> &nbsp; <%= itemName%>
+                        </td>          
+                        <td> <%= itemPrice%></td>
                     </tr>
+
+                    <%
+                        }
+                    %>
                 </h4>
-                <%
-                    }
-                %>
-                <tr></tr>
             </table>
-            <br/>   
             <center>
                 <input type="submit" name="action" id="action" value="Delete Item" />
-                &Tab;
+                &Tab; &Tab;
                 <input type="submit" name="action" id="action" value="Add/Edit Item"/>
             </center>
+            <br/>
+            <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+                <a href="mailto:${email}"> Contact Us </a></h4>
         </form>       
     </center>
-                <br/>
-        <a href="mailto:${email}" style="font-style: italic" style="text-align: left"> Contact Us </a>
 </body>
 </html>
