@@ -20,8 +20,8 @@ public class MenuService {
      * Default MenuService constructor
      */
     public MenuService() {
-        DBAccessor db = new DB_MySQL();
-        dao = new MenuDAO(db);
+//        DBAccessor db = new DB_MySQL();
+        dao = new MenuDAO();
     }
 
     public void saveMenuItem(MenuItem menuItem) throws DataAccessException {

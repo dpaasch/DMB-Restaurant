@@ -15,7 +15,7 @@ import java.util.Map;
 public class MenuDAO implements IMenuDAO {
 
     // Variable declarations //
-    private DBAccessor db;
+    private DBAccessor db = new DB_MySQL();
     // Constructors
     private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver",
             URL = "jdbc:mysql://localhost:3306/restaurant",
@@ -37,7 +37,8 @@ public class MenuDAO implements IMenuDAO {
      *
      */
     public MenuDAO(DBAccessor db) {
-        setDb(db);
+//        setDb(db);
+        this.db = db;
     }
 
     /**
