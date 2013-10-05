@@ -21,32 +21,35 @@ public class RestaurantAdminController extends HttpServlet {
 
     private final static String RESULT_PAGE = "/admin.jsp";
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, DataAccessException {
+            throws ServletException, IOException, DataAccessException {        
+        // servlet initialization parameter
+        String driver = this.getServletConfig().getInitParameter("driver");
+        request.setAttribute("driver", driver);
+        String url = this.getServletConfig().getInitParameter("url");
+        request.setAttribute("url", url);
+        String username = this.getServletConfig().getInitParameter("username");
+        request.setAttribute("username", username);
+        String password = this.getServletConfig().getInitParameter("password");
+        request.setAttribute("password", password);
         
+        // app initialization parameters
         String color = this.getServletContext().getInitParameter("color");
         request.setAttribute("color", color);
-        
-            // Retrieve the menu to display on the main admin page
-            MenuService ms = new MenuService();
-            List<MenuItem> menuItems = ms.getAllMenuItems();
-            request.setAttribute("menuItems", menuItems);
-            
+        String email = this.getServletContext().getInitParameter("email");
+        request.setAttribute("email", email);
 
-            // This object lets you forward both the request and response
-            // objects to a destination page
-            RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
-            view.forward(request, response);           
+        // Retrieve the menu to display on the main admin page
+        MenuService ms = new MenuService();
+        List<MenuItem> menuItems = ms.getAllMenuItems();
+        request.setAttribute("menuItems", menuItems);
+
+
+        // This object lets you forward both the request and response
+        // objects to a destination page
+        RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

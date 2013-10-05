@@ -15,11 +15,16 @@
     <center>
         <h1>Welcome to The Blue Bistro!</h1><br/>    
         <img src="images/bistro.jpg"><br/><br/>
-        <button onclick="location.href = 'RestaurantMenuController'" name="placeOrder" id="placeOrder">
-            <h4>Place Order</h4>
-        </button>
-        <br/><br/>
+        <h4>
+            <center>
+                <button onclick="location.href = 'RestaurantMenuController'" 
+                        name="placeOrder" id="placeOrder">Place Order
+                </button>
+                <button onclick="location.href = 'RestaurantAdminController'" 
+                        name="administer" id="administer">Administer Blue Bistro</button>
+            </center>
+        </h4>
     </center> 
-    <a href="RestaurantAdminController" style="font-style: italic">Administer Blue Bistro</a> 
+
 </body>
 </html>

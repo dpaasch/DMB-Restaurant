@@ -17,7 +17,7 @@
     <body>
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
-            <h1>Please make your menu selections</h1><br/>
+            <h2>Please make your menu selections</h2>
             <table>
                 <%
                     List<MenuItem> menuItems = null;
@@ -33,24 +33,24 @@
                 %>
                 <tr>
                 <h3>
-                    <td><input type="checkbox" name="orderedItems[]" value="<%= id%>" /> <%= itemName%></td>          
+                    <td>&Tab;
+                        <input type="checkbox" name="orderedItems[]" value="<%= id%>"/> 
+                        <%= itemName%>
+                    </td>          
                     <td><%= itemPrice%></td>
-                    </tr>
                 </h3>
-                <tr></tr>
-                <tr>
-                    <%
-                        }
-                    %>
-                    <td><input type="submit" name="submit" id="submit" value="Submit Order"/></td>
                 </tr>
+                <%
+                    }
+                %>
             </table>
-
+            <br/>
+            <input type="submit" name="submit" id="submit" value="Submit Order"/>
         </form>
     </center>
 
     <br/> 
-    <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+    <br/> <a href="index.jsp">The Blue Bistro Home</a>
 </body>
 </html>
 

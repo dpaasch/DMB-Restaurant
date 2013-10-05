@@ -6,51 +6,28 @@
         Provides styling for the restaurant application.
 */
 
-button {
+body {
+    font-family: cursive;
+    font-style: italic;
+    color: royalblue;
+    text-align: center;    
+}
+
+a {
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 80%;
+}
+
+button, input {
     box-shadow: 1px 1px 1px 1px;
     alignment-adjust: middle;
     font-weight: bold;
-}
-
-h1 { 
-    text-align: center; 
-    font-family: cursive; 
-    font-style: italic; 
     color: royalblue;
 }
 
-h3 { 
-    text-align: center; 
-    font-family: cursive; 
-    font-style: italic; 
-    color: royalblue;
-}
-
-h4 { 
+h4, p { 
     text-align: left; 
-    font-family: cursive; 
-    font-style: italic; 
-    color: royalblue;
-}
-
-input {
-    font-family: cursive;
-    font-weight: bold;
-    color: royalblue;
-}
-
-p {
-    text-align: left; 
-    font-family: cursive;
-    color: royalblue;
-}
-
-table {
-    border-color: royalblue;
-    text-align: center; 
-    font-family: cursive; 
-    font-style: italic; 
-    color: royalblue;
 }
 
 td{

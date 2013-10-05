@@ -11,6 +11,24 @@
     <servlet>
         <servlet-name>RestaurantAdminController</servlet-name>
         <servlet-class>controller.RestaurantAdminController</servlet-class>
+        <init-param>
+            <param-name>driver</param-name>
+            <param-value>com.mysql.jdbc.Driver</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>url</param-name>
+            <param-value>jdbc:mysql://localhost:3306/restaurant</param-value>    
+        </init-param>        
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>root</param-value>    
+        </init-param>
+        
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>dawn00</param-value>    
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>RestaurantDBController</servlet-name>
@@ -33,6 +51,10 @@
         <url-pattern>/RestaurantDBController</url-pattern>
     </servlet-mapping>
     <!-- Application specific initializtion parameters -->
+    <context-param>
+            <param-name>email</param-name>
+            <param-value>dpaasch@my.wctc.edu</param-value>
+    </context-param>
     <context-param>
         <param-name>color</param-name>
         <param-value>#F0F8FF</param-value>

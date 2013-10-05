@@ -17,7 +17,7 @@
     <body style="background-color: ${color}">
     <center>
         <form name="adminDelete" id="adminDelete"  action="RestaurantDBController" method="POST">
-            <h1>Menu Administration</h1>
+            <h2>Menu Administration</h2>
             <p style="text-align: center"> Select the menu item you wish to delete
                 and then choose "Delete Item." </p>
             <p style="text-align: center">To add a new menu item, or 
@@ -38,7 +38,8 @@
                 <tr>
                 <h4>
                     <td>
-                        <input type="checkbox" name="menuItem" id="menuItem" value="<%= itemId%>" /> <%= itemName%>
+                        <input type="checkbox" name="menuItem" id="menuItem" 
+                               value="<%= itemId%>" /> &Tab; <%= itemName%>
                     </td>          
                     <td> <%= itemPrice%></td>
                     </tr>
@@ -48,13 +49,15 @@
                 %>
                 <tr></tr>
             </table>
-            <br/>            
-            <input type="submit" name="action" id="action" value="Delete Item" />
-            &Tab;
-            <input type="submit" name="action" id="action" value="Add/Edit Item"/>
+            <br/>   
+            <center>
+                <input type="submit" name="action" id="action" value="Delete Item" />
+                &Tab;
+                <input type="submit" name="action" id="action" value="Add/Edit Item"/>
+            </center>
         </form>       
     </center>
-    <br/> 
-    <br/> <a href="index.jsp" style="font-style: italic">The Blue Bistro Home</a>
+                <br/>
+        <a href="mailto:${email}" style="font-style: italic" style="text-align: left"> Contact Us </a>
 </body>
 </html>
