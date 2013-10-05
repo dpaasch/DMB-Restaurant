@@ -1,4 +1,4 @@
-package model;
+package db.accessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import model.MenuItem;
 
 /**
  * The DB_MockMenu class contains an array of initialized Menu Item objects.  
