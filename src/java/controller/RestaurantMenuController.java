@@ -1,4 +1,4 @@
-package restaurant.controller;
+package controller;
 
 import db.accessor.DBConnector;
 import java.io.IOException;
@@ -10,9 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import restaurant.model.DataAccessException;
-import restaurant.model.MenuItem;
-import restaurant.model.MenuService;
+import javax.servlet.http.HttpSession;
+import model.DataAccessException;
+import model.MenuItem;
+import model.MenuService;
 
 /**
  *
@@ -42,6 +43,14 @@ public class RestaurantMenuController extends HttpServlet {
         String password = this.getServletConfig().getInitParameter("password");
        
         DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
+        
+        // app initialization parameters
+        String email = this.getServletContext().getInitParameter("email");
+        request.setAttribute("email", email);
+                // app initialization parameters - create session
+        String backgroundColor = request.getParameter("background-color");
+        HttpSession session = request.getSession();        
+        session.setAttribute("backgroundColor", backgroundColor);
         
         MenuService ms = new MenuService(dbConnector);
         List<MenuItem> menuItems = ms.getAllMenuItems();
