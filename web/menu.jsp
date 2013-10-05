@@ -14,7 +14,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu</title>
     </head>
-    <body>
+    <body bgcolor="${backgroundColor}" >
     <center>
         <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
             <h2>Please make your menu selections</h2>

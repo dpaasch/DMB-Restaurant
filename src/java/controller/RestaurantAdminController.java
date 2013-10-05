@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DataAccessException;
 import model.MenuItem;
 import model.MenuService;
@@ -25,18 +26,24 @@ public class RestaurantAdminController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {  
-        
-         // servlet initialization parameter
-        String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
+        // app initialization parameters
+        String email = this.getServletContext().getInitParameter("email");
+        request.setAttribute("email", email);
+        // create session
+        String backgroundColor = 
+                this.getServletContext().getInitParameter("backgroundColor");     
+        HttpSession aSession = request.getSession();
+        aSession.setAttribute("backgroundColor", backgroundColor);
+
+        // servlet initialization parameter
+        String driverClassName = 
+                this.getServletConfig().getInitParameter("driverClassName");
         String url = this.getServletConfig().getInitParameter("url");
         String userName = this.getServletConfig().getInitParameter("userName");
         String password = this.getServletConfig().getInitParameter("password");
         
-        DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
-        
-        // app initialization parameters
-        String email = this.getServletContext().getInitParameter("email");
-        request.setAttribute("email", email);
+        DBConnector dbConnector = new DBConnector(driverClassName, url, 
+                userName, password);
 
         // Retrieve the menu to display on the main admin page
         MenuService ms = new MenuService(dbConnector);

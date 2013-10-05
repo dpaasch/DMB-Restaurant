@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DataAccessException;
 import model.MenuItem;
 import model.MenuService;
@@ -37,8 +38,16 @@ public class RestaurantDBController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        
-         // servlet initialization parameter
+        // app initialization parameters
+        String email = this.getServletContext().getInitParameter("email");
+        request.setAttribute("email", email);
+        // create session
+        String backgroundColor = 
+                this.getServletContext().getInitParameter("backgroundColor");     
+        HttpSession aSession = request.getSession();
+        aSession.setAttribute("backgroundColor", backgroundColor);
+
+        // servlet initialization parameter
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
         String url = this.getServletConfig().getInitParameter("url");
         String userName = this.getServletConfig().getInitParameter("userName");

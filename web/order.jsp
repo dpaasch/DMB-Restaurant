@@ -14,7 +14,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Order Summary</title>
     </head>
-    <body>
+    <body bgcolor="${backgroundColor}">
         <h2>Your Blue Bistro Order</h2>
                 <img src="images/grilled-steak.jpg">
         <%

@@ -15,7 +15,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Menu Updates</title>
     </head>
-    <body style="background-color: ${color}">
+    <body bgcolor="${backgroundColor}">
         <h1>Add/Edit Menu Item</h1>
                 <img src="images/grilled-steak.jpg">
     <center>

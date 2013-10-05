@@ -11,7 +11,7 @@
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
         <title>Blue Bistro Home</title>
     </head>
-    <body>
+    <body bgcolor="#F0F8FF">
     <center>
         <h1>Welcome to The Blue Bistro!</h1><br/>    
         <img src="images/bistro.jpg"><br/><br/>

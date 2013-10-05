@@ -4,13 +4,14 @@
     Author     : Dawn Bykowski
     Description:
         Provides styling for the restaurant application.
+background-color: #F0F8FF;
 */
 
 body {
     font-family: cursive;
     font-style: italic;
     color: royalblue;
-    background-color: #F0F8FF;
+    
     text-align: center;
 }
 

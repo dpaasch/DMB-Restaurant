@@ -99,11 +99,12 @@
     <!-- Application specific initializtion parameters -->
     <context-param>
         <param-name>email</param-name>
-        <param-value>dpaasch@my.wctc.edu</param-value>
+        <param-value>ouremail@my.wctc.edu</param-value>
     </context-param>
+    <!-- Application specific session parameters -->
     <context-param>
-        <param-name>background-color</param-name>
-        <param-value>#FF0000</param-value>
+        <param-name>backgroundColor</param-name>
+        <param-value>#F0F8FF</param-value>
     </context-param>
     <session-config>
         <session-timeout>

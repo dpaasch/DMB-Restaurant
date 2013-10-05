@@ -35,23 +35,23 @@ public class RestaurantMenuController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
-        
+        // app initialization parameters
+        String email = this.getServletContext().getInitParameter("email");
+        request.setAttribute("email", email);
+        // create session
+        String backgroundColor = 
+                this.getServletContext().getInitParameter("backgroundColor");     
+        HttpSession aSession = request.getSession();
+        aSession.setAttribute("backgroundColor", backgroundColor);
+
         // servlet initialization parameter
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
         String url = this.getServletConfig().getInitParameter("url");
         String userName = this.getServletConfig().getInitParameter("userName");
         String password = this.getServletConfig().getInitParameter("password");
-       
+
         DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
-        
-        // app initialization parameters
-        String email = this.getServletContext().getInitParameter("email");
-        request.setAttribute("email", email);
-                // app initialization parameters - create session
-        String backgroundColor = request.getParameter("background-color");
-        HttpSession session = request.getSession();        
-        session.setAttribute("backgroundColor", backgroundColor);
-        
+
         MenuService ms = new MenuService(dbConnector);
         List<MenuItem> menuItems = ms.getAllMenuItems();
 
