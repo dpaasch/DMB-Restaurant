@@ -1,4 +1,4 @@
-package model;
+package restaurant.model;
 
 import db.accessor.DBConnector;
 import java.util.List;

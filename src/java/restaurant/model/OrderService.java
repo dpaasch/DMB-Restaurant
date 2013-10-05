@@ -1,4 +1,4 @@
-package model;
+package restaurant.model;
 
 import db.accessor.DBConnector;
 import db.accessor.DB_MySQL;

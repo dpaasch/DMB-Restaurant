@@ -1,4 +1,4 @@
-package model;
+package restaurant.model;
 
 /**
  * MenuItem is a low-level class that provitemIdes information about the menu

@@ -1,4 +1,4 @@
-package model;
+package restaurant.model;
 
 /**
  * An example of a custom exception class that could be used for all
