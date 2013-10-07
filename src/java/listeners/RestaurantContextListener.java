@@ -4,7 +4,6 @@ import db.accessor.DBConnector;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import model.MenuItem;
 
 /**
  *
@@ -15,6 +14,7 @@ public class RestaurantContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         ServletContext sc = event.getServletContext();
+
         String driverClassName = sc.getInitParameter("driverClassName");
         String url = sc.getInitParameter("url");
         String userName = sc.getInitParameter("userName");
