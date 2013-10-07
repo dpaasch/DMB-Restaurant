@@ -1,5 +1,5 @@
 <%-- 
-    Document   : orderSummary - Blue Bistro
+    Document   : orderSummary - Bykowski Bistro
     Created on : Sep 11, 2013, 8:38:52 PM
     Author     : Dawn Bykowski
 --%>
@@ -12,10 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <title>Blue Bistro Order Summary</title>
+        <title>Bykowski Bistro Order Summary</title>
     </head>
     <body bgcolor="${backgroundColor}">
-        <h2>Your Blue Bistro Order</h2>
+        <h2>Your Bykowski Bistro Order</h2>
                 <img src="images/grilled-steak.jpg">
         <%
             Object subTotal = request.getAttribute("subTotal");
@@ -53,7 +53,7 @@
         </button>
     </center>
     <br/>
-    <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+    <h4><a href="index.jsp">The Bykowski Bistro Home</a><br/>
         <a href="mailto:${email}"> Contact Us </a></h4>   
 </body>
 </html>

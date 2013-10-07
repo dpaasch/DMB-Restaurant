@@ -104,8 +104,13 @@
     <!-- Application specific session parameters -->
     <context-param>
         <param-name>backgroundColor</param-name>
-        <param-value>#F0F8FF</param-value>
+        <param-value>#66CDAA</param-value>
     </context-param>
+    
+    <listener>
+        <listener-class>listeners.RestaurantContextListener</listener-class>
+    </listener>
+            
     <session-config>
         <session-timeout>
             30

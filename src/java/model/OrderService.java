@@ -1,13 +1,7 @@
 package model;
 
 import db.accessor.DBConnector;
-import db.accessor.DB_MySQL;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class is solely responsible for all items related to the actual customer
@@ -23,11 +17,6 @@ public class OrderService {
     private ArrayList<MenuItem> orderedMenuItems = new ArrayList<MenuItem>();
     private OrderCalculator orderCalculator = new OrderCalculator(orderedMenuItems);
 
-    //    // Constructor: Takes the choices made by the customer for the order, as parameters.
-    //    public OrderService(IMenuDAO dao, String[] s) throws DataAccessException {
-    //        setDao(dao);
-    //        addToOrderedMenuItems(s);
-    //    }
     public OrderService(DBConnector dbConnector, String[] s) throws DataAccessException {
         this.dbConnector = dbConnector;
         dao = new MenuDAO(dbConnector);

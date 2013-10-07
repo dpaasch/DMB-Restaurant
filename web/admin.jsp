@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <title>Blue Bistro Menu Administration</title>
+        <title>Bykowski Bistro Menu Administration</title>
     </head>
     <body bgcolor="${backgroundColor}"> 
     <center>
@@ -57,7 +57,7 @@
                 <input type="submit" name="action" id="action" value="Add/Edit Item"/>
             </center>
             <br/>
-            <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+            <h4><a href="index.jsp">The Bykowski Bistro Home</a><br/>
                 <a href="mailto:${email}"> Contact Us </a></h4>
         </form>       
     </center>

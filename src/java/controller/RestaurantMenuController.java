@@ -2,6 +2,7 @@ package controller;
 
 import db.accessor.DBConnector;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,23 +36,24 @@ public class RestaurantMenuController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, DataAccessException {
-        // app initialization parameters
+        // app initialization parameters - adding email to jsp
         String email = this.getServletContext().getInitParameter("email");
         request.setAttribute("email", email);
-        // create session
-        String backgroundColor = 
-                this.getServletContext().getInitParameter("backgroundColor");     
+        // create session - setting background color
+        String backgroundColor =
+                this.getServletContext().getInitParameter("backgroundColor");
         HttpSession aSession = request.getSession();
         aSession.setAttribute("backgroundColor", backgroundColor);
 
-        // servlet initialization parameter
+        // servlet initialization parameter used within the DBConnector object
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
         String url = this.getServletConfig().getInitParameter("url");
         String userName = this.getServletConfig().getInitParameter("userName");
         String password = this.getServletConfig().getInitParameter("password");
 
         DBConnector dbConnector = new DBConnector(driverClassName, url, userName, password);
-
+//        DBConnector dbConnector = (DBConnector) getServletContext().getAttribute("dbManager");
+        
         MenuService ms = new MenuService(dbConnector);
         List<MenuItem> menuItems = ms.getAllMenuItems();
 

@@ -21,10 +21,10 @@ public class MenuDAO implements IMenuDAO {
     private DBAccessor dbAccessor;
     private DBConnector dbConnector;
     private String 
-            DRIVER_CLASS = "",
-            URL = "",
-            USERNAME = "",
-            PASSWORD = "";
+            driverClass = "",
+            url = "",
+            userName = "",
+            password = "";
 
     // Constants
     private static final String
@@ -40,18 +40,17 @@ public class MenuDAO implements IMenuDAO {
     }
     
     /**
-     * Default Constructor creates a new MenuDAO object.
+     * Constructor takes a DBConnector object to create a new MenuDAO object.     * 
      *
      */
     public MenuDAO(DBConnector dbConnector) {
         this.dbAccessor = new DB_MySQL();
         this.dbConnector = dbConnector;
-        DRIVER_CLASS = dbConnector.getDriverClassName();
-        URL = dbConnector.getUrl();
-        USERNAME = dbConnector.getUserName();
-        PASSWORD = dbConnector.getPassword();
-    }
-    
+        driverClass = dbConnector.getDriverClassName();
+        url = dbConnector.getUrl();
+        userName = dbConnector.getUserName();
+        password = dbConnector.getPassword();
+    }    
 
     /**
      * A utility method to explicitly open a db connection. Note that the
@@ -71,7 +70,7 @@ public class MenuDAO implements IMenuDAO {
      */
     private void openDBConnection() throws DataAccessException {
         try {
-            dbAccessor.openDBConnection(DRIVER_CLASS, URL, USERNAME, PASSWORD);
+            dbAccessor.openDBConnection(driverClass, url, userName, password);
         } catch (SQLException sql) {
             throw new DataAccessException(sql.getLocalizedMessage());
         } catch (Exception e) {

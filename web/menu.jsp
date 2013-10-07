@@ -12,11 +12,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link REL="StyleSheet" TYPE="text/css" HREF="css/restaurant.css">
-        <title>Blue Bistro Menu</title>
+        <script src="js/restaurantValidation.js"></script>
+        <title>Bykowski Bistro Menu</title>
     </head>
     <body bgcolor="${backgroundColor}" >
     <center>
-        <form name="menu" id="menu" action="RestaurantOrderController" method="POST">
+        <form name="menu" id="menu" action="RestaurantOrderController" method="POST" onsubmit="return Validate()">
             <h2>Please make your menu selections</h2>
             <img src="images/grilled-steak.jpg">
             <table>
@@ -25,8 +26,7 @@
                     Object menu = request.getAttribute("menuItems");
                     if (menu != null) {
                         menuItems = (List<MenuItem>) menu;
-                    }            
-
+                    }
                     for (MenuItem menuItem : menuItems) {
                         Long id = menuItem.getItemId();
                         String itemName = menuItem.getItemName();
@@ -48,7 +48,7 @@
             <br/>
             <input type="submit" name="submit" id="submit" value="Submit Order"/>
             <br/>
-            <h4><a href="index.jsp">The Blue Bistro Home</a><br/>
+            <h4><a href="index.jsp">The Bykowski Bistro Home</a><br/>
                 <a href="mailto:${email}"> Contact Us </a></h4>
         </form>       
     </center>

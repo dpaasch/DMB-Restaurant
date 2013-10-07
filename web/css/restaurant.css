@@ -4,14 +4,12 @@
     Author     : Dawn Bykowski
     Description:
         Provides styling for the restaurant application.
-background-color: #F0F8FF;
 */
 
 body {
     font-family: cursive;
     font-style: italic;
-    color: royalblue;
-    
+    color: darkblue;
     text-align: center;
 }
 
@@ -19,7 +17,7 @@ button, input {
     box-shadow: 1px 1px 1px 1px;
     alignment-adjust: middle;
     font-weight: bold;
-    color: royalblue;
+    color: darkblue;
 }
 
 h4 { 
