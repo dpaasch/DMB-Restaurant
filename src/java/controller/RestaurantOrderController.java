@@ -46,8 +46,8 @@ public class RestaurantOrderController extends HttpServlet {
         // create session
         String backgroundColor = 
                 this.getServletContext().getInitParameter("backgroundColor");     
-        HttpSession aSession = request.getSession();
-        aSession.setAttribute("backgroundColor", backgroundColor);
+        HttpSession session = request.getSession();
+        session.setAttribute("backgroundColor", backgroundColor);
 
         // servlet initialization parameter
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
@@ -67,7 +67,8 @@ public class RestaurantOrderController extends HttpServlet {
         tip = os.getTip();
         grandTotal = os.getGrandTotal();
 
-        request.setAttribute("orderedMenuItems", orderedMenuItems);
+//        request.setAttribute("orderedMenuItems", orderedMenuItems);
+        session.setAttribute("orderedMenuItems", orderedMenuItems);
         request.setAttribute("subTotal", subTotal);
         request.setAttribute("tax", tax);
         request.setAttribute("total", total);

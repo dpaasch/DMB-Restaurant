@@ -24,7 +24,7 @@
             Object tip = request.getAttribute("tip");
             Object grandTotal = request.getAttribute("grandTotal");
             ArrayList<MenuItem> orderedMenuItems = null;
-            Object orderedItems = request.getAttribute("orderedMenuItems");
+            Object orderedItems = session.getAttribute("orderedMenuItems");
             if (orderedItems != null) {
                 orderedMenuItems = (ArrayList<MenuItem>) orderedItems;
             }

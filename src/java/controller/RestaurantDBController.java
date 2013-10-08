@@ -44,8 +44,8 @@ public class RestaurantDBController extends HttpServlet {
         // create session
         String backgroundColor = 
                 this.getServletContext().getInitParameter("backgroundColor");     
-        HttpSession aSession = request.getSession();
-        aSession.setAttribute("backgroundColor", backgroundColor);
+        HttpSession session = request.getSession();
+        session.setAttribute("backgroundColor", backgroundColor);
 
         // servlet initialization parameter
         String driverClassName = this.getServletConfig().getInitParameter("driverClassName");
